@@ -10,13 +10,13 @@ const exists = (p) => fs.existsSync(path.join(root, p));
 const pages = [
   ['index.html', ['AI that', 'survives', 'Start a diagnostic']],
   ['work/index.html', ['Four systems', 'Built at Amazon', 'Independent R&amp;D']],
-  ['services/index.html', ['Published prices', '$12,500', '$35,000', '$150K']],
+  ['services/index.html', ['Published prices', '$12,500', '$35,000', '$150K', '$1,500']],
+  ['contact/index.html', ['No free calls', '$1,500', 'within 14 days']],
   ['products/index.html', ['Pikki', 'Tappi', 'AI Tutor']],
   ['about/index.html', ['Amazon', 'Chennai', 'linkedin.com/in/azeruddinsheikh']],
   ['notes/index.html', ['Long-context memory', 'What a paid AI diagnostic', 'seven ways']],
   ['notes/what-a-diagnostic-finds/index.html', ['What a paid AI diagnostic actually finds']],
   ['notes/seven-production-failures/index.html', ['The seven ways production AI fails']],
-  ['contact/index.html', ['No free calls', 'hello@synthworx.com']],
   ['proof/index.html', ['Proof library', 'professional references']],
   ['security/index.html', ['NDA', 'No training']],
   ['privacy/index.html', ['Privacy policy']],
@@ -94,6 +94,12 @@ test('SEO and crawler assets exist', () => {
 
   const security = read('.well-known/security.txt');
   assert.match(security, /Contact: mailto:hello@synthworx\.com/);
+});
+
+test('the old $3,500 session price is gone', () => {
+  for (const page of ['services/index.html', 'contact/index.html']) {
+    assert.ok(!read(page).includes('$3,500'), `${page} still contains $3,500`);
+  }
 });
 
 test('no placeholder or fake content markers', () => {

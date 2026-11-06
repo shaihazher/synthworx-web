@@ -72,9 +72,9 @@ export const OFFERS = [
     id: 'session',
     num: '06',
     name: 'Paid Strategy Session',
-    price: '$3,500',
+    price: '$1,500',
     duration: '90 minutes',
-    outcome: 'Recorded working session, 1-page memo, three prioritized recommendations. Credited to a diagnostic.',
+    outcome: 'Recorded working session, 1-page memo, three prioritized recommendations. Credited toward a diagnostic signed within 14 days.',
   },
   {
     id: 'dd',
