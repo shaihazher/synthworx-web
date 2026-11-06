@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { OFFERS } from '../../data/site';
+
+const core = OFFERS.slice(0, 5);
+const additional = OFFERS.slice(5);
+---
+
+<BaseLayout title="Services & fees" description="Published fees for the AI Production Diagnostic ($12,500), LLM Cost & Latency Sprint ($35,000), Pilot-to-Production Sprint ($75,000), AI System Build ($150K–$250K), and Fractional AI Architect ($15K–$25K/month).">
+  <section class="article-head">
+    <div class="shell">
+      <p class="eyebrow">Services &amp; fees</p>
+      <h1 class="display display--lg" style="margin-top:20px;">Published prices. <em>Fixed scope.</em></h1>
+      <p class="lede">
+        I price the outcome, not the hour. Every engagement is a fixed fee agreed before work starts. No hourly rates, no estimates that move, no success fees, no discounts.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--solid" href="/contact#diagnostic">Start a diagnostic — $12,500</a>
+        <a class="btn btn--ghost" href="#diagnostic">What is included</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table -->
+  <section class="section--tight">
+    <div class="shell">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Engagement</th>
+            <th>Fee</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          {OFFERS.map((offer) => (
+            <tr>
+              <td>{offer.num}</td>
+              <td>
+                <a href={`#${offer.id}`} style="text-decoration:none;font-weight:600;">{offer.name}</a>
+                <div class="tiny" style="color:var(--color-muted);margin-top:3px;">{offer.outcome}</div>
+              </td>
+              <td class="price">{offer.price}</td>
+              <td class="tiny" style="color:var(--color-muted);white-space:nowrap;">{offer.duration}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="tiny" style="color:var(--color-muted);margin-top:20px;max-width:70ch;">
+        All fees in USD. Regulated verticals add 10–15% when compliance work is included. Rush starts under two weeks add 15–25%.
+      </p>
+    </div>
+  </section>
+
+  <!-- Diagnostic -->
+  <section class="section section--paper-deep" id="diagnostic">
+    <div class="shell grid-12" style="align-items:start;">
+      <div style="grid-column: span 5;">
+        <p class="eyebrow">01 — The entry point</p>
+        <h2 class="display display--lg" style="margin:18px 0 18px;">AI Production Diagnostic</h2>
+        <p class="price" style="font-size:18px;">$12,500 · 2 weeks</p>
+        <p class="lede" style="margin-top:20px;font-size:1.05rem;">
+          A whole-stack audit, not a pitch. You get a written document that tells you where the system breaks, what it costs, and what to do first.
+        </p>
+        <div class="callout-box" style="margin-top:28px;">
+          <p class="mono" style="font-size:9px;color:var(--color-accent-deep);margin:0 0 10px;">The guarantee</p>
+          <p style="margin:0;font-size:14.5px;">
+            If the diagnostic does not identify at least three opportunities worth 10× the fee, I refund it. 50% of the fee is credited toward a sprint or build signed within 30 days.
+          </p>
+        </div>
+      </div>
+
+      <div style="grid-column: 7 / span 6;">
+        <p class="mono" style="font-size:9px;color:var(--color-muted);margin:0 0 14px;">You get, in one document</p>
+        <ul style="list-style:none;margin:0;padding:0;border-top:1px solid var(--color-line);">
+          {[
+            'Whole-stack audit: data and retrieval, model and inference, orchestration and evals.',
+            'Cost and latency model with every assumption labelled.',
+            'Eval gap analysis against your real examples.',
+            'Risk register: quality, security, compliance, vendor lock-in, cost.',
+            '90-day prioritized roadmap and a go/no-go recommendation.',
+            '45-minute readout session and one written round of questions.',
+          ].map((item) => (
+            <li style="padding:14px 0;border-bottom:1px solid var(--color-line);display:grid;grid-template-columns:20px 1fr;gap:12px;">
+              <span style="color:var(--color-accent);font-family:var(--font-mono);font-size:10px;padding-top:4px;">→</span>
+              <span style="font-size:14.5px;">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="tiny" style="color:var(--color-muted);margin-top:18px;">
+          You give me read access to the relevant systems or documentation, one hour of someone's time in writing, and any existing AI or automation spend.
+        </p>
+        <a class="btn btn--solid" href="/contact#diagnostic" style="margin-top:24px;">Start the diagnostic</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Offer detail -->
+  <section class="section">
+    <div class="shell">
+      <div style="max-width:66ch;margin-bottom:clamp(34px,5vw,54px);">
+        <p class="eyebrow">The ladder</p>
+        <h2 class="display display--md" style="margin:18px 0 18px;">What comes after the diagnosis.</h2>
+        <p class="lede">
+          The diagnostic produces the scope for everything else. I do not quote a build before I have read the systems.
+        </p>
+      </div>
+
+      <div style="border-top:1px solid var(--color-ink);">
+        {core.slice(1).map((offer) => (
+          <div id={offer.id} style="display:grid;grid-template-columns:64px minmax(0,1fr) minmax(0,1.2fr);gap:24px;padding:30px 0;border-bottom:1px solid var(--color-line);">
+            <span class="mono" style="font-size:10px;color:var(--color-accent);">{offer.num}</span>
+            <div>
+              <h3 style="margin:0 0 8px;font-size:1.2rem;letter-spacing:-.015em;">{offer.name}</h3>
+              <p class="price" style="margin:0;">{offer.price}</p>
+              <p class="tiny" style="color:var(--color-muted);margin-top:4px;">{offer.duration}</p>
+            </div>
+            <p style="margin:0;color:var(--color-muted);font-size:14.5px;">{offer.outcome}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="grid-12" style="margin-top:clamp(40px,6vw,70px);">
+        {additional.map((offer) => (
+          <div id={offer.id} class="card card--flat" style="grid-column: span 4;">
+            <span class="card__index">{offer.num}</span>
+            <h3>{offer.name}</h3>
+            <p>{offer.outcome}</p>
+            <div class="card__foot">
+              <span class="price">{offer.price}</span>
+              <span class="mono" style="font-size:9px;color:var(--color-muted);">{offer.duration}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What good looks like / terms -->
+  <section class="section section--dark">
+    <div class="shell grid-12">
+      <div style="grid-column: span 4;">
+        <p class="eyebrow">Terms</p>
+        <h2 class="display display--md" style="margin:18px 0 20px;">What I will and will not do.</h2>
+        <p style="color:#a8b0a9;font-size:14.5px;">
+          The terms are short because the offer is fixed. Everything is agreed in writing before work starts.
+        </p>
+      </div>
+      <div style="grid-column: 6 / span 7;">
+        <div class="grid-12" style="gap:30px;">
+          <div style="grid-column: span 6;">
+            <p class="mono" style="font-size:9px;color:#f0865a;margin:0 0 12px;">Payment</p>
+            <ul style="list-style:none;margin:0;padding:0;color:#d6dcd6;font-size:14px;">
+              <li style="padding:8px 0;border-bottom:1px solid #2c332e;">Diagnostic and sprint: 50% upfront, 50% on delivery.</li>
+              <li style="padding:8px 0;border-bottom:1px solid #2c332e;">Build: 30% upfront, 30% at midpoint, 40% on acceptance.</li>
+              <li style="padding:8px 0;border-bottom:1px solid #2c332e;">Retainer: monthly in advance. Net 15.</li>
+              <li style="padding:8px 0;">Currency: USD. Invoicing via Indian entity / Skydo. W-8BEN provided.</li>
+            </ul>
+          </div>
+          <div style="grid-column: span 6;">
+            <p class="mono" style="font-size:9px;color:#f0865a;margin:0 0 12px;">What I won't do</p>
+            <ul style="list-style:none;margin:0;padding:0;color:#d6dcd6;font-size:14px;">
+              <li style="padding:8px 0;border-bottom:1px solid #2c332e;">Hourly billing.</li>
+              <li style="padding:8px 0;border-bottom:1px solid #2c332e;">Free discovery calls or free proposals.</li>
+              <li style="padding:8px 0;border-bottom:1px solid #2c332e;">Discounts. Reduce scope or phase the work instead.</li>
+              <li style="padding:8px 0;">Unlimited revisions or open-ended scope.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="shell grid-12">
+      <div style="grid-column: span 4;">
+        <p class="eyebrow">FAQ</p>
+        <h2 class="display display--md" style="margin:18px 0 20px;">The questions a call would answer.</h2>
+        <p style="color:var(--color-muted);font-size:14.5px;">If yours is not here, email <a href="mailto:hello@synthworx.com">hello@synthworx.com</a>.</p>
+      </div>
+      <div style="grid-column: 6 / span 7;">
+        {[
+          {
+            q: 'Can I get a build without the diagnostic?',
+            a: 'No. I will not quote a build before I have read your systems. Every build quoted without an assessment has been wrong about scope.',
+          },
+          {
+            q: 'Why is the diagnostic $12,500?',
+            a: 'It takes two weeks of senior attention and replaces the work most firms spread across three meetings and a proposal. It is priced so only people who intend to act buy it.',
+          },
+          {
+            q: 'Will you sign an NDA?',
+            a: 'Yes. Send yours. I do not train on client data, and I work inside your environment.',
+          },
+          {
+            q: 'Do you take referral fees or resell software?',
+            a: 'No, on both. I do not sell product and I do not take money from vendors to recommend them. When the right answer is a product you buy without me, I say so in writing.',
+          },
+          {
+            q: 'Do you work hourly?',
+            a: 'No. I price the outcome. If procurement needs a format, send the form and I will fill it in — but nothing is invoiced by the hour.',
+          },
+          {
+            q: 'What if the build misses the target?',
+            a: 'Every build starts with an accuracy target agreed in writing on a held-out set of your real examples. If it misses, I keep working until it meets the target at no extra fee, or refund 50% where the baseline is under my control.',
+          },
+          {
+            q: 'Do you take calls?',
+            a: 'Not for free. A paid strategy session is $3,500 for 90 minutes with a written memo. The diagnostic includes a 45-minute readout. Both are paid because the preparation is the work.',
+          },
+          {
+            q: 'Do you work outside the United States?',
+            a: 'The engagement model is built for US companies. If you are elsewhere and the problem is interesting, write anyway.',
+          },
+        ].map((item) => (
+          <details style="border-bottom:1px solid var(--color-line);">
+            <summary style="cursor:pointer;padding:18px 0;font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;gap:20px;">
+              <span>{item.q}</span>
+              <span style="color:var(--color-accent);font-family:var(--font-mono);">+</span>
+            </summary>
+            <p style="margin:0 0 20px;color:var(--color-muted);font-size:14.5px;max-width:62ch;">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section--tight section--line">
+    <div class="shell" style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;">
+      <p class="display display--sm" style="margin:0;">Start with the diagnostic.</p>
+      <a class="btn btn--solid" href="/contact#diagnostic">Start a diagnostic — $12,500</a>
+    </div>
+  </section>
+</BaseLayout>

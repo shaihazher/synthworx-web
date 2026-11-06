@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+---
+
+<BaseLayout title="Security & NDA" description="How I handle client data: NDA, no training on client data, working inside your environment, access controls, incident notification, and security contact.">
+  <section class="article-head">
+    <div class="shell grid-12" style="align-items:end;">
+      <div style="grid-column: span 8;">
+        <p class="eyebrow">Security &amp; NDA</p>
+        <h1 class="display display--lg" style="margin-top:20px;">Your data stays <em>yours.</em></h1>
+        <p class="lede">
+          I sign NDAs. I do not train on client data. I work inside your environment. This page describes the defaults; the signed NDA and SOW control if they differ.
+        </p>
+      </div>
+      <div style="grid-column: 10 / span 3;">
+        <div class="callout-box callout-box--accent">
+          <p class="mono" style="font-size:9px;color:var(--color-accent-deep);margin:0 0 10px;">Security contact</p>
+          <p style="margin:0;font-size:14px;">
+            <a href={`mailto:${SITE.email}?subject=SECURITY`}>{SITE.email}</a><br />
+            Subject line: SECURITY
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell grid-12" style="align-items:start;">
+      <div style="grid-column: span 7;">
+        <div class="prose">
+          <h2>NDA and contract</h2>
+          <p>
+            I sign client NDAs, including mutual NDAs. I can work from your paper or provide a standard mutual NDA. The MSA and SOW cover scope, confidentiality, IP, data protection, warranties, liability, termination, and the change-order process.
+          </p>
+          <p>
+            The contract includes a “no training on client data” clause by default. If a model provider's terms allow training on inputs, I use the enterprise or zero-retention configuration, or a provider that does not train on API data. If neither is available, I say so before the work starts.
+          </p>
+
+          <h2>Working inside your environment</h2>
+          <p>
+            The default is to work in your repository, your cloud account, and your tooling. I do not copy production data to a personal machine unless the SOW says otherwise and the data is minimized. When I need samples, I ask for the smallest set, prefer synthetic or redacted records, and delete them at the end of the engagement.
+          </p>
+          <p>
+            Access is least-privilege and time-bound. I use named accounts, SSO where available, and a password manager. I do not share credentials over email or chat. Access is revoked at the end of the engagement, and I confirm it in writing.
+          </p>
+
+          <h2>Data handling</h2>
+          <ul>
+            <li><strong>No training.</strong> Client data, prompts, documents, and outputs are not used to train models or improve a product.</li>
+            <li><strong>No resale or benchmarking.</strong> Client data is not used in public benchmarks, case studies, or demos without written permission and sanitization.</li>
+            <li><strong>Minimization.</strong> Collect only what the diagnostic or build needs. Prefer metadata and synthetic examples before real records.</li>
+            <li><strong>Retention.</strong> Project data is deleted or returned at the end of the engagement, subject to the contract and legal retention requirements.</li>
+            <li><strong>Subprocessors.</strong> The stack may include a model API, a cloud host, and a source-control provider. I list the material subprocessors in the SOW and do not add one for client data without notice.</li>
+          </ul>
+
+          <h2>Application security</h2>
+          <p>
+            For builds, the default baseline is: secrets in a managed secret store, not in code; least-privilege service accounts; encrypted transport; dependency and container scanning in CI; authentication and authorization reviewed before launch; and a threat model for the AI-specific surfaces — prompt injection, tool abuse, data exfiltration, and unsafe output.
+          </p>
+          <p>
+            AI systems get the same review as any other production system, plus the parts that are specific to models: an eval harness, an output guardrail, a fallback path, a cost cap, and a trace that records which model, prompt version, and retrieval set produced an answer.
+          </p>
+
+          <h2>Incident notification</h2>
+          <p>
+            If I become aware of a security incident affecting client data, I notify the client without undue delay and within 72 hours where the contract requires it. The notice describes what happened, what data was affected, the containment steps, and the remediation plan. I cooperate with the client's incident process and regulators as required.
+          </p>
+
+          <h2>What I do not claim</h2>
+          <p>
+            I am an independent consultant, not a managed security provider or a compliance certification body. I do not claim SOC 2, ISO 27001, HIPAA, or PCI certification for my own practice. If your engagement requires a certified provider, I will say so before you buy.
+          </p>
+
+          <h2>Payment and business details</h2>
+          <p>
+            Invoices are in USD through Skydo, Wise, or Stripe. W-8BEN is provided. The contracting entity is {SITE.legalName}. Wire and ACH details are sent on the invoice, not over email in an unsolicited message. If you receive a payment instruction that looks different, verify it with me at <a href={`mailto:${SITE.email}`}>{SITE.email}</a> before sending anything.
+          </p>
+        </div>
+      </div>
+
+      <aside style="grid-column: 10 / span 3;">
+        <div class="article-aside">
+          <h2>At a glance</h2>
+          <dl>
+            <dt>NDA</dt>
+            <dd>Yes — mutual or client paper</dd>
+            <dt>Training on client data</dt>
+            <dd>No</dd>
+            <dt>Default location</dt>
+            <dd>Your environment</dd>
+            <dt>Access</dt>
+            <dd>Least-privilege, time-bound</dd>
+            <dt>Incident notice</dt>
+            <dd>Without undue delay, 72h where required</dd>
+            <dt>Contract</dt>
+            <dd>MSA + SOW</dd>
+            <dt>Payment</dt>
+            <dd>USD · Skydo / Wise / Stripe</dd>
+          </dl>
+          <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--color-line);">
+            <a class="link-arrow" href="/contact#diagnostic" style="font-size:13px;">Start a diagnostic</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="shell grid-12" style="align-items:end;">
+      <div style="grid-column: span 7;">
+        <p class="eyebrow">Before you send data</p>
+        <h2 class="display display--md" style="margin:18px 0 18px;">Send the NDA first. Then the minimum.</h2>
+        <p class="lede" style="font-size:1.05rem;">
+          For a diagnostic, I do not need production data on day one. A system diagram, a sample request, and the cost and volume numbers are enough to scope the work.
+        </p>
+      </div>
+      <div style="grid-column: 9 / span 4;">
+        <a class="btn btn--solid" href={`mailto:${SITE.email}?subject=NDA`}>Send an NDA</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

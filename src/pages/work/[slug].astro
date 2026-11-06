@@ -1,0 +1,109 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site';
+
+export async function getStaticPaths() {
+  const studies = await getCollection('caseStudies');
+  return studies
+    .filter((entry) => !entry.data.draft)
+    .map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, subtitle, label, year, sector, summary, metric, stack, stats } = entry.data;
+
+const all = (await getCollection('caseStudies'))
+  .filter((item) => !item.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+const index = all.findIndex((item) => item.id === entry.id);
+const next = all[(index + 1) % all.length];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description: summary,
+  author: { '@type': 'Person', name: SITE.owner, url: `${SITE.url}/about` },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  datePublished: `${year.split('–')[0]}-01-01`,
+  mainEntityOfPage: `${SITE.url}/work/${entry.id}`,
+  about: sector,
+};
+---
+
+<BaseLayout title={title} description={summary} type="article">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <article>
+    <header class="article-head">
+      <div class="shell">
+        <div class="article-head__meta">
+          <span class="label">{label}</span>
+          <span>{year}</span>
+          <span>{sector}</span>
+        </div>
+        <h1 class="display display--lg">{title}</h1>
+        <p class="lede">{subtitle}</p>
+      </div>
+    </header>
+
+    <div class="shell article-body grid-12" style="align-items:start;">
+      <div style="grid-column: span 8;">
+        <div class="prose">
+          <Content />
+        </div>
+      </div>
+
+      <aside style="grid-column: 10 / span 3;">
+        <div class="article-aside">
+          <h2>At a glance</h2>
+          <dl>
+            <dt>Headline result</dt>
+            <dd><strong style="font-family:var(--font-display);font-size:1.6rem;font-weight:400;letter-spacing:-.02em;">{metric.value}</strong><br /><span class="muted">{metric.label}</span></dd>
+            <dt>Label</dt>
+            <dd>{label}</dd>
+            <dt>Period</dt>
+            <dd>{year}</dd>
+            <dt>Context</dt>
+            <dd>{sector}</dd>
+            <dt>Stack</dt>
+            <dd>
+              <span class="tag-row" style="margin-top:6px;">
+                {stack.map((item) => <span>{item}</span>)}
+              </span>
+            </dd>
+          </dl>
+          <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--color-line);">
+            <a class="link-arrow" href={`/pdfs/${entry.id}.pdf`} style="font-size:13px;">Download PDF</a>
+          </div>
+          <div style="margin-top:20px;">
+            <a class="link-arrow" href="/contact#diagnostic" style="font-size:13px;">Discuss a similar problem</a>
+          </div>
+        </div>
+
+        {stats.length > 0 && (
+          <div class="stat-grid" style="margin-top:28px;">
+            {stats.map((stat) => (
+              <div class="stat">
+                <div class="stat__value">{stat.value}</div>
+                <div class="stat__label">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        )}
+      </aside>
+    </div>
+
+    <div class="shell" style="padding-bottom:clamp(48px,7vw,90px);">
+      <div style="border-top:1px solid var(--color-line);padding-top:30px;display:flex;flex-wrap:wrap;gap:20px;align-items:end;justify-content:space-between;">
+        <div>
+          <p class="mono" style="font-size:9px;color:var(--color-muted);margin:0 0 8px;">Next case study</p>
+          <a class="display display--sm" href={`/work/${next.id}`} style="text-decoration:none;">{next.data.title}</a>
+        </div>
+        <a class="link-arrow" href="/work">All work</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,132 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+
+const studies = (await getCollection('caseStudies'))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+const notes = (await getCollection('notes'))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Proof library" description="The proof behind the consulting claim: case studies, technical notes, live products, professional references, contract and payment readiness.">
+  <section class="article-head">
+    <div class="shell">
+      <p class="eyebrow">Proof library</p>
+      <h1 class="display display--lg" style="margin-top:20px;">Everything a buyer checks. <em>In one place.</em></h1>
+      <p class="lede">
+        The website is the proof hub. GitHub is the second opinion. The live product is the third. This page is the index for all of it — with the labels stated honestly.
+      </p>
+    </div>
+  </section>
+
+  <section class="section--tight">
+    <div class="shell grid-12">
+      <div style="grid-column: span 7;">
+        <p class="mono" style="font-size:9px;color:var(--color-muted);margin:0 0 16px;">01 — Case studies</p>
+        <div style="border-top:1px solid var(--color-ink);">
+          {studies.map((study) => (
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) 120px;gap:18px;padding:18px 0;border-bottom:1px solid var(--color-line);">
+              <div>
+                <a href={`/work/${study.id}`} style="font-weight:600;text-decoration:none;">{study.data.title}</a>
+                <p class="tiny" style="color:var(--color-muted);margin:3px 0 0;">{study.data.label} · {study.data.metric.value}</p>
+              </div>
+              <a class="link-arrow" href={`/pdfs/${study.id}.pdf`} style="font-size:12px;justify-self:end;">PDF</a>
+            </div>
+          ))}
+        </div>
+
+        <p class="mono" style="font-size:9px;color:var(--color-muted);margin:42px 0 16px;">02 — Technical notes</p>
+        <div style="border-top:1px solid var(--color-ink);">
+          {notes.map((note) => (
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:18px;padding:18px 0;border-bottom:1px solid var(--color-line);">
+              <div>
+                <a href={`/notes/${note.id}`} style="font-weight:600;text-decoration:none;">{note.data.title}</a>
+                <p class="tiny" style="color:var(--color-muted);margin:3px 0 0;">{note.data.readingTime}</p>
+              </div>
+              <span class="mono" style="font-size:9px;color:var(--color-muted);justify-self:end;padding-top:4px;">NOTE</span>
+            </div>
+          ))}
+        </div>
+
+        <p class="mono" style="font-size:9px;color:var(--color-muted);margin:42px 0 16px;">03 — Live products</p>
+        <div style="border-top:1px solid var(--color-ink);">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:18px;padding:18px 0;border-bottom:1px solid var(--color-line);">
+            <div>
+              <a href={SITE.pikki} target="_blank" rel="noopener" style="font-weight:600;">Pikki</a>
+              <p class="tiny" style="color:var(--color-muted);margin:3px 0 0;">Live paid Chrome extension · $19 / $39 / $79</p>
+            </div>
+            <a class="link-arrow" href={SITE.pikki} target="_blank" rel="noopener" style="font-size:12px;justify-self:end;">Open</a>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:18px;padding:18px 0;border-bottom:1px solid var(--color-line);">
+            <div>
+              <a href="/products#tappi" style="font-weight:600;">Tappi Browser</a>
+              <p class="tiny" style="color:var(--color-muted);margin:3px 0 0;">Browser-native agent · open-core SDK</p>
+            </div>
+            <a class="link-arrow" href="/products#tappi" style="font-size:12px;justify-self:end;">Open</a>
+          </div>
+        </div>
+
+        <p class="mono" style="font-size:9px;color:var(--color-muted);margin:42px 0 16px;">04 — References</p>
+        <div class="prose" style="font-size:15px;">
+          <p>
+            Two professional references from former Amazon colleagues are available on request. They are labelled <strong>professional references</strong>, not client testimonials. I will not publish their names or a client result without permission.
+          </p>
+          <p>
+            A two-minute walkthrough of Pikki is available live at <a href={SITE.pikki}>{SITE.pikki}</a>. A technical walkthrough of Tappi can be given during a diagnostic or a paid strategy session.
+          </p>
+        </div>
+      </div>
+
+      <aside style="grid-column: 9 / span 4;">
+        <div class="callout-box">
+          <p class="mono" style="font-size:9px;color:var(--color-accent-deep);margin:0 0 10px;">The labels</p>
+          <dl style="margin:0;font-size:13.5px;">
+            <dt style="font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--color-muted);margin-top:12px;">Built at Amazon</dt>
+            <dd style="margin:3px 0 0;">Work done while employed at Amazon. Sanitized. No confidential data.</dd>
+            <dt style="font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--color-muted);margin-top:12px;">Independent R&D</dt>
+            <dd style="margin:3px 0 0;">Self-directed research, not a client engagement.</dd>
+            <dt style="font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--color-muted);margin-top:12px;">Independent product</dt>
+            <dd style="margin:3px 0 0;">A product I built and, where stated, operate.</dd>
+            <dt style="font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--color-muted);margin-top:12px;">Client engagement</dt>
+            <dd style="margin:3px 0 0;">Used only when a client has approved the description.</dd>
+          </dl>
+        </div>
+
+        <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--color-ink);">
+          <p class="mono" style="font-size:9px;color:var(--color-muted);margin:0 0 10px;">Contract &amp; payment</p>
+          <ul style="list-style:none;margin:0;padding:0;font-size:13px;color:var(--color-muted);">
+            <li style="padding:7px 0;border-bottom:1px solid var(--color-line);">Mutual NDA, MSA, SOW</li>
+            <li style="padding:7px 0;border-bottom:1px solid var(--color-line);">W-8BEN</li>
+            <li style="padding:7px 0;border-bottom:1px solid var(--color-line);">USD invoice · Skydo / Wise / Stripe</li>
+            <li style="padding:7px 0;">Security page: <a href="/security">/security</a></li>
+          </ul>
+        </div>
+
+        <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--color-line);">
+          <p class="mono" style="font-size:9px;color:var(--color-muted);margin:0 0 10px;">No invented proof</p>
+          <p style="font-size:13px;color:var(--color-muted);margin:0;">
+            No logos, no “trusted by,” no client names, no fabricated testimonials, no unlabeled Amazon metrics. If a number is not mine to publish, it is not on the site.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="shell grid-12" style="align-items:end;">
+      <div style="grid-column: span 7;">
+        <p class="eyebrow">The 30-second test</p>
+        <h2 class="display display--md" style="margin:18px 0 18px;">What do I do, who for, and why believe me?</h2>
+        <p class="lede" style="font-size:1.05rem;">
+          I fix production AI systems for mid-market software companies. I do it as a former Amazon ML architect who has operated at 2M+ requests/hour. The first step is a paid diagnostic, not a sales call.
+        </p>
+      </div>
+      <div style="grid-column: 9 / span 4;">
+        <a class="btn btn--solid" href="/contact#diagnostic">Start a diagnostic</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

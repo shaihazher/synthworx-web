@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+
+const updated = 'November 6, 2026';
+---
+
+<BaseLayout title="Terms" description="Website terms for synthworx.com. Client engagements are governed by a separate signed SOW and MSA.">
+  <section class="article-head">
+    <div class="shell shell--narrow">
+      <p class="eyebrow">Legal</p>
+      <h1 class="display display--md" style="margin-top:18px;">Website terms</h1>
+      <p class="lede">These terms cover the website. Client work is governed by a signed SOW and MSA, not by this page.</p>
+      <p class="tiny" style="color:var(--color-muted);margin-top:18px;">Last updated: {updated}</p>
+    </div>
+  </section>
+
+  <section class="section--tight">
+    <div class="shell shell--narrow">
+      <div class="prose">
+        <h2>1. The site is information, not advice</h2>
+        <p>
+          The content on this site is general information about production AI engineering. It is not legal, financial, security, or professional advice for your specific situation. Reading it does not create a client relationship.
+        </p>
+
+        <h2>2. No client relationship without a signed agreement</h2>
+        <p>
+          A client relationship begins only when both parties sign a statement of work (SOW) and, where applicable, a master services agreement (MSA). Email, a call, a proposal, or a payment link does not create one by itself.
+        </p>
+
+        <h2>3. Fees and payment</h2>
+        <p>
+          Published fees are starting points for the scope described on the <a href="/services">services page</a>. The binding fee, deliverables, timeline, and payment schedule are in the signed SOW. Fees are in USD. The standard terms are:
+        </p>
+        <ul>
+          <li>Diagnostic and sprint: 50% upfront, 50% on delivery.</li>
+          <li>Build: 30% upfront, 30% at midpoint, 40% on acceptance.</li>
+          <li>Retainer and fractional: monthly in advance. Net 15.</li>
+          <li>Late payment: 1.5% per month or the maximum allowed by law.</li>
+        </ul>
+
+        <h2>4. No free calls or free proposals</h2>
+        <p>
+          I do not provide free discovery calls, free proposals, or free proofs of concept. The paid diagnostic or a paid strategy session is the entry point. This is a business policy, not a legal obligation on anyone else.
+        </p>
+
+        <h2>5. Intellectual property</h2>
+        <p>
+          The site content, design, and code are owned by {SITE.legalName} unless otherwise stated. You may read, quote, and link to the site with attribution. You may not republish it wholesale or use it to train a model without written permission.
+        </p>
+        <p>
+          For client work, ownership of deliverables is set in the SOW. The default is that you own the custom code and documentation produced for you, and I retain ownership of pre-existing tools, libraries, and know-how, with a licence for you to use them in the delivered system.
+        </p>
+
+        <h2>6. Third-party links and products</h2>
+        <p>
+          The site links to GitHub, Pikki, and other third-party sites. I do not control those sites and am not responsible for their content, availability, or privacy practices.
+        </p>
+
+        <h2>7. No warranty on site content</h2>
+        <p>
+          The site is provided “as is.” I try to keep it accurate, but I do not warrant that it is complete, current, or error-free. Metrics and case studies describe past work; they are not a prediction or guarantee of results for another system.
+        </p>
+
+        <h2>8. Limitation of liability</h2>
+        <p>
+          To the maximum extent permitted by law, {SITE.legalName} is not liable for indirect, incidental, special, or consequential damages arising from your use of the site. Nothing on this site limits liability that cannot be limited by law.
+        </p>
+
+        <h2>9. Governing law</h2>
+        <p>
+          These website terms are governed by the laws of India. Any dispute about the site is subject to the courts of Chennai, Tamil Nadu. Client contracts may specify a different governing law and dispute process in the SOW.
+        </p>
+
+        <h2>10. Contact</h2>
+        <p>
+          {SITE.legalName}<br />
+          Chennai, Tamil Nadu, India<br />
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

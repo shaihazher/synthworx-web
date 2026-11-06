@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+
+const subject = 'AI Production Diagnostic — request';
+const body = `Company:
+Website:
+Your role:
+What the AI system does:
+Where it runs (model, provider, stack):
+Current volume (requests/day or month):
+Current cost (monthly, approximate):
+What is failing (latency, cost, quality, reliability, security):
+What you have already tried:
+Timeline:
+How you found me:`;
+const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+const sessionMailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Paid strategy session — request')}&body=${encodeURIComponent('Company:\nWhat you want to decide:\nTimeline:\n')}`;
+---
+
+<BaseLayout title="Contact" description="Start an AI Production Diagnostic. Email hello@synthworx.com. No free discovery calls; the paid diagnostic or a paid strategy session is the first step.">
+  <section class="article-head" id="diagnostic">
+    <div class="shell grid-12" style="align-items:end;">
+      <div style="grid-column: span 8;">
+        <p class="eyebrow">Contact</p>
+        <h1 class="display display--lg" style="margin-top:20px;">Start with the <em>diagnostic.</em></h1>
+        <p class="lede">
+          Email me what is broken. If it is a fit, I will send a one-page scope and an invoice. The diagnostic is two weeks, $12,500, and a written document you keep.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--solid" href={mailto}>Request the diagnostic</a>
+          <a class="btn btn--ghost" href={`mailto:${SITE.email}`}>Email {SITE.email}</a>
+        </div>
+        <p class="tiny" style="color:var(--color-muted);margin-top:18px;">
+          I reply within 24 hours, Monday–Friday. No contact form, no CRM sequence, no calendar link.
+        </p>
+      </div>
+      <div style="grid-column: 10 / span 3;">
+        <div class="callout-box callout-box--accent">
+          <p class="mono" style="font-size:9px;color:var(--color-accent-deep);margin:0 0 10px;">No free calls</p>
+          <p style="margin:0;font-size:14px;line-height:1.55;">
+            I do not offer free discovery calls. Every engagement starts with a paid diagnostic or a paid strategy session. If you are not ready to invest, that is okay — the writing and teardowns are free.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell grid-12" style="align-items:start;">
+      <div style="grid-column: span 7;">
+        <p class="eyebrow">What happens next</p>
+        <h2 class="display display--md" style="margin:18px 0 28px;">Four steps. No discovery call.</h2>
+
+        <div class="steps">
+          <div class="step">
+            <h3>You email the context</h3>
+            <p>Use the list on the right. The more specific the numbers, the more useful the first reply.</p>
+          </div>
+          <div class="step">
+            <h3>I reply within 24 hours</h3>
+            <p>Either a one-page scope with a fixed fee and start date, or a clear no with the reason. No pitch deck.</p>
+          </div>
+          <div class="step">
+            <h3>You approve the scope and pay 50%</h3>
+            <p>Invoice in USD via Skydo / Wise / Stripe. W-8BEN provided. Work starts when the first payment clears.</p>
+          </div>
+          <div class="step">
+            <h3>Two weeks later, you have the document</h3>
+            <p>Whole-stack audit, cost and latency model, risk register, 90-day roadmap, and a go/no-go. Plus a 45-minute readout.</p>
+          </div>
+        </div>
+
+        <div class="callout-box" style="margin-top:34px;">
+          <p class="mono" style="font-size:9px;color:var(--color-accent-deep);margin:0 0 10px;">The guarantee</p>
+          <p style="margin:0 0 14px;font-size:14.5px;">
+            If the diagnostic does not identify at least three opportunities worth 10× the fee, I refund it. 50% of the fee is credited toward a sprint or build signed within 30 days.
+          </p>
+          <a class="link-arrow" href="/services#diagnostic" style="font-size:13px;">What is included</a>
+        </div>
+      </div>
+
+      <div style="grid-column: 9 / span 4;">
+        <div class="card card--flat">
+          <p class="mono" style="font-size:9px;color:var(--color-accent);margin:0 0 14px;">What to include</p>
+          <ul style="list-style:none;margin:0;padding:0;border-top:1px solid var(--color-line);">
+            {[
+              'Company, website, and your role',
+              'What the AI system does',
+              'Model, provider, and stack',
+              'Volume: requests per day or month',
+              'Current monthly cost',
+              'What is failing: latency, cost, quality, reliability, security',
+              'What you have already tried',
+              'Timeline and decision process',
+            ].map((item, i) => (
+              <li style="display:grid;grid-template-columns:22px 1fr;gap:10px;padding:11px 0;border-bottom:1px solid var(--color-line);font-size:13.5px;">
+                <span style="font-family:var(--font-mono);font-size:9px;color:var(--color-muted);padding-top:3px;">0{i + 1}</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <a class="btn btn--solid" href={mailto} style="width:100%;margin-top:22px;">Open the email</a>
+          <p class="tiny" style="color:var(--color-muted);margin-top:12px;">
+            Prefer to write your own? <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </p>
+        </div>
+
+        <div style="margin-top:26px;padding-top:18px;border-top:1px solid var(--color-ink);">
+          <p class="mono" style="font-size:9px;color:var(--color-muted);margin:0 0 10px;">Need a conversation first?</p>
+          <p style="font-size:13.5px;color:var(--color-muted);margin:0 0 14px;">
+            A paid strategy session is $3,500 for 90 minutes, recorded, with a one-page memo and three prioritized recommendations. Credited toward the diagnostic within 14 days.
+          </p>
+          <a class="link-arrow" href={sessionMailto} style="font-size:13px;">Request a strategy session</a>
+        </div>
+
+        <div style="margin-top:26px;padding-top:18px;border-top:1px solid var(--color-line);">
+          <p class="mono" style="font-size:9px;color:var(--color-muted);margin:0 0 10px;">Before you send</p>
+          <p style="font-size:13px;color:var(--color-muted);margin:0;">
+            I sign NDAs and do not train on client data. Read the <a href="/security">security and NDA page</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="shell grid-12" style="align-items:end;">
+      <div style="grid-column: span 7;">
+        <p class="eyebrow">Direct</p>
+        <h2 class="display display--md" style="margin:18px 0 18px;">{SITE.email}</h2>
+        <p class="lede" style="font-size:1.05rem;">
+          Chennai, India · 8–11am ET overlap · replies within 24 hours, Monday–Friday.
+        </p>
+      </div>
+      <div style="grid-column: 9 / span 4;">
+        <p class="tiny" style="color:#a8b0a9;margin:0;">
+          For security disclosures, use the same address with “SECURITY” in the subject. For press or speaking, note that I am not doing podcasts or conferences during the first six months.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

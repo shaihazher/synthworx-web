@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+---
+
+<BaseLayout title="Products" description="Pikki (live, paid Chrome extension) and Tappi (browser-native AI agents), plus Tappi for Chrome and AI Tutor. Independent products built by Azeruddin Sheikh.">
+  <section class="article-head">
+    <div class="shell">
+      <p class="eyebrow">Products</p>
+      <h1 class="display display--lg" style="margin-top:20px;">I ship, not just advise.</h1>
+      <p class="lede">
+        The consulting claim is stronger when the products are real. These are systems I designed, built, and in two cases still operate. The commercial source stays private; the architecture and the results are public.
+      </p>
+    </div>
+  </section>
+
+  <!-- Pikki -->
+  <section class="section" id="pikki">
+    <div class="shell grid-12" style="align-items:start;">
+      <div style="grid-column: span 6;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+          <span class="mono" style="font-size:9px;color:var(--color-accent);">LIVE PRODUCT</span>
+          <span class="status-dot"></span>
+        </div>
+        <h2 class="display display--md" style="margin:0 0 18px;">Pikki</h2>
+        <p class="lede" style="font-size:1.05rem;">
+          A Chrome extension for job seekers that proves which jobs are real, finds the people who can refer you, and prepares your applications without inventing facts. Local-first data, on-device models where they fit, and a self-updating native helper.
+        </p>
+        <p style="color:var(--color-muted);font-size:14.5px;margin-top:18px;">
+          Live with a free tier and three paid plans ($19, $39, $79/month). 16+ job boards, including LinkedIn, Indeed, Naukri, Workday, and Greenhouse. The server passes model requests through and keeps counts, not content.
+        </p>
+        <div class="tag-row" style="margin-top:20px;">
+          {['Chrome extension', 'Local DB', 'Gemini Nano', 'DeepSeek', 'Native helper'].map((tag) => <span>{tag}</span>)}
+        </div>
+        <div class="hero__actions" style="margin-top:26px;">
+          <a class="btn btn--solid" href={SITE.pikki} target="_blank" rel="noopener">Open Pikki</a>
+          <a class="btn btn--ghost" href="/work/pikki">Read the case study</a>
+        </div>
+      </div>
+      <div style="grid-column: 8 / span 5;">
+        <figure style="margin:0;border:1px solid var(--color-line);background:var(--color-cream);padding:8px;">
+          <img src="/images/pikki.jpg" alt="Pikki homepage: Pikki shows you only the jobs that are real, and the people who can get you in." width="1440" height="900" style="width:100%;height:auto;" loading="lazy" />
+          <figcaption class="tiny" style="color:var(--color-muted);padding:9px 4px 2px;">pikki.synthworx.com — live, 2026.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tappi Browser -->
+  <section class="section section--paper-deep" id="tappi">
+    <div class="shell grid-12" style="align-items:start;">
+      <div style="grid-column: span 5;">
+        <figure style="margin:0;border:1px solid var(--color-line);background:var(--color-cream);padding:8px;">
+          <img src="/images/tappi.jpg" alt="Tappi for Chrome sidebar: a local AI agent with harness, model, workspace, and skill selection." width="1100" height="1337" style="width:100%;height:auto;max-height:560px;object-fit:cover;object-position:top;" loading="lazy" />
+          <figcaption class="tiny" style="color:var(--color-muted);padding:9px 4px 2px;">Tappi for Chrome — sidebar, local workspace, harness selection.</figcaption>
+        </figure>
+      </div>
+      <div style="grid-column: 7 / span 6;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+          <span class="mono" style="font-size:9px;color:var(--color-accent);">INDEPENDENT PRODUCT</span>
+        </div>
+        <h2 class="display display--md" style="margin:0 0 18px;">Tappi</h2>
+        <p class="lede" style="font-size:1.05rem;">
+          A browser-native AI agent built into a Chromium browser. Tappi indexes the page, gives the model a reference to the element it needs, and sends only what the model needs — 3–10× fewer tokens than conventional browser tooling, with no <code style="font-family:var(--font-mono);font-size:.82em;">navigator.webdriver</code> footprint.
+        </p>
+        <p style="color:var(--color-muted);font-size:14.5px;margin-top:18px;">
+          The product includes a Chrome sidebar that drives installed Codex, Claude Code, or Kiro harnesses; isolated agent tab groups; selected text and image snips; mobile emulation; editable design previews; and a bundled Office web add-in. The commercial source is private. The open-core SDK, architecture, and token accounting are public.
+        </p>
+        <div class="tag-row" style="margin-top:20px;">
+          {['Electron', 'Chromium', 'CDP', 'Element indexing', 'Domain playbooks', 'Office add-in'].map((tag) => <span>{tag}</span>)}
+        </div>
+        <div class="hero__actions" style="margin-top:26px;">
+          <a class="btn btn--solid" href="https://github.com/shaihazher/tappi-goes-bonsai" target="_blank" rel="noopener">Open the SDK</a>
+          <a class="btn btn--ghost" href="/work/tappi-browser">Read the case study</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other systems -->
+  <section class="section" id="tappi-for-chrome">
+    <div class="shell">
+      <div style="max-width:66ch;margin-bottom:36px;">
+        <p class="eyebrow">Also built</p>
+        <h2 class="display display--md" style="margin:18px 0 16px;">The supporting systems.</h2>
+        <p class="lede">Products that are not for sale, but are part of the evidence: a multi-harness extension, an Android tutor, and the open-source browser utilities.</p>
+      </div>
+
+      <div class="grid-12">
+        <article class="card" style="grid-column: span 4;">
+          <span class="card__index">TAPPI FOR CHROME</span>
+          <h3>Multi-harness AI sidebar with Office integration</h3>
+          <p>A Chrome extension and native host that drives Codex, Claude Code, and Kiro, with native messaging and an Office add-in. ~36.5K LOC and 69 test files. The sanitized architecture and extension shell are public; host paths, keys, and signing material are not.</p>
+          <div class="card__foot">
+            <span class="mono" style="font-size:9px;color:var(--color-muted);">~36.5K LOC</span>
+            <a class="link-arrow" href="https://github.com/shaihazher/tappi-for-chrome" target="_blank" rel="noopener" style="font-size:12px;">GitHub</a>
+          </div>
+        </article>
+
+        <article class="card" style="grid-column: span 4;" id="ai-tutor">
+          <span class="card__index">AI TUTOR</span>
+          <h3>Production AI tutor on Android / Fire OS</h3>
+          <p>Realtime voice tutoring, encrypted data, signed PDFs, and a GMS-free build. 632 Kotlin files, ~95K LOC, 522 tests at checkpoint. Client and independent product work. Student data and client details are sanitized.</p>
+          <div class="card__foot">
+            <span class="mono" style="font-size:9px;color:var(--color-muted);">522 tests</span>
+            <a class="link-arrow" href="/contact" style="font-size:12px;">Details on request</a>
+          </div>
+        </article>
+
+        <article class="card" style="grid-column: span 4;">
+          <span class="card__index">OPEN SOURCE</span>
+          <h3>Browser control for Python and JavaScript</h3>
+          <p>Lightweight CDP browser control for AI agents. Connect to an existing Chrome session, control tabs and frames, and read pages with a small token footprint. MIT licensed and public.</p>
+          <div class="card__foot">
+            <span class="mono" style="font-size:9px;color:var(--color-muted);">MIT</span>
+            <a class="link-arrow" href="https://github.com/shaihazher/browser-py" target="_blank" rel="noopener" style="font-size:12px;">browser-py</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="shell grid-12" style="align-items:end;">
+      <div style="grid-column: span 7;">
+        <p class="eyebrow">The common thread</p>
+        <h2 class="display display--md" style="margin:18px 0 20px;">Products are how I know where the systems break.</h2>
+        <p class="lede">
+          Every product above forced a production decision: install and update, local data, approval gates, cost per request, a failure that names itself. That is the same work I do inside a client's system.
+        </p>
+      </div>
+      <div style="grid-column: 9 / span 4;">
+        <a class="btn btn--solid" href="/contact#diagnostic">Start a diagnostic</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

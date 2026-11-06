@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseCard from '../../components/CaseCard.astro';
+
+const studies = (await getCollection('caseStudies'))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const more = [
+  {
+    title: 'Tappi for Chrome',
+    label: 'Independent product work',
+    desc: 'Multi-harness AI sidebar with native messaging and Office integration. ~36.5K LOC, 69 test files.',
+    metric: '~36.5K LOC',
+    href: '/products#tappi-for-chrome',
+  },
+  {
+    title: 'AI Tutor (Android / Fire OS)',
+    label: 'Client / independent product work',
+    desc: 'Realtime voice tutoring, encrypted data, signed PDFs, GMS-free. 632 Kotlin files, ~95K LOC, 522 tests at checkpoint.',
+    metric: '522 tests',
+    href: '/products#ai-tutor',
+  },
+  {
+    title: 'Tappi Python / JS',
+    label: 'Open-source utility',
+    desc: 'MIT browser-control utilities for AI agents. Public, documented, and used in the Tappi stack.',
+    metric: 'MIT',
+    href: 'https://github.com/shaihazher/browser-py',
+  },
+];
+---
+
+<BaseLayout title="Work" description="Case studies with numbers: Amazon-scale ML systems, Kamaloki long-context memory, Tappi Browser, and Pikki.">
+  <section class="article-head">
+    <div class="shell">
+      <p class="eyebrow">Selected work</p>
+      <h1 class="display display--lg" style="margin-top:20px;">Four systems. <em>Measured.</em></h1>
+      <p class="lede">
+        One built at Amazon, two independent products, one research project. Each case study follows the same structure: context, problem, architecture, what I did, results, and what it proves.
+      </p>
+      <p class="tiny" style="max-width:68ch;margin-top:22px;color:var(--color-muted);">
+        Amazon work is sanitized: no confidential code, customer data, or internal systems. The numbers are the published outcomes of the work, not a forecast for yours.
+      </p>
+    </div>
+  </section>
+
+  <section class="section--tight">
+    <div class="shell">
+      <div class="grid-12" style="gap:clamp(28px,4vw,56px);">
+        {studies.map((study) => (
+          <div style="grid-column: span 6;">
+            <CaseCard study={study} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="shell">
+      <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:end;justify-content:space-between;margin-bottom:34px;">
+        <div>
+          <p class="eyebrow">More proof</p>
+          <h2 class="display display--md" style="margin:18px 0 0;">Other systems worth naming.</h2>
+        </div>
+        <a class="link-arrow" href="/products">Products</a>
+      </div>
+
+      <div class="work-list">
+        {more.map((item, i) => (
+          <a class="work-row" href={item.href}>
+            <span class="work-row__num">0{i + 1}</span>
+            <span>
+              <span class="work-row__title" style="display:block;">{item.title}</span>
+              <span class="tiny" style="color:var(--color-accent-deep);display:block;margin-top:4px;">{item.label}</span>
+            </span>
+            <span class="work-row__desc">{item.desc}</span>
+            <span class="work-row__metric">{item.metric}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="shell grid-12" style="align-items:end;">
+      <div style="grid-column: span 7;">
+        <p class="eyebrow">Your system</p>
+        <h2 class="display display--md" style="margin:18px 0 22px;">Do you recognise the failure?</h2>
+        <p class="lede">
+          If your AI feature is slow, expensive, unreliable, or right just often enough to be dangerous, the diagnostic is the way to find out why — in writing, in two weeks.
+        </p>
+      </div>
+      <div style="grid-column: 9 / span 4;">
+        <a class="btn btn--solid" href="/contact#diagnostic">Start a diagnostic — $12,500</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,84 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  return notes
+    .filter((entry) => !entry.data.draft)
+    .map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, subtitle, date, readingTime, summary } = entry.data;
+
+const fmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: title,
+  description: summary,
+  datePublished: date.toISOString(),
+  author: { '@type': 'Person', name: SITE.owner, url: `${SITE.url}/about` },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  mainEntityOfPage: `${SITE.url}/notes/${entry.id}`,
+};
+---
+
+<BaseLayout title={title} description={summary} type="article">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <article>
+    <header class="article-head">
+      <div class="shell">
+        <div class="article-head__meta">
+          <span class="label">Technical note</span>
+          <span>{fmt.format(date)}</span>
+          <span>{readingTime}</span>
+        </div>
+        <h1 class="display display--lg">{title}</h1>
+        <p class="lede">{subtitle}</p>
+      </div>
+    </header>
+
+    <div class="shell article-body grid-12" style="align-items:start;">
+      <div style="grid-column: span 8;">
+        <div class="prose">
+          <Content />
+        </div>
+      </div>
+      <aside style="grid-column: 10 / span 3;">
+        <div class="article-aside">
+          <h2>In this note</h2>
+          <dl>
+            <dt>Published</dt>
+            <dd>{fmt.format(date)}</dd>
+            <dt>Reading time</dt>
+            <dd>{readingTime}</dd>
+            <dt>Author</dt>
+            <dd>{SITE.owner}<br /><span class="muted">Former Amazon ML Architect</span></dd>
+          </dl>
+          <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--color-line);">
+            <a class="link-arrow" href="/notes" style="font-size:13px;">All notes</a>
+          </div>
+          <div style="margin-top:16px;">
+            <a class="link-arrow" href="/contact#diagnostic" style="font-size:13px;">Discuss the problem</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="shell" style="padding-bottom:clamp(48px,7vw,90px);">
+      <div style="border-top:1px solid var(--color-line);padding-top:30px;display:flex;flex-wrap:wrap;gap:20px;align-items:end;justify-content:space-between;">
+        <div>
+          <p class="mono" style="font-size:9px;color:var(--color-muted);margin:0 0 8px;">Next</p>
+          <a class="display display--sm" href="/notes" style="text-decoration:none;">All technical notes</a>
+        </div>
+        <a class="link-arrow" href="/contact#diagnostic">Start a diagnostic</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

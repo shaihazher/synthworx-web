@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  study: CollectionEntry<'caseStudies'>;
+}
+
+const { study } = Astro.props;
+const { title, label, metric, summary, year } = study.data;
+---
+
+<a class="case-card" href={`/work/${study.id}`}>
+  <div class="case-card__meta">
+    <span class="case-card__label">{label}</span>
+    <span>{year}</span>
+  </div>
+  <h3 class="case-card__title">{title}</h3>
+  <p>{summary}</p>
+  <div class="case-card__metric">
+    <strong>{metric.value}</strong>
+    <span>{metric.label}</span>
+  </div>
+  <div class="card__foot" style="margin-top:22px;">
+    <span class="mono" style="font-size:9px;color:var(--color-muted);">Read the case study</span>
+    <span style="font-family:var(--font-mono);color:var(--color-accent);">→</span>
+  </div>
+</a>

@@ -1,0 +1,341 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CaseCard from '../components/CaseCard.astro';
+import { OFFERS, PROOF_STATS, WORK_WITH, NOT_A_FIT, HOW_I_WORK } from '../data/site';
+
+const studies = (await getCollection('caseStudies'))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+const featured = studies.slice(0, 3);
+
+const notes = (await getCollection('notes'))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const primaryOffers = OFFERS.slice(0, 5);
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="shell hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow">Production AI engineering for mid-market software</p>
+        <h1 class="display display--xl">
+          AI that <em>survives</em><br />production.
+        </h1>
+        <p class="lede hero__sub">
+          I help mid-market software companies fix slow, expensive, unreliable AI systems — without hiring a 10-person ML team.
+        </p>
+        <p class="proof-bar" style="margin-top:26px;">
+          <span>Former Amazon ML Architect</span><span class="dot">·</span>
+          <span>2M+ requests/hour at 99.99%</span><span class="dot">·</span>
+          <span>80% latency reduction</span><span class="dot">·</span>
+          <span>$20M+ savings</span>
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--solid" href="/contact#diagnostic">Start with the AI Production Diagnostic</a>
+          <a class="btn btn--ghost" href="/work">See the work</a>
+        </div>
+        <p class="hero__note tiny">
+          No free discovery calls. The two-week diagnostic is the first step — and it is the only way I start.
+        </p>
+      </div>
+
+      <aside class="hero__panel" aria-label="The Production AI Stack">
+        <div class="hero__panel-head">
+          <span class="mono" style="font-size:9px;letter-spacing:.1em;">The Production AI Stack</span>
+          <span class="status-dot" aria-label="Operational"></span>
+        </div>
+        <ul class="stack-list">
+          <li>
+            <span class="num">L1</span>
+            <span class="name">Data &amp; retrieval</span>
+            <span class="state">audit</span>
+          </li>
+          <li>
+            <span class="num">L2</span>
+            <span class="name">Model &amp; inference</span>
+            <span class="state">measure</span>
+          </li>
+          <li>
+            <span class="num">L3</span>
+            <span class="name">Orchestration &amp; evals</span>
+            <span class="state">ship</span>
+          </li>
+        </ul>
+        <div class="hero__panel-foot">
+          Production failures usually come from the data, retrieval, or orchestration layers — not the prompt.
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Proof metrics -->
+  <section class="metric-strip" aria-label="Proof points">
+    <div class="shell metric-strip__inner">
+      {PROOF_STATS.map((stat) => (
+        <div class="metric">
+          <div class="metric__value">{stat.value}</div>
+          <div class="metric__label">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="section">
+    <div class="shell">
+      <div class="grid-12">
+        <div style="grid-column: span 5;">
+          <p class="eyebrow">The gap</p>
+          <h2 class="display display--lg" style="margin:18px 0 24px;">
+            The pilot worked. <em>Production is where it breaks.</em>
+          </h2>
+        </div>
+        <div style="grid-column: 7 / span 6;">
+          <p class="lede">
+            Most AI projects do not fail because the model is bad. They fail because the system around it was never built for volume, cost, or the data the company actually has.
+          </p>
+          <p style="margin-top:18px;color:var(--color-muted);font-size:14.5px;">
+            MIT's 2025 <em>GenAI Divide</em> study found roughly 95% of enterprise GenAI pilots produced no measurable P&amp;L impact. The market does not need more AI strategy. It needs people who can make existing AI bets pay off.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-12" style="margin-top:clamp(40px,6vw,72px);">
+        <div class="card card--flat" style="grid-column: span 4;">
+          <span class="card__index">01 / COST</span>
+          <h3>The bill is bigger than the demo</h3>
+          <p>Inference costs often run 3–6× higher in year two. The architecture that made the pilot work is the architecture that makes the invoice unmanageable.</p>
+        </div>
+        <div class="card card--flat" style="grid-column: span 4;">
+          <span class="card__index">02 / QUALITY</span>
+          <h3>Right most of the time is not enough</h3>
+          <p>A model that is right 85% of the time fails the workflow if no one catches the other 15%. The gap is in verification and fallbacks, not the prompt.</p>
+        </div>
+        <div class="card card--flat" style="grid-column: span 4;">
+          <span class="card__index">03 / RELIABILITY</span>
+          <h3>Nobody owns the failure</h3>
+          <p>When the agent stops on record 41, there is no trace, no fallback, and no runbook. That is a design choice — and it is fixable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Offers -->
+  <section class="section section--paper-deep" id="offer">
+    <div class="shell">
+      <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:end;justify-content:space-between;margin-bottom:clamp(32px,5vw,54px);">
+        <div>
+          <p class="eyebrow">What I do</p>
+          <h2 class="display display--lg" style="margin:18px 0 0;">Start with the diagnosis.</h2>
+        </div>
+        <a class="link-arrow" href="/services">Full services &amp; fees</a>
+      </div>
+
+      <div class="grid-12">
+        {primaryOffers.map((offer) => (
+          <div class="card card--hover" style={`grid-column: span ${offer.num === '01' || offer.num === '02' ? 6 : 4};`}>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+              <span class="card__index">{offer.num}</span>
+              <span class="mono" style="font-size:9px;color:var(--color-muted);">{offer.duration}</span>
+            </div>
+            <h3>{offer.name}</h3>
+            <p>{offer.outcome}</p>
+            <div class="card__foot">
+              <span class="price">{offer.price}</span>
+              <a class="link-arrow" href={`/services#${offer.id}`} style="font-size:12px;">Details</a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="tiny" style="margin-top:26px;color:var(--color-muted);max-width:70ch;">
+        Fixed fee. No hourly billing. No discounts. If the budget is tight, the scope gets smaller — not the price.
+      </p>
+    </div>
+  </section>
+
+  <!-- Stack -->
+  <section class="section">
+    <div class="shell grid-12" style="align-items:start;">
+      <div style="grid-column: span 4;">
+        <p class="eyebrow">The framework</p>
+        <h2 class="display display--md" style="margin:18px 0 20px;">Audit the whole stack.</h2>
+        <p style="color:var(--color-muted);font-size:15px;">
+          Most consultants look at prompts. I look at the layers underneath, because that is where production failures live.
+        </p>
+        <a class="link-arrow" href="/notes" style="margin-top:26px;">Read the technical notes</a>
+      </div>
+      <div style="grid-column: 6 / span 7;">
+        <div class="stack-diagram">
+          <div class="stack-diagram__row">
+            <div class="stack-diagram__key">
+              <span class="num">LAYER 01</span>
+              <h3>Data &amp; retrieval</h3>
+            </div>
+            <div class="stack-diagram__body">
+              {['Chunking', 'Indexing', 'Permissions', 'Reranking', 'Citations', 'Extraction', 'Eval sets'].map((tag) => <span class="tag">{tag}</span>)}
+            </div>
+          </div>
+          <div class="stack-diagram__row">
+            <div class="stack-diagram__key">
+              <span class="num">LAYER 02</span>
+              <h3>Model &amp; inference</h3>
+            </div>
+            <div class="stack-diagram__body">
+              {['Model routing', 'Caching', 'Batching', 'Quantization', 'Distillation', 'Cost per request', 'Lock-in'].map((tag) => <span class="tag">{tag}</span>)}
+            </div>
+          </div>
+          <div class="stack-diagram__row">
+            <div class="stack-diagram__key">
+              <span class="num">LAYER 03</span>
+              <h3>Orchestration &amp; evals</h3>
+            </div>
+            <div class="stack-diagram__body">
+              {['Agent loops', 'Eval harness', 'Guardrails', 'Human-in-the-loop', 'Tracing', 'Cost caps', 'Runbooks'].map((tag) => <span class="tag">{tag}</span>)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Selected work -->
+  <section class="section section--line">
+    <div class="shell">
+      <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:end;justify-content:space-between;margin-bottom:clamp(32px,5vw,54px);">
+        <div>
+          <p class="eyebrow">Selected work</p>
+          <h2 class="display display--lg" style="margin:18px 0 0;">Proof, with numbers.</h2>
+        </div>
+        <a class="link-arrow" href="/work">All case studies</a>
+      </div>
+
+      <div class="grid-12" style="gap:clamp(26px,4vw,54px);">
+        {featured.map((study) => (
+          <div style="grid-column: span 4;">
+            <CaseCard study={study} />
+          </div>
+        ))}
+      </div>
+
+      <p class="tiny" style="margin-top:34px;color:var(--color-muted);">
+        Labels are honest: <strong>Built at Amazon</strong> for work done there, <strong>Independent</strong> for my own products and research. No client testimonials are published until a client approves one.
+      </p>
+    </div>
+  </section>
+
+  <!-- How I work -->
+  <section class="section section--dark">
+    <div class="shell">
+      <div class="grid-12">
+        <div style="grid-column: span 4;">
+          <p class="eyebrow">How I work</p>
+          <h2 class="display display--lg" style="margin:18px 0 22px;">Diagnose. Fix. <em>Ship. Hand off.</em></h2>
+          <p class="lede" style="font-size:1.05rem;">
+            I work inside your systems, with your team. The output is a system they can operate without me.
+          </p>
+        </div>
+        <div style="grid-column: 6 / span 7;">
+          <div class="steps">
+            {HOW_I_WORK.map((step) => (
+              <div class="step">
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who / not a fit -->
+  <section class="section">
+    <div class="shell grid-12">
+      <div style="grid-column: span 6;">
+        <p class="eyebrow">Who I work with</p>
+        <h2 class="display display--md" style="margin:18px 0 24px;">A strong team with a capability gap.</h2>
+        <ul style="list-style:none;margin:0;padding:0;border-top:1px solid var(--color-line);">
+          {WORK_WITH.map((item) => (
+            <li style="padding:14px 0;border-bottom:1px solid var(--color-line);display:flex;gap:14px;align-items:flex-start;">
+              <span style="color:var(--color-accent);font-family:var(--font-mono);font-size:11px;padding-top:4px;">+</span>
+              <span style="font-size:14.5px;">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div style="grid-column: 8 / span 5;">
+        <p class="eyebrow" style="color:var(--color-muted);">Not a fit</p>
+        <h2 class="display display--md" style="margin:18px 0 24px;color:var(--color-muted);">Say no early.</h2>
+        <ul style="list-style:none;margin:0;padding:0;border-top:1px solid var(--color-line);">
+          {NOT_A_FIT.map((item) => (
+            <li style="padding:14px 0;border-bottom:1px solid var(--color-line);display:flex;gap:14px;align-items:flex-start;color:var(--color-muted);">
+              <span style="font-family:var(--font-mono);font-size:11px;padding-top:4px;">−</span>
+              <span style="font-size:14.5px;">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notes teaser -->
+  <section class="section section--tight section--line">
+    <div class="shell">
+      <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:end;justify-content:space-between;margin-bottom:32px;">
+        <div>
+          <p class="eyebrow">Notes</p>
+          <h2 class="display display--md" style="margin:18px 0 0;">The technical version.</h2>
+        </div>
+        <a class="link-arrow" href="/notes">All notes</a>
+      </div>
+      <div class="grid-12">
+        {notes.map((note) => (
+          <a href={`/notes/${note.id}`} class="card card--hover" style="grid-column: span 6;text-decoration:none;">
+            <span class="card__index">{note.data.readingTime}</span>
+            <h3>{note.data.title}</h3>
+            <p>{note.data.summary}</p>
+            <div class="card__foot">
+              <span class="mono" style="font-size:9px;color:var(--color-muted);">Read the note</span>
+              <span style="font-family:var(--font-mono);color:var(--color-accent);">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--dark" id="diagnostic">
+    <div class="shell grid-12" style="align-items:end;">
+      <div style="grid-column: span 7;">
+        <p class="eyebrow">The first step</p>
+        <h2 class="display display--lg" style="margin:20px 0 24px;">
+          Find out what is broken <em>before</em> you spend the build budget.
+        </h2>
+        <p class="lede">
+          The AI Production Diagnostic is two weeks, $12,500, and a written document. It tells you where the system breaks, what it costs, and what to do first — whether or not you hire me for the next part.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--solid" href="/contact#diagnostic">Start a diagnostic — $12,500</a>
+          <a class="btn btn--ghost" href="/services#diagnostic">What is included</a>
+        </div>
+      </div>
+      <div style="grid-column: 9 / span 4;">
+        <div class="callout-box" style="border-color:#3a423c;background:transparent;">
+          <p class="mono" style="font-size:9px;color:#f0865a;margin:0 0 12px;">The guarantee</p>
+          <p style="font-family:var(--font-display);font-size:clamp(1.35rem,2.2vw,1.8rem);line-height:1.15;letter-spacing:-.02em;margin:0;color:var(--color-cream);">
+            If the diagnostic does not identify at least three opportunities worth 10× the fee, I refund it.
+          </p>
+          <p class="tiny" style="color:#a8b0a9;margin-top:14px;">
+            50% of the fee is credited toward a sprint or build signed within 30 days.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

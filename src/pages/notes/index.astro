@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const notes = (await getCollection('notes'))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const fmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title="Notes" description="Technical notes on production AI: long-context memory, KV-cache probing, and browser-agent token efficiency.">
+  <section class="article-head">
+    <div class="shell">
+      <p class="eyebrow">Notes</p>
+      <h1 class="display display--lg" style="margin-top:20px;">The technical version.</h1>
+      <p class="lede">
+        Two write-ups on problems I have actually run: long-context memory on a small machine, and why browser agents waste tokens. Both include the numbers and the parts that did not work.
+      </p>
+    </div>
+  </section>
+
+  <section class="section--tight">
+    <div class="shell">
+      <div style="border-top:1px solid var(--color-ink);">
+        {notes.map((note, i) => (
+          <a href={`/notes/${note.id}`} class="note-row" style="display:grid;grid-template-columns:54px minmax(0,1.1fr) minmax(0,0.9fr) 130px;gap:24px;padding:30px 0;border-bottom:1px solid var(--color-line);text-decoration:none;">
+            <span class="mono" style="font-size:10px;color:var(--color-accent);">0{i + 1}</span>
+            <span>
+              <span class="display display--sm" style="display:block;">{note.data.title}</span>
+              <span class="tiny" style="display:block;color:var(--color-muted);margin-top:6px;">{note.data.subtitle}</span>
+            </span>
+            <span class="tiny" style="color:var(--color-muted);">{note.data.summary}</span>
+            <span class="mono" style="font-size:9px;color:var(--color-muted);text-align:right;">
+              {fmt.format(note.data.date)}<br />{note.data.readingTime}
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--line">
+    <div class="shell grid-12">
+      <div style="grid-column: span 6;">
+        <p class="eyebrow">Why publish these</p>
+        <h2 class="display display--md" style="margin:18px 0 18px;">Proof of thinking, not a content strategy.</h2>
+        <p style="color:var(--color-muted);font-size:15px;max-width:58ch;">
+          There is no blog, no newsletter, and no posting schedule. These notes exist because a technical buyer should be able to check how I reason before they buy a diagnostic. They are also the material I would use in a client conversation.
+        </p>
+      </div>
+      <div style="grid-column: 9 / span 4;">
+        <div class="callout-box">
+          <p class="mono" style="font-size:9px;color:var(--color-accent-deep);margin:0 0 10px;">Have the same problem?</p>
+          <p style="margin:0 0 18px;font-size:14.5px;">If your system fails on long context, cost, or reliability, that is the diagnostic.</p>
+          <a class="link-arrow" href="/contact#diagnostic">Start a diagnostic</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

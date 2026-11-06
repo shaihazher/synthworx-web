@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+---
+
+<BaseLayout title="About" description="Azeruddin Sheikh — former Amazon ML Architect, now an independent production AI consultant. Seven years at Amazon, systems serving 2M+ requests/hour at 99.99%.">
+  <section class="article-head">
+    <div class="shell grid-12" style="align-items:end;">
+      <div style="grid-column: span 8;">
+        <p class="eyebrow">About</p>
+        <h1 class="display display--lg" style="margin-top:20px;">I have been the person <em>on call</em> for this.</h1>
+        <p class="lede">
+          Seven years as an ML architect at Amazon, leading a team of 20+ scientists and engineers. Before that, nine years in operations, programme management, and product. Now I fix production AI systems for mid-market software companies.
+        </p>
+      </div>
+      <div style="grid-column: 10 / span 3;">
+        <figure style="margin:0;">
+          <img src="/images/azeruddin-sheikh.jpg" alt="Azeruddin Sheikh" width="200" height="200" style="width:100%;max-width:220px;aspect-ratio:1;object-fit:cover;filter:grayscale(8%);border:1px solid var(--color-line);" />
+          <figcaption class="tiny" style="color:var(--color-muted);margin-top:10px;">
+            Azeruddin Sheikh<br />Chennai, India
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell grid-12" style="align-items:start;">
+      <div style="grid-column: span 4;">
+        <p class="eyebrow">The short version</p>
+        <h2 class="display display--md" style="margin:18px 0 0;">Operator first. <em>Architect second.</em></h2>
+      </div>
+      <div style="grid-column: 6 / span 7;">
+        <div class="prose">
+          <p>
+            I spent seven years as an ML architect and technical lead at Amazon. The systems I owned served <strong>two million requests an hour at 99.99% availability</strong>. On those systems I cut inference latency by 80%, built a classifier over 100,000+ classes that raised accuracy by 35% and halved processing time, and delivered more than $20M in savings.
+          </p>
+          <p>
+            Before the ML years, I spent nine years in Amazon operations, programme management, and product. That matters more than it sounds. It means I design for the person doing the work and for the cost of running the system, not just for the benchmark.
+          </p>
+          <p>
+            I have sat on both sides. I have been the person who has to make a system work at scale, and the person who has to explain to a business why it is not working yet. I know what vendors leave out because I have had to fix what they left out.
+          </p>
+
+          <h2>Why independent</h2>
+          <p>
+            I do not sell software. I do not take referral fees from vendors. I do not have a partner programme. Where the right answer is a product you buy without me, I say so — in writing, in a document you keep, so you can hold me to it later.
+          </p>
+          <p>
+            A recommendation from someone who profits either way is worth less than the paper it is printed on. That is the entire reason this practice is structured the way it is.
+          </p>
+
+          <h2>How I work</h2>
+          <ol>
+            <li><strong>Diagnose the whole stack.</strong> Data and retrieval, model and inference, orchestration and evals. Most production failures are not prompt problems.</li>
+            <li><strong>Fix the highest-leverage problem first.</strong> One change that moves cost, latency, or reliability, measured against a baseline agreed before the work starts.</li>
+            <li><strong>Ship with evals, guardrails, and observability.</strong> A system that fails loudly, names its failures, and can be operated by your team without me.</li>
+            <li><strong>Hand off with runbooks.</strong> Written architecture decisions, cost model, failure modes, and on-call notes. Your team keeps the code.</li>
+          </ol>
+
+          <h2>What I do not do</h2>
+          <ul>
+            <li>Hourly billing, staff augmentation, or body shopping.</li>
+            <li>Free discovery calls, free proposals, or free proofs of concept.</li>
+            <li>Generic AI strategy with no access to systems or data.</li>
+            <li>Publish client results or testimonials before a client has approved them.</li>
+          </ul>
+
+          <h2>Location and availability</h2>
+          <p>
+            I am based in Chennai, India, with an 8–11am ET overlap. I have worked with US teams for 16 years. If daily onsite presence is required, I am not the right fit — and I will say so before you buy anything.
+          </p>
+          <p>
+            References from former Amazon colleagues are available on request, labelled as professional references rather than client testimonials. I sign NDAs, I do not train on client data, and I work inside your environment.
+          </p>
+        </div>
+
+        <div class="callout-box" style="margin-top:36px;">
+          <p class="mono" style="font-size:9px;color:var(--color-accent-deep);margin:0 0 10px;">The proof bar</p>
+          <p style="margin:0;font-family:var(--font-display);font-size:clamp(1.35rem,2.4vw,1.9rem);line-height:1.2;letter-spacing:-.02em;">
+            {SITE.proofBarLong}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="shell grid-12" style="align-items:end;">
+      <div style="grid-column: span 7;">
+        <p class="eyebrow">Work with me</p>
+        <h2 class="display display--md" style="margin:18px 0 20px;">Start with the diagnosis, not a call.</h2>
+        <p class="lede">
+          The diagnostic is two weeks and $12,500. It tells you what is broken, what it costs, and what to do first — whether or not you hire me for the next part.
+        </p>
+      </div>
+      <div style="grid-column: 9 / span 4; display:flex;flex-wrap:wrap;gap:12px;">
+        <a class="btn btn--solid" href="/contact#diagnostic">Start a diagnostic</a>
+        <a class="btn btn--ghost" href="/work">See the work</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

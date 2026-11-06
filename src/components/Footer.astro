@@ -1,0 +1,66 @@
+---
+import Logo from './Logo.astro';
+import { SITE } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="Synthworx home">
+          <Logo />
+          <span class="brand__word">Synthworx</span>
+        </a>
+        <p>
+          Production AI engineering for mid-market software. I fix AI systems that work in demos but fail in production.
+        </p>
+        <p style="margin-top:14px;">
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
+          Chennai, India · 8–11am ET overlap
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h2>Work</h2>
+        <ul>
+          <li><a href="/work">Case studies</a></li>
+          <li><a href="/services">Services &amp; fees</a></li>
+          <li><a href="/products">Products</a></li>
+          <li><a href="/notes">Notes</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h2>Company</h2>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/security">Security &amp; NDA</a></li>
+          <li><a href="/proof">Proof library</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h2>Elsewhere</h2>
+        <ul>
+          <li><a href={SITE.github} rel="me noopener" target="_blank">GitHub</a></li>
+          <li><a href={SITE.linkedin} rel="me noopener" target="_blank">LinkedIn</a></li>
+          <li><a href={SITE.pikki} rel="noopener" target="_blank">Pikki</a></li>
+          <li><a href="/contact#diagnostic">Start a diagnostic</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {year} {SITE.legalName} · Chennai, India</span>
+      <span>
+        <a href="/privacy">Privacy</a> ·
+        <a href="/terms">Terms</a> ·
+        <a href="/security">Security</a> ·
+        <a href="/sitemap-index.xml">Sitemap</a>
+      </span>
+    </div>
+  </div>
+</footer>
