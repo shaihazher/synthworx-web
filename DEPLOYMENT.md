@@ -11,8 +11,8 @@ The site is a static Astro build served by `server.mjs`. Nixpacks installs with 
 
 | Domain | Railway ID | Railway target | Status |
 |---|---|---|---|
-| `synthworx.com` | `3ebfb92c-9dcb-445b-ba19-8bdc65d10a82` | `5xyqzsza.up.railway.app` | Waiting on DNS |
-| `www.synthworx.com` | `c9a285d3-0fa8-49dc-a949-7fc1e54f9a29` | `7k8xv2p7.up.railway.app` | Waiting on DNS |
+| `synthworx.com` | `3ebfb92c-9dcb-445b-ba19-8bdc65d10a82` | `5xyqzsza.up.railway.app` | Live · 200 · cert valid |
+| `www.synthworx.com` | `c9a285d3-0fa8-49dc-a949-7fc1e54f9a29` | `7k8xv2p7.up.railway.app` | Live · 301 → apex · cert valid |
 
 Railway issued separate targets for the apex and `www`. Use each target for its own record; do not assume they are the same.
 
@@ -59,11 +59,20 @@ curl -I https://pikki.synthworx.com
 
 Note: `dig` has no ALIAS type. Use `dig +short A synthworx.com` after propagation; Railway's ALIAS resolves to its edge.
 
-Expected: both `synthworx.com` and `www.synthworx.com` return `200` over HTTPS, and `www` 301s to the apex. Railway provisions the certificate after the DNS records resolve.
+Verified 2026-11-06: apex `200`, `www` `301` to apex, Railway certificates valid. Public resolvers are updated; a local resolver that cached the old Vercel records may show `402` until its TTL expires.
 
 ## Canonical / redirect
 
 The Astro site uses `PUBLIC_SITE_URL=https://synthworx.com`. The canonical tag and sitemap use the apex. `server.mjs` 301s `www.synthworx.com` to the apex.
+
+## DMARC cleanup
+
+Authoritative DNS currently returns two `_dmarc` TXT records:
+
+- `v=DMARC1; p=none; rua=mailto:hello@synthworx.com`
+- `v=DMARC1; p=none; rua=mailto:postmaster@synthworx.com`
+
+Keep one. Delete the duplicate in Namecheap so DMARC is not ambiguous. `hello@` is preferred because it is the monitored mailbox.
 
 ## Rollback
 
