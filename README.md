@@ -1,5 +1,7 @@
 # synthworx-web
 
+**Live:** https://synthworx-site-production.up.railway.app (custom domains pending DNS) · **Target:** https://synthworx.com
+
 The source for [synthworx.com](https://synthworx.com) — the website and proof library for **Synthworx**, a production AI consulting practice.
 
 > AI that survives production.
@@ -105,7 +107,7 @@ The repo includes `railway.json`:
 {
   "build": {
     "builder": "NIXPACKS",
-    "buildCommand": "npm ci && npm run build"
+    "buildCommand": "npm run build"
   },
   "deploy": {
     "startCommand": "npm run start",

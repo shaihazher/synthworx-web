@@ -5,7 +5,7 @@
 **Railway URL:** https://synthworx-site-production.up.railway.app
 **Repo:** https://github.com/shaihazher/synthworx-web
 
-The site is a static Astro build served by `server.mjs`. Railway runs `npm ci && npm run build`, then `npm run start`.
+The site is a static Astro build served by `server.mjs`. Nixpacks installs with `npm ci`, the build command is `npm run build`, and the start command is `npm run start`.
 
 ## Custom domains
 
