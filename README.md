@@ -119,9 +119,9 @@ The repo includes `railway.json`:
 2. Set `PUBLIC_SITE_URL=https://synthworx.com`.
 3. Deploy. Confirm the Railway URL serves the site before touching DNS.
 4. In Railway, add custom domains `synthworx.com` and `www.synthworx.com`.
-5. Copy the **CNAME target** and **TXT name/value** Railway shows.
+5. Copy the **CNAME target** and **TXT name/value** Railway shows (the apex and `www` targets are different).
 
-Railway builds with Node 22+ and serves `dist/` through `serve`.
+Railway builds with Node 22+ and serves `dist/` through `serve`. The live service is `synthworx-site`; see [`DEPLOYMENT.md`](DEPLOYMENT.md) for the exact DNS records and verification steps.
 
 ### Namecheap DNS cutover
 
@@ -131,9 +131,9 @@ Target:
 
 | Type | Host | Value | TTL |
 |---|---|---|---|
-| ALIAS | `@` | `<railway-target>` | 5 min during cutover |
-| CNAME | `www` | `<railway-target>` | 5 min |
-| TXT | as Railway shows | as Railway shows | 5 min |
+| ALIAS | `@` | `5xyqzsza.up.railway.app` | 5 min during cutover |
+| CNAME | `www` | `7k8xv2p7.up.railway.app` | 5 min |
+| TXT | `_railway-verify` | `railway-verify=bbbe573135738fa6113bd9076d78ce8eeaf0319a9dac478027d284803e3faa5b` | 5 min |
 | CNAME | `pikki` | `apgqlbv9.up.railway.app` (unchanged) | 5 min |
 | MX | `@` | Zoho records (unchanged) | — |
 | TXT | `_dmarc` | `v=DMARC1; p=none; rua=mailto:hello@synthworx.com` | 5 min |
