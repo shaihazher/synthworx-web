@@ -1,21 +1,25 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AuthorCard from '../../components/AuthorCard.astro';
 
 const notes = (await getCollection('notes'))
   .filter((entry) => !entry.data.draft)
-  .sort((a, b) => a.data.order - b.data.order);
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const fmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
 
-<BaseLayout title="Notes" description="Technical notes on production AI: long-context memory, KV-cache probing, and browser-agent token efficiency.">
+<BaseLayout title="Notes" description="Four proof-led essays on production AI: long-context memory, browser-agent token efficiency, what a paid diagnostic finds, and the seven ways production AI fails.">
   <section class="article-head">
     <div class="shell">
       <p class="eyebrow">Notes</p>
       <h1 class="display display--lg" style="margin-top:20px;">The technical version.</h1>
       <p class="lede">
-        Two write-ups on problems I have actually run: long-context memory on a small machine, and why browser agents waste tokens. Both include the numbers and the parts that did not work.
+        Four essays on problems I have actually run: long-context memory on a small machine, why browser agents waste tokens, what a paid diagnostic finds, and the seven ways production AI fails. Every one includes the numbers and the parts that did not work.
+      </p>
+      <p class="tiny" style="color:var(--color-muted);margin-top:16px;">
+        Not a blog. No newsletter, no weekly cadence, no comments. <a href="/notes/rss.xml">Subscribe by RSS</a> if you want the next one.
       </p>
     </div>
   </section>
@@ -31,7 +35,7 @@ const fmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', d
               <span class="tiny" style="display:block;color:var(--color-muted);margin-top:6px;">{note.data.subtitle}</span>
             </span>
             <span class="tiny" style="color:var(--color-muted);">{note.data.summary}</span>
-            <span class="mono" style="font-size:9px;color:var(--color-muted);text-align:right;">
+            <span class="mono" style="font-size:10px;color:var(--color-muted);text-align:right;">
               {fmt.format(note.data.date)}<br />{note.data.readingTime}
             </span>
           </a>
@@ -46,12 +50,15 @@ const fmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', d
         <p class="eyebrow">Why publish these</p>
         <h2 class="display display--md" style="margin:18px 0 18px;">Proof of thinking, not a content strategy.</h2>
         <p style="color:var(--color-muted);font-size:15px;max-width:58ch;">
-          There is no blog, no newsletter, and no posting schedule. These notes exist because a technical buyer should be able to check how I reason before they buy a diagnostic. They are also the material I would use in a client conversation.
+          A high-ticket buyer does not need another weekly blog. They need to see how you reason about the exact problem they have. These essays exist for that check — and as the material I would use in a client conversation.
         </p>
+        <div style="margin-top:28px;max-width:520px;">
+          <AuthorCard compact />
+        </div>
       </div>
       <div style="grid-column: 9 / span 4;">
         <div class="callout-box">
-          <p class="mono" style="font-size:9px;color:var(--color-accent-deep);margin:0 0 10px;">Have the same problem?</p>
+          <p class="mono" style="font-size:10px;color:var(--color-accent-deep);margin:0 0 10px;">Have the same problem?</p>
           <p style="margin:0 0 18px;font-size:14.5px;">If your system fails on long context, cost, or reliability, that is the diagnostic.</p>
           <a class="link-arrow" href="/contact#diagnostic">Start a diagnostic</a>
         </div>

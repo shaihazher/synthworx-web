@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AuthorCard from '../../components/AuthorCard.astro';
 import { SITE } from '../../data/site';
 
 export async function getStaticPaths() {
@@ -14,6 +15,12 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, subtitle, date, readingTime, summary } = entry.data;
 
+const allNotes = (await getCollection('notes'))
+  .filter((item) => !item.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const noteIndex = allNotes.findIndex((item) => item.id === entry.id);
+const nextNote = allNotes[(noteIndex + 1) % allNotes.length];
+
 const fmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
 const schema = {
@@ -22,7 +29,7 @@ const schema = {
   headline: title,
   description: summary,
   datePublished: date.toISOString(),
-  author: { '@type': 'Person', name: SITE.owner, url: `${SITE.url}/about` },
+  author: { '@type': 'Person', name: SITE.owner, url: `${SITE.url}/about`, sameAs: [SITE.linkedin] },
   publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
   mainEntityOfPage: `${SITE.url}/notes/${entry.id}`,
 };
@@ -41,6 +48,14 @@ const schema = {
         </div>
         <h1 class="display display--lg">{title}</h1>
         <p class="lede">{subtitle}</p>
+        <div class="byline">
+          <img class="byline__photo" src="/images/azeruddin-sheikh.jpg" alt="Azeruddin Sheikh" width="600" height="600" loading="lazy" />
+          <div class="byline__text">
+            <span class="byline__name">Written by Azeruddin Sheikh</span>
+            <span class="byline__role">Former Amazon ML Architect · {readingTime}</span>
+          </div>
+          <a class="byline__link" href={SITE.linkedin} target="_blank" rel="me noopener">LinkedIn ↗</a>
+        </div>
       </div>
     </header>
 
@@ -59,7 +74,7 @@ const schema = {
             <dt>Reading time</dt>
             <dd>{readingTime}</dd>
             <dt>Author</dt>
-            <dd>{SITE.owner}<br /><span class="muted">Former Amazon ML Architect</span></dd>
+            <dd><a href="/about">{SITE.owner}</a><br /><span class="muted">Former Amazon ML Architect</span><br /><a href={SITE.linkedin} target="_blank" rel="me noopener">LinkedIn ↗</a></dd>
           </dl>
           <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--color-line);">
             <a class="link-arrow" href="/notes" style="font-size:13px;">All notes</a>
@@ -72,12 +87,15 @@ const schema = {
     </div>
 
     <div class="shell" style="padding-bottom:clamp(48px,7vw,90px);">
+      <div style="margin-bottom:34px;">
+        <AuthorCard />
+      </div>
       <div style="border-top:1px solid var(--color-line);padding-top:30px;display:flex;flex-wrap:wrap;gap:20px;align-items:end;justify-content:space-between;">
         <div>
-          <p class="mono" style="font-size:9px;color:var(--color-muted);margin:0 0 8px;">Next</p>
-          <a class="display display--sm" href="/notes" style="text-decoration:none;">All technical notes</a>
+          <p class="mono" style="font-size:10px;color:var(--color-muted);margin:0 0 8px;">Next note</p>
+          <a class="display display--sm" href={`/notes/${nextNote.id}`} style="text-decoration:none;">{nextNote.data.title}</a>
         </div>
-        <a class="link-arrow" href="/contact#diagnostic">Start a diagnostic</a>
+        <a class="link-arrow" href="/notes">All notes</a>
       </div>
     </div>
   </article>

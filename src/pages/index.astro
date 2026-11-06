@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CaseCard from '../components/CaseCard.astro';
-import { OFFERS, PROOF_STATS, WORK_WITH, NOT_A_FIT, HOW_I_WORK } from '../data/site';
+import { OFFERS, PROOF_STATS, WORK_WITH, NOT_A_FIT, HOW_I_WORK, SITE } from '../data/site';
 
 const studies = (await getCollection('caseStudies'))
   .filter((entry) => !entry.data.draft)
@@ -11,7 +11,8 @@ const featured = studies.slice(0, 3);
 
 const notes = (await getCollection('notes'))
   .filter((entry) => !entry.data.draft)
-  .sort((a, b) => a.data.order - b.data.order);
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const featuredNotes = notes.slice(0, 2);
 
 const primaryOffers = OFFERS.slice(0, 5);
 ---
@@ -26,7 +27,7 @@ const primaryOffers = OFFERS.slice(0, 5);
           AI that <em>survives</em><br />production.
         </h1>
         <p class="lede hero__sub">
-          I help mid-market software companies fix slow, expensive, unreliable AI systems — without hiring a 10-person ML team.
+          I fix AI systems that work in the demo and fail in production — without you hiring a 10-person ML team.
         </p>
         <p class="proof-bar" style="margin-top:26px;">
           <span>Former Amazon ML Architect</span><span class="dot">·</span>
@@ -35,7 +36,7 @@ const primaryOffers = OFFERS.slice(0, 5);
           <span>$20M+ savings</span>
         </p>
         <div class="hero__actions">
-          <a class="btn btn--solid" href="/contact#diagnostic">Start with the AI Production Diagnostic</a>
+          <a class="btn btn--solid" href="/contact#diagnostic">Start a diagnostic — $12,500</a>
           <a class="btn btn--ghost" href="/work">See the work</a>
         </div>
         <p class="hero__note tiny">
@@ -45,7 +46,7 @@ const primaryOffers = OFFERS.slice(0, 5);
 
       <aside class="hero__panel" aria-label="The Production AI Stack">
         <div class="hero__panel-head">
-          <span class="mono" style="font-size:9px;letter-spacing:.1em;">The Production AI Stack</span>
+          <span class="mono" style="font-size:10px;letter-spacing:.1em;">The Production AI Stack</span>
           <span class="status-dot" aria-label="Operational"></span>
         </div>
         <ul class="stack-list">
@@ -140,7 +141,7 @@ const primaryOffers = OFFERS.slice(0, 5);
           <div class="card card--hover" style={`grid-column: span ${offer.num === '01' || offer.num === '02' ? 6 : 4};`}>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
               <span class="card__index">{offer.num}</span>
-              <span class="mono" style="font-size:9px;color:var(--color-muted);">{offer.duration}</span>
+              <span class="mono" style="font-size:10px;color:var(--color-muted);">{offer.duration}</span>
             </div>
             <h3>{offer.name}</h3>
             <p>{offer.outcome}</p>
@@ -223,23 +224,41 @@ const primaryOffers = OFFERS.slice(0, 5);
       </div>
 
       <p class="tiny" style="margin-top:34px;color:var(--color-muted);">
-        Labels are honest: <strong>Built at Amazon</strong> for work done there, <strong>Independent</strong> for my own products and research. No client testimonials are published until a client approves one.
+        Every case study is labelled — <strong>Built at Amazon</strong>, <strong>Independent R&amp;D</strong>, or <strong>Independent product</strong>. No borrowed logos, no unlabeled metrics, no invented client names.
       </p>
     </div>
   </section>
 
-  <!-- How I work -->
+  <!-- The person + how I work -->
   <section class="section section--dark">
     <div class="shell">
-      <div class="grid-12">
-        <div style="grid-column: span 4;">
-          <p class="eyebrow">How I work</p>
-          <h2 class="display display--lg" style="margin:18px 0 22px;">Diagnose. Fix. <em>Ship. Hand off.</em></h2>
-          <p class="lede" style="font-size:1.05rem;">
-            I work inside your systems, with your team. The output is a system they can operate without me.
+      <div class="grid-12" style="align-items:start;">
+        <div style="grid-column: 1 / span 5;">
+          <p class="eyebrow">The person doing the work</p>
+          <h2 class="display display--lg" style="margin:18px 0 24px;">You work <em>directly with me.</em></h2>
+          <figure class="portrait portrait--dark" style="max-width:360px;">
+            <img
+              src="/images/azeruddin-sheikh-portrait.jpg"
+              alt="Azeruddin Sheikh, AI systems architect and former Amazon ML architect"
+              width="896"
+              height="1195"
+              loading="lazy"
+            />
+            <figcaption class="portrait__caption">
+              <span>Azeruddin Sheikh<br />Chennai, India</span>
+              <a href={SITE.linkedin} target="_blank" rel="me noopener">LinkedIn ↗</a>
+            </figcaption>
+          </figure>
+          <p class="tiny" style="color:#a8b0a9;max-width:36ch;margin-top:18px;">
+            No juniors. No offshore handoff. The person who scopes the work is the person in your codebase.
           </p>
         </div>
-        <div style="grid-column: 6 / span 7;">
+        <div style="grid-column: 7 / span 6;">
+          <p class="eyebrow">How I work</p>
+          <h2 class="display display--md" style="margin:18px 0 22px;">Diagnose. Fix. <em>Ship. Hand off.</em></h2>
+          <p class="lede" style="font-size:1.02rem;margin-bottom:26px;">
+            I work inside your systems, with your team. The output is a system they can operate without me.
+          </p>
           <div class="steps">
             {HOW_I_WORK.map((step) => (
               <div class="step">
@@ -289,18 +308,21 @@ const primaryOffers = OFFERS.slice(0, 5);
       <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:end;justify-content:space-between;margin-bottom:32px;">
         <div>
           <p class="eyebrow">Notes</p>
-          <h2 class="display display--md" style="margin:18px 0 0;">The technical version.</h2>
+          <h2 class="display display--md" style="margin:18px 0 0;">Proof-led essays. <em>No publishing treadmill.</em></h2>
         </div>
         <a class="link-arrow" href="/notes">All notes</a>
       </div>
+      <p class="tiny" style="color:var(--color-muted);max-width:62ch;margin:-8px 0 26px;">
+        Two recent essays from real work. The full library is on the Notes page. No newsletter, no weekly cadence, no comments.
+      </p>
       <div class="grid-12">
-        {notes.map((note) => (
+        {featuredNotes.map((note) => (
           <a href={`/notes/${note.id}`} class="card card--hover" style="grid-column: span 6;text-decoration:none;">
             <span class="card__index">{note.data.readingTime}</span>
             <h3>{note.data.title}</h3>
             <p>{note.data.summary}</p>
             <div class="card__foot">
-              <span class="mono" style="font-size:9px;color:var(--color-muted);">Read the note</span>
+              <span class="mono" style="font-size:10px;color:var(--color-muted);">Read the note</span>
               <span style="font-family:var(--font-mono);color:var(--color-accent);">→</span>
             </div>
           </a>
@@ -327,7 +349,7 @@ const primaryOffers = OFFERS.slice(0, 5);
       </div>
       <div style="grid-column: 9 / span 4;">
         <div class="callout-box" style="border-color:#3a423c;background:transparent;">
-          <p class="mono" style="font-size:9px;color:#f0865a;margin:0 0 12px;">The guarantee</p>
+          <p class="mono" style="font-size:10px;color:#f0865a;margin:0 0 12px;">The guarantee</p>
           <p style="font-family:var(--font-display);font-size:clamp(1.35rem,2.2vw,1.8rem);line-height:1.15;letter-spacing:-.02em;margin:0;color:var(--color-cream);">
             If the diagnostic does not identify at least three opportunities worth 10× the fee, I refund it.
           </p>

@@ -14,7 +14,7 @@ export const SITE = {
   proofBarLong:
     'Former Amazon ML Architect · Led 20+ engineers · 2M+ requests/hour at 99.99% · 80% inference-latency reduction · $20M+ savings · Shipped AI across browser, mobile, and local inference.',
   github: 'https://github.com/shaihazher',
-  linkedin: 'https://www.linkedin.com/in/shaihazher/',
+  linkedin: 'https://www.linkedin.com/in/azeruddinsheikh/',
   pikki: 'https://pikki.synthworx.com',
 };
 

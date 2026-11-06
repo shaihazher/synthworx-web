@@ -594,7 +594,7 @@ select {
 
 .stack-list .state {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-muted);
@@ -731,7 +731,7 @@ select {
   justify-content: space-between;
   gap: 12px;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-muted);
@@ -768,7 +768,7 @@ select {
 
 .case-card__metric span {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   line-height: 1.5;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -1092,7 +1092,7 @@ select {
 
 .stack-diagram__key .num {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   color: var(--color-accent);
 }
 
@@ -1163,7 +1163,7 @@ select {
 .footer-col h2 {
   margin: 0 0 14px;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1191,7 +1191,7 @@ select {
   align-items: center;
   justify-content: space-between;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #858f87;
@@ -1260,7 +1260,7 @@ select {
 
 .article-aside dt {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-muted);
@@ -1298,7 +1298,7 @@ select {
 .stat__label {
   margin-top: 9px;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   line-height: 1.55;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -1350,7 +1350,7 @@ select {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-muted);
@@ -1584,6 +1584,7 @@ select {
 @media print {
   .site-header,
   .site-footer,
+  .skip-link,
   .hero__actions,
   .no-print {
     display: none !important;
@@ -1665,7 +1666,7 @@ select {
 .arch-note {
   margin: -0.6em 0 1.8em;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   line-height: 1.6;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -1725,5 +1726,234 @@ select {
   .note-row > :nth-child(4) {
     grid-column: 2;
     text-align: left !important;
+  }
+}
+
+/* ---------- Portraits & authorship ---------- */
+
+.portrait {
+  margin: 0;
+}
+
+.portrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 22%;
+  border: 1px solid var(--color-line);
+  background: #0b0d0b;
+}
+
+.portrait--dark img {
+  border-color: #3a423c;
+}
+
+.portrait__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.55;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.portrait--dark .portrait__caption {
+  color: #a8b0a9;
+}
+
+.portrait__caption a {
+  color: var(--color-accent-deep);
+  text-decoration: none;
+}
+
+.portrait--dark .portrait__caption a {
+  color: #f0865a;
+}
+
+.author-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-line);
+}
+
+.author-card__photo {
+  flex: 0 0 76px;
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border: 1px solid var(--color-line);
+  background: #0b0d0b;
+}
+
+.author-card__name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+.author-card__role {
+  margin: 3px 0 0;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.author-card__bio {
+  margin: 9px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+
+.author-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-top: 9px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.author-card__links a {
+  color: var(--color-accent-deep);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.author-card__links a:hover {
+  border-color: currentColor;
+}
+
+.author-card--compact {
+  align-items: center;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.author-card--compact .author-card__photo {
+  flex-basis: 42px;
+  width: 42px;
+  height: 42px;
+}
+
+.author-card--compact .author-card__name {
+  font-size: 13px;
+}
+
+.author-card--compact .author-card__role {
+  font-size: 8.5px;
+}
+
+.author-card--compact .author-card__links {
+  margin-top: 3px;
+  font-size: 8.5px;
+}
+
+.author-card--invert {
+  border-color: #3a423c;
+}
+
+.author-card--invert .author-card__name,
+.author-card--invert .author-card__bio {
+  color: var(--color-cream);
+}
+
+.author-card--invert .author-card__role {
+  color: #a8b0a9;
+}
+
+.author-card--invert .author-card__photo {
+  border-color: #3a423c;
+}
+
+.author-card--invert .author-card__links a {
+  color: #f0865a;
+}
+
+.byline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+  margin-top: 30px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-line);
+}
+
+.byline__photo {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border: 1px solid var(--color-line);
+}
+
+.byline__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.byline__name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.byline__role {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.byline__link {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-accent-deep);
+  text-decoration: none;
+}
+
+.byline__link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .author-card {
+    gap: 13px;
+  }
+
+  .author-card__photo {
+    flex-basis: 60px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .byline {
+    gap: 10px 13px;
+  }
+
+  .byline__link {
+    margin-left: 0;
+    width: 100%;
   }
 }

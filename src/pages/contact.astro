@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AuthorCard from '../components/AuthorCard.astro';
 import { SITE } from '../data/site';
 
 const subject = 'AI Production Diagnostic — request';
@@ -32,15 +33,18 @@ const sessionMailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Paid s
           <a class="btn btn--ghost" href={`mailto:${SITE.email}`}>Email {SITE.email}</a>
         </div>
         <p class="tiny" style="color:var(--color-muted);margin-top:18px;">
-          I reply within 24 hours, Monday–Friday. No contact form, no CRM sequence, no calendar link.
+          I reply within 24 hours, Monday–Friday. No contact form, no CRM sequence, no calendar link. I take on a small number of engagements at a time; if the timing does not fit, I will say so.
         </p>
       </div>
       <div style="grid-column: 10 / span 3;">
         <div class="callout-box callout-box--accent">
-          <p class="mono" style="font-size:9px;color:var(--color-accent-deep);margin:0 0 10px;">No free calls</p>
+          <p class="mono" style="font-size:10px;color:var(--color-accent-deep);margin:0 0 10px;">No free calls</p>
           <p style="margin:0;font-size:14px;line-height:1.55;">
             I do not offer free discovery calls. Every engagement starts with a paid diagnostic or a paid strategy session. If you are not ready to invest, that is okay — the writing and teardowns are free.
           </p>
+        </div>
+        <div style="margin-top:22px;">
+          <AuthorCard compact />
         </div>
       </div>
     </div>
@@ -72,7 +76,7 @@ const sessionMailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Paid s
         </div>
 
         <div class="callout-box" style="margin-top:34px;">
-          <p class="mono" style="font-size:9px;color:var(--color-accent-deep);margin:0 0 10px;">The guarantee</p>
+          <p class="mono" style="font-size:10px;color:var(--color-accent-deep);margin:0 0 10px;">The guarantee</p>
           <p style="margin:0 0 14px;font-size:14.5px;">
             If the diagnostic does not identify at least three opportunities worth 10× the fee, I refund it. 50% of the fee is credited toward a sprint or build signed within 30 days.
           </p>
@@ -82,7 +86,7 @@ const sessionMailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Paid s
 
       <div style="grid-column: 9 / span 4;">
         <div class="card card--flat">
-          <p class="mono" style="font-size:9px;color:var(--color-accent);margin:0 0 14px;">What to include</p>
+          <p class="mono" style="font-size:10px;color:var(--color-accent);margin:0 0 14px;">What to include</p>
           <ul style="list-style:none;margin:0;padding:0;border-top:1px solid var(--color-line);">
             {[
               'Company, website, and your role',
@@ -95,7 +99,7 @@ const sessionMailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Paid s
               'Timeline and decision process',
             ].map((item, i) => (
               <li style="display:grid;grid-template-columns:22px 1fr;gap:10px;padding:11px 0;border-bottom:1px solid var(--color-line);font-size:13.5px;">
-                <span style="font-family:var(--font-mono);font-size:9px;color:var(--color-muted);padding-top:3px;">0{i + 1}</span>
+                <span style="font-family:var(--font-mono);font-size:10px;color:var(--color-muted);padding-top:3px;">0{i + 1}</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -107,7 +111,7 @@ const sessionMailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Paid s
         </div>
 
         <div style="margin-top:26px;padding-top:18px;border-top:1px solid var(--color-ink);">
-          <p class="mono" style="font-size:9px;color:var(--color-muted);margin:0 0 10px;">Need a conversation first?</p>
+          <p class="mono" style="font-size:10px;color:var(--color-muted);margin:0 0 10px;">Need a conversation first?</p>
           <p style="font-size:13.5px;color:var(--color-muted);margin:0 0 14px;">
             A paid strategy session is $3,500 for 90 minutes, recorded, with a one-page memo and three prioritized recommendations. Credited toward the diagnostic within 14 days.
           </p>
@@ -115,7 +119,7 @@ const sessionMailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Paid s
         </div>
 
         <div style="margin-top:26px;padding-top:18px;border-top:1px solid var(--color-line);">
-          <p class="mono" style="font-size:9px;color:var(--color-muted);margin:0 0 10px;">Before you send</p>
+          <p class="mono" style="font-size:10px;color:var(--color-muted);margin:0 0 10px;">Before you send</p>
           <p style="font-size:13px;color:var(--color-muted);margin:0;">
             I sign NDAs and do not train on client data. Read the <a href="/security">security and NDA page</a>.
           </p>
@@ -131,6 +135,9 @@ const sessionMailto = `mailto:${SITE.email}?subject=${encodeURIComponent('Paid s
         <h2 class="display display--md" style="margin:18px 0 18px;">{SITE.email}</h2>
         <p class="lede" style="font-size:1.05rem;">
           Chennai, India · 8–11am ET overlap · replies within 24 hours, Monday–Friday.
+        </p>
+        <p class="tiny" style="color:#a8b0a9;margin-top:16px;">
+          Prefer LinkedIn? <a href={SITE.linkedin} target="_blank" rel="me noopener" style="color:var(--color-cream);">Connect with me here ↗</a>
         </p>
       </div>
       <div style="grid-column: 9 / span 4;">

@@ -39,6 +39,7 @@ const schema = {
       url: `${SITE.url}/about`,
       image: `${SITE.url}/images/azeruddin-sheikh.jpg`,
       worksFor: { '@id': `${SITE.url}/#org` },
+      alumniOf: { '@type': 'Organization', name: 'Amazon' },
       knowsAbout: [
         'Production AI systems',
         'LLM inference optimization',
@@ -58,6 +59,7 @@ const schema = {
       description: SITE.description,
       areaServed: 'US',
       founder: { '@id': `${SITE.url}/#person` },
+      sameAs: [SITE.linkedin, SITE.github],
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Chennai',

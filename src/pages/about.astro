@@ -6,18 +6,32 @@ import { SITE } from '../data/site';
 <BaseLayout title="About" description="Azeruddin Sheikh — former Amazon ML Architect, now an independent production AI consultant. Seven years at Amazon, systems serving 2M+ requests/hour at 99.99%.">
   <section class="article-head">
     <div class="shell grid-12" style="align-items:end;">
-      <div style="grid-column: span 8;">
+      <div style="grid-column: span 7;">
         <p class="eyebrow">About</p>
         <h1 class="display display--lg" style="margin-top:20px;">I have been the person <em>on call</em> for this.</h1>
         <p class="lede">
           Seven years as an ML architect at Amazon, leading a team of 20+ scientists and engineers. Before that, nine years in operations, programme management, and product. Now I fix production AI systems for mid-market software companies.
         </p>
+        <p class="tiny" style="color:var(--color-muted);margin-top:14px;">
+          You work with me directly. No account managers, no juniors, no handoff.
+        </p>
+        <div class="hero__actions" style="margin-top:24px;">
+          <a class="btn btn--ghost" href={SITE.linkedin} target="_blank" rel="me noopener">Connect on LinkedIn</a>
+          <a class="link-arrow" href={`mailto:${SITE.email}`} style="font-size:13px;">{SITE.email}</a>
+        </div>
       </div>
-      <div style="grid-column: 10 / span 3;">
-        <figure style="margin:0;">
-          <img src="/images/azeruddin-sheikh.jpg" alt="Azeruddin Sheikh" width="200" height="200" style="width:100%;max-width:220px;aspect-ratio:1;object-fit:cover;filter:grayscale(8%);border:1px solid var(--color-line);" />
-          <figcaption class="tiny" style="color:var(--color-muted);margin-top:10px;">
-            Azeruddin Sheikh<br />Chennai, India
+      <div style="grid-column: 9 / span 4;">
+        <figure class="portrait">
+          <img
+            src="/images/azeruddin-sheikh-portrait.jpg"
+            alt="Azeruddin Sheikh, AI systems architect and former Amazon ML architect"
+            width="896"
+            height="1195"
+            fetchpriority="high"
+          />
+          <figcaption class="portrait__caption">
+            <span>Azeruddin Sheikh<br />Chennai, India</span>
+            <a href={SITE.linkedin} target="_blank" rel="me noopener">LinkedIn ↗</a>
           </figcaption>
         </figure>
       </div>
@@ -40,6 +54,9 @@ import { SITE } from '../data/site';
           </p>
           <p>
             I have sat on both sides. I have been the person who has to make a system work at scale, and the person who has to explain to a business why it is not working yet. I know what vendors leave out because I have had to fix what they left out.
+          </p>
+          <p>
+            You get me, not a delivery team. The person who scopes the diagnostic is the person who does the work, and the person you can reach while it is running.
           </p>
 
           <h2>Why independent</h2>
@@ -71,12 +88,15 @@ import { SITE } from '../data/site';
             I am based in Chennai, India, with an 8–11am ET overlap. I have worked with US teams for 16 years. If daily onsite presence is required, I am not the right fit — and I will say so before you buy anything.
           </p>
           <p>
+            I keep the practice small — a handful of engagements at a time — so the person who scopes the work is the person who does it. If the timing does not fit, I will tell you rather than take the work and subcontract it.
+          </p>
+          <p>
             References from former Amazon colleagues are available on request, labelled as professional references rather than client testimonials. I sign NDAs, I do not train on client data, and I work inside your environment.
           </p>
         </div>
 
         <div class="callout-box" style="margin-top:36px;">
-          <p class="mono" style="font-size:9px;color:var(--color-accent-deep);margin:0 0 10px;">The proof bar</p>
+          <p class="mono" style="font-size:10px;color:var(--color-accent-deep);margin:0 0 10px;">The proof bar</p>
           <p style="margin:0;font-family:var(--font-display);font-size:clamp(1.35rem,2.4vw,1.9rem);line-height:1.2;letter-spacing:-.02em;">
             {SITE.proofBarLong}
           </p>
@@ -95,8 +115,8 @@ import { SITE } from '../data/site';
         </p>
       </div>
       <div style="grid-column: 9 / span 4; display:flex;flex-wrap:wrap;gap:12px;">
-        <a class="btn btn--solid" href="/contact#diagnostic">Start a diagnostic</a>
-        <a class="btn btn--ghost" href="/work">See the work</a>
+        <a class="btn btn--solid" href="/contact#diagnostic">Start a diagnostic — $12,500</a>
+        <a class="btn btn--ghost" href={SITE.linkedin} target="_blank" rel="me noopener">LinkedIn</a>
       </div>
     </div>
   </section>

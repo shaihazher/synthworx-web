@@ -8,12 +8,14 @@ const read = (p) => fs.readFileSync(path.join(root, p), 'utf8');
 const exists = (p) => fs.existsSync(path.join(root, p));
 
 const pages = [
-  ['index.html', ['AI that', 'survives', 'Start with the AI Production Diagnostic']],
+  ['index.html', ['AI that', 'survives', 'Start a diagnostic']],
   ['work/index.html', ['Four systems', 'Built at Amazon', 'Independent R&amp;D']],
   ['services/index.html', ['Published prices', '$12,500', '$35,000', '$150K']],
   ['products/index.html', ['Pikki', 'Tappi', 'AI Tutor']],
-  ['about/index.html', ['Amazon', 'Chennai']],
-  ['notes/index.html', ['Long-context memory', 'token']],
+  ['about/index.html', ['Amazon', 'Chennai', 'linkedin.com/in/azeruddinsheikh']],
+  ['notes/index.html', ['Long-context memory', 'What a paid AI diagnostic', 'seven ways']],
+  ['notes/what-a-diagnostic-finds/index.html', ['What a paid AI diagnostic actually finds']],
+  ['notes/seven-production-failures/index.html', ['The seven ways production AI fails']],
   ['contact/index.html', ['No free calls', 'hello@synthworx.com']],
   ['proof/index.html', ['Proof library', 'professional references']],
   ['security/index.html', ['NDA', 'No training']],
@@ -79,6 +81,7 @@ test('SEO and crawler assets exist', () => {
   assert.ok(exists('.well-known/security.txt'));
   assert.ok(exists('images/og.png'));
   assert.ok(exists('images/azeruddin-sheikh.jpg'));
+  assert.ok(exists('images/azeruddin-sheikh-portrait.jpg'));
 
   const robots = read('robots.txt');
   assert.match(robots, /Sitemap: https:\/\/synthworx\.com\/sitemap-index\.xml/);
@@ -86,6 +89,8 @@ test('SEO and crawler assets exist', () => {
   const rss = read('notes/rss.xml');
   assert.ok(rss.includes('Long-context memory'));
   assert.ok(rss.includes('token efficiency'));
+  assert.ok(rss.includes('seven ways production AI fails'));
+  assert.ok(rss.includes('paid AI diagnostic'));
 
   const security = read('.well-known/security.txt');
   assert.match(security, /Contact: mailto:hello@synthworx\.com/);

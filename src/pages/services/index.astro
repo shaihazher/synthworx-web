@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AuthorCard from '../../components/AuthorCard.astro';
 import { OFFERS } from '../../data/site';
 
 const core = OFFERS.slice(0, 5);
@@ -64,15 +65,18 @@ const additional = OFFERS.slice(5);
           A whole-stack audit, not a pitch. You get a written document that tells you where the system breaks, what it costs, and what to do first.
         </p>
         <div class="callout-box" style="margin-top:28px;">
-          <p class="mono" style="font-size:9px;color:var(--color-accent-deep);margin:0 0 10px;">The guarantee</p>
+          <p class="mono" style="font-size:10px;color:var(--color-accent-deep);margin:0 0 10px;">The guarantee</p>
           <p style="margin:0;font-size:14.5px;">
             If the diagnostic does not identify at least three opportunities worth 10× the fee, I refund it. 50% of the fee is credited toward a sprint or build signed within 30 days.
           </p>
         </div>
+        <div style="margin-top:26px;">
+          <AuthorCard compact />
+        </div>
       </div>
 
       <div style="grid-column: 7 / span 6;">
-        <p class="mono" style="font-size:9px;color:var(--color-muted);margin:0 0 14px;">You get, in one document</p>
+        <p class="mono" style="font-size:10px;color:var(--color-muted);margin:0 0 14px;">You get, in one document</p>
         <ul style="list-style:none;margin:0;padding:0;border-top:1px solid var(--color-line);">
           {[
             'Whole-stack audit: data and retrieval, model and inference, orchestration and evals.',
@@ -129,7 +133,7 @@ const additional = OFFERS.slice(5);
             <p>{offer.outcome}</p>
             <div class="card__foot">
               <span class="price">{offer.price}</span>
-              <span class="mono" style="font-size:9px;color:var(--color-muted);">{offer.duration}</span>
+              <span class="mono" style="font-size:10px;color:var(--color-muted);">{offer.duration}</span>
             </div>
           </div>
         ))}
@@ -150,7 +154,7 @@ const additional = OFFERS.slice(5);
       <div style="grid-column: 6 / span 7;">
         <div class="grid-12" style="gap:30px;">
           <div style="grid-column: span 6;">
-            <p class="mono" style="font-size:9px;color:#f0865a;margin:0 0 12px;">Payment</p>
+            <p class="mono" style="font-size:10px;color:#f0865a;margin:0 0 12px;">Payment</p>
             <ul style="list-style:none;margin:0;padding:0;color:#d6dcd6;font-size:14px;">
               <li style="padding:8px 0;border-bottom:1px solid #2c332e;">Diagnostic and sprint: 50% upfront, 50% on delivery.</li>
               <li style="padding:8px 0;border-bottom:1px solid #2c332e;">Build: 30% upfront, 30% at midpoint, 40% on acceptance.</li>
@@ -159,7 +163,7 @@ const additional = OFFERS.slice(5);
             </ul>
           </div>
           <div style="grid-column: span 6;">
-            <p class="mono" style="font-size:9px;color:#f0865a;margin:0 0 12px;">What I won't do</p>
+            <p class="mono" style="font-size:10px;color:#f0865a;margin:0 0 12px;">What I won't do</p>
             <ul style="list-style:none;margin:0;padding:0;color:#d6dcd6;font-size:14px;">
               <li style="padding:8px 0;border-bottom:1px solid #2c332e;">Hourly billing.</li>
               <li style="padding:8px 0;border-bottom:1px solid #2c332e;">Free discovery calls or free proposals.</li>

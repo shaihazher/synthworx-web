@@ -18,14 +18,14 @@ A static Astro site with seven primary pages and a small proof library:
 | `/services` | Published fees and scope for the full offer ladder |
 | `/about` | Amazon background, photo, location, how I work, what I do not do |
 | `/products` | Pikki, Tappi, Tappi for Chrome, AI Tutor, browser-py |
-| `/notes` | Two technical write-ups |
+| `/notes` | Four proof-led technical essays |
 | `/notes/[slug]` | Full technical note |
 | `/contact` | Email, no-free-calls policy, diagnostic request |
 | `/proof` | Index of case studies, notes, live products, references, contract status |
 | `/security` | NDA, data handling, incident notification, security contact |
 | `/privacy`, `/terms` | Legal pages |
 
-There is no blog, no newsletter, no CMS, no contact backend, and no analytics.
+There is no separate blog, no newsletter, no CMS, no contact backend, and no analytics. `Notes` is a small proof-led essay library, not a publishing treadmill.
 
 ## Stack
 
@@ -61,6 +61,14 @@ npm run check        # Astro/TypeScript diagnostics
 npm run build
 npm test             # content, link, SEO, and asset checks against dist/
 ```
+
+## Trust signals
+
+- Real portrait of Azeruddin Sheikh on About, the home "person doing the work" band, Contact, case-study bylines, note bylines, the proof page, and the OG image. No stock photography.
+- LinkedIn: `https://www.linkedin.com/in/azeruddinsheikh/` in the footer, author cards, structured data, and profile links.
+- Case studies are labelled **Built at Amazon**, **Independent R&D**, or **Independent product**.
+- No fake logos, client names, testimonials, or unlabeled metrics.
+- Pikki is a live, paid product; Tappi's open-core SDK and sanitized Chrome shell are public.
 
 ## Content model
 

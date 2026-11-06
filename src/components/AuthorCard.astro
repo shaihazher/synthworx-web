@@ -1,0 +1,35 @@
+---
+import { SITE } from '../data/site';
+
+interface Props {
+  compact?: boolean;
+  invert?: boolean;
+  class?: string;
+}
+
+const { compact = false, invert = false, class: className = '' } = Astro.props;
+---
+
+<div class:list={['author-card', compact && 'author-card--compact', invert && 'author-card--invert', className]}>
+  <img
+    class="author-card__photo"
+    src="/images/azeruddin-sheikh.jpg"
+    alt="Azeruddin Sheikh"
+    width="600"
+    height="600"
+    loading="lazy"
+  />
+  <div class="author-card__body">
+    <p class="author-card__name">Azeruddin Sheikh</p>
+    <p class="author-card__role">{compact ? 'Former Amazon ML Architect' : 'Former Amazon ML Architect · AI Systems Architect & Consultant'}</p>
+    {!compact && (
+      <p class="author-card__bio">
+        I fix AI systems that work in the demo and fail in production. I work directly with your team, inside your environment, and leave you with the code and the runbooks.
+      </p>
+    )}
+    <div class="author-card__links">
+      <a href={SITE.linkedin} target="_blank" rel="me noopener">LinkedIn ↗</a>
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    </div>
+  </div>
+</div>
