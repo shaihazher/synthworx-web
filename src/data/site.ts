@@ -8,11 +8,11 @@ export const SITE = {
   timezone: 'IST (UTC+5:30) · 8–11am ET overlap',
   url: 'https://synthworx.com',
   description:
-    'Former Amazon ML Architect. I help mid-market software companies fix slow, expensive, and unreliable AI systems — and get them into production.',
+    'Amazon ML Architect. I help mid-market software companies fix slow, expensive, and unreliable AI systems — and get them into production.',
   proofBar:
-    'Former Amazon ML Architect · 2M+ requests/hour at 99.99% · 80% latency reduction · $20M+ savings',
+    'Amazon ML Architect · 2M+ requests/hour at 99.99% · 80% latency reduction · $20M+ savings',
   proofBarLong:
-    'Former Amazon ML Architect · Led 20+ engineers · 2M+ requests/hour at 99.99% · 80% inference-latency reduction · $20M+ savings · Shipped AI across browser, mobile, and local inference.',
+    'Amazon ML Architect · Led 20+ engineers · 2M+ requests/hour at 99.99% · 80% inference-latency reduction · $20M+ savings · Shipped AI across browser, mobile, and local inference.',
   github: 'https://github.com/shaihazher',
   linkedin: 'https://www.linkedin.com/in/azeruddinsheikh/',
   pikki: 'https://pikki.synthworx.com',
