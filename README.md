@@ -32,7 +32,7 @@ There is no blog, no newsletter, no CMS, no contact backend, and no analytics.
 - Astro content collections for case studies and notes
 - `@astrojs/sitemap` for `sitemap-index.xml`
 - Self-hosted fonts via Fontsource: Instrument Serif, Inter, JetBrains Mono
-- `serve` for the production static server on Railway
+- A tiny Node static server (`server.mjs`) with a `www` → apex 301 and security headers
 
 No client-side framework. One small inline script for reveal-on-scroll; the site is fully readable without JavaScript.
 
@@ -121,7 +121,7 @@ The repo includes `railway.json`:
 4. In Railway, add custom domains `synthworx.com` and `www.synthworx.com`.
 5. Copy the **CNAME target** and **TXT name/value** Railway shows (the apex and `www` targets are different).
 
-Railway builds with Node 22+ and serves `dist/` through `serve`. The live service is `synthworx-site`; see [`DEPLOYMENT.md`](DEPLOYMENT.md) for the exact DNS records and verification steps.
+Railway builds with Node 22+ and serves `dist/` through `server.mjs`. The live service is `synthworx-site`; see [`DEPLOYMENT.md`](DEPLOYMENT.md) for the exact DNS records and verification steps. The server 301s `www.synthworx.com` to `synthworx.com`.
 
 ### Namecheap DNS cutover
 

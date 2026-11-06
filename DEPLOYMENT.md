@@ -5,7 +5,7 @@
 **Railway URL:** https://synthworx-site-production.up.railway.app
 **Repo:** https://github.com/shaihazher/synthworx-web
 
-The site is a static Astro build served by `serve`. Railway runs `npm ci && npm run build`, then `npm run start`.
+The site is a static Astro build served by `server.mjs`. Railway runs `npm ci && npm run build`, then `npm run start`.
 
 ## Custom domains
 
@@ -63,7 +63,7 @@ Expected: both `synthworx.com` and `www.synthworx.com` return `200` over HTTPS, 
 
 ## Canonical / redirect
 
-The Astro site uses `PUBLIC_SITE_URL=https://synthworx.com`. The canonical tag and sitemap use the apex. Add a 301 from `www` to the apex at the edge or in Railway if the platform does not do it automatically.
+The Astro site uses `PUBLIC_SITE_URL=https://synthworx.com`. The canonical tag and sitemap use the apex. `server.mjs` 301s `www.synthworx.com` to the apex.
 
 ## Rollback
 
