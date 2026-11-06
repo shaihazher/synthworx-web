@@ -76,7 +76,7 @@ Keep a screenshot of the old DNS records for 7 days.
 
 ## Railway notes
 
-- `NIXPACKS_NODE_VERSION=22` is set on the service. Astro 7 requires Node 22+.
+- `NIXPACKS_NODE_VERSION=24` is set on the service. Astro 7 requires Node 22.23.4+.
 - `railway.json` is still used for build/start commands. Railway marks it as Config as Code and says it works until 2026-12-01. Before that date, migrate to `.railway/railway.ts` or set the commands in the service settings.
 - Region: Southeast Asia. Fine for a static site; the CDN edge handles US readers.
 - No database, no secrets, no volumes.
@@ -86,5 +86,5 @@ Keep a screenshot of the old DNS records for 7 days.
 | Variable | Value |
 |---|---|
 | `PUBLIC_SITE_URL` | `https://synthworx.com` |
-| `NIXPACKS_NODE_VERSION` | `22` |
+| `NIXPACKS_NODE_VERSION` | `24` |
 | `PORT` | injected by Railway |

@@ -121,7 +121,7 @@ The repo includes `railway.json`:
 4. In Railway, add custom domains `synthworx.com` and `www.synthworx.com`.
 5. Copy the **CNAME target** and **TXT name/value** Railway shows (the apex and `www` targets are different).
 
-Railway builds with Node 22+ and serves `dist/` through `server.mjs`. The live service is `synthworx-site`; see [`DEPLOYMENT.md`](DEPLOYMENT.md) for the exact DNS records and verification steps. The server 301s `www.synthworx.com` to `synthworx.com`.
+Railway builds with Node 24 and serves `dist/` through `server.mjs`. The live service is `synthworx-site`; see [`DEPLOYMENT.md`](DEPLOYMENT.md) for the exact DNS records and verification steps. The server 301s `www.synthworx.com` to `synthworx.com`.
 
 ### Namecheap DNS cutover
 
