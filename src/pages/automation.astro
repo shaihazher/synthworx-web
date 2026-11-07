@@ -12,6 +12,16 @@ Timeline:
 How you found me:`;
 const diagnosticMailto = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
+const sessionSubject = 'Paid strategy session — request';
+const sessionBody = `Company:
+Your role:
+The manual workflow:
+Volume (orders / loads / invoices per week):
+Systems involved (ERP, TMS, WMS, OCR / RPA):
+The decision you are trying to make:
+Timeline:`;
+const sessionMailto = `mailto:${SITE.email}?subject=${encodeURIComponent(sessionSubject)}&body=${encodeURIComponent(sessionBody)}`;
+
 const deliverables = [
   {
     num: '01',
@@ -48,21 +58,29 @@ const deliverables = [
 const offers = [
   {
     num: '01',
-    name: 'Automation Diagnostic',
-    price: '$12,500',
-    duration: '2 weeks',
-    body: 'Workflow map, manual-cost model, stack review, vendor options, 90-day roadmap, go/no-go. The entry point.',
+    name: 'Paid Strategy Session',
+    price: '$1,500',
+    duration: '90 minutes',
+    body: 'A working session on your workflow: recorded, one-page memo, three prioritized recommendations. The fee is credited toward the diagnostic if you sign within 14 days.',
     featured: true,
   },
   {
     num: '02',
+    name: 'Automation Diagnostic',
+    price: '$12,500',
+    duration: '2 weeks',
+    body: 'Workflow map, manual-cost model, stack review, vendor options, 90-day roadmap, go/no-go. The core offer.',
+    featured: true,
+  },
+  {
+    num: '03',
     name: 'Automation Sprint',
     price: '$25K–$50K',
     duration: '4–6 weeks',
     body: 'One workflow automated end to end: OCR/IDP, RPA, API, human review, QA, and handoff. Scoped by the diagnostic. I architect and QA; a delivery partner builds.',
   },
   {
-    num: '03',
+    num: '04',
     name: 'Fractional Automation Ops',
     price: '$5K–$8K/mo',
     duration: '3-month minimum',
@@ -125,7 +143,7 @@ const objections = [
         </h1>
         <p class="lede hero__sub">
           The re-keying. The chasing. The reconciling. I map the manual workflow, price the hours it consumes,
-          and automate the highest-cost step — in two weeks, before you buy another system.
+          and automate the highest-cost step — starting with a 90-minute session, before you buy another system.
         </p>
         <p class="proof-bar" style="margin-top:26px;">
           <span>9 years in Amazon operations</span><span class="dot">·</span>
@@ -134,12 +152,11 @@ const objections = [
           <span>processing time halved</span>
         </p>
         <div class="hero__actions">
-          <a class="btn btn--solid" href={diagnosticMailto}>Start the diagnostic — $12,500</a>
-          <a class="btn btn--ghost" href="#deliverables">What the two weeks produce</a>
+          <a class="btn btn--solid" href={sessionMailto}>Book the session — $1,500</a>
+          <a class="btn btn--ghost" href="#deliverables">What the diagnostic produces</a>
         </div>
         <p class="hero__note tiny">
-          No free discovery calls. The diagnostic is the first step — and the written output is yours whether or
-          not you hire me for the next part.
+          No free discovery calls. The 90-minute strategy session is the first step — $1,500, credited toward the two-week diagnostic.
         </p>
       </div>
 
@@ -226,7 +243,7 @@ const objections = [
         </div>
         <div style="grid-column: 9 / span 4;">
           <p class="tiny" style="margin:0;color:var(--color-muted);">
-            Fixed fee. No hourly billing. No deck you cannot act on.
+            Most operators start with the 90-minute session. The diagnostic is the next step, and the session fee is credited.
           </p>
         </div>
       </div>
@@ -261,12 +278,15 @@ const objections = [
             <p class="mono" style="font-size:10px;color:var(--color-accent-deep);margin:0 0 10px;">THE GUARANTEE</p>
             <p style="margin:0;font-size:14px;line-height:1.55;color:var(--color-ink-soft);">
               If the diagnostic does not identify at least two automation opportunities with a payback under
-              12 months, I refund it. 50% of the fee is credited toward a sprint signed within 30 days.
+              12 months, I refund it. The $1,500 session fee is credited toward it, and 50% of the diagnostic fee is credited toward a sprint signed within 30 days.
             </p>
           </div>
-          <a class="btn btn--solid" href={diagnosticMailto} style="width:100%;margin-top:18px;justify-content:center;">
-            Request the diagnostic
+          <a class="btn btn--solid" href={sessionMailto} style="width:100%;margin-top:18px;justify-content:center;">
+            Book the session — $1,500
           </a>
+          <p class="tiny" style="margin:10px 0 0;color:var(--color-muted);text-align:center;">
+            Already know you need the diagnostic? <a href={diagnosticMailto}>Request it directly</a>.
+          </p>
         </div>
       </div>
     </div>
@@ -292,7 +312,7 @@ const objections = [
 
       <div class="grid-12" style="margin-top:clamp(34px,5vw,58px);align-items:stretch;">
         {offers.map((offer) => (
-          <div class={`card${offer.featured ? '' : ' card--flat'}`} style="grid-column: span 4;display:flex;flex-direction:column;">
+          <div class={`card${offer.featured ? '' : ' card--flat'}`} style="grid-column: span 6;display:flex;flex-direction:column;">
             <span class="card__index">{offer.num} / {offer.duration}</span>
             <h3>{offer.name}</h3>
             <p class="mono" style="font-size:15px;color:var(--color-ink);margin:0 0 12px;">{offer.price}</p>
@@ -302,8 +322,7 @@ const objections = [
       </div>
 
       <p class="tiny" style="margin-top:22px;color:var(--color-muted);max-width:720px;">
-        Fixed fee. No hourly billing. The tool is secondary — OCR, RPA, API, or a model, chosen after the workflow
-        map, not before it. I do not sell software or take referral fees.
+        Fixed fee. No hourly billing. The $1,500 session fee is credited toward the diagnostic if you sign within 14 days. The tool is secondary — OCR, RPA, API, or a model, chosen after the workflow map, not before it. I do not sell software or take referral fees.
       </p>
     </div>
   </section>
@@ -477,14 +496,14 @@ const objections = [
       <div style="grid-column: span 7;">
         <p class="eyebrow">Start</p>
         <h2 class="display display--lg" style="margin:18px 0 20px;">
-          Start with the diagnosis, <em>not a software purchase.</em>
+          Start with 90 minutes, <em>not a software purchase.</em>
         </h2>
         <p class="lede" style="font-size:1.05rem;">
           Two weeks, $12,500, a written document: where the manual cost is, what it costs per transaction, what
           to automate first, and a 90-day plan.
         </p>
         <div class="hero__actions" style="margin-top:26px;">
-          <a class="btn btn--solid" href={diagnosticMailto}>Request the Automation Diagnostic</a>
+          <a class="btn btn--solid" href={sessionMailto}>Book the session — $1,500</a>
           <a class="btn btn--ghost" href={`mailto:${SITE.email}`}>Email {SITE.email}</a>
         </div>
         <p class="tiny" style="color:#a8b0a9;margin-top:18px;">

@@ -28,17 +28,26 @@ export const NAV = [
 
 export const OFFERS = [
   {
-    id: 'diagnostic',
+    id: 'session',
     num: '01',
+    name: 'Paid Strategy Session',
+    price: '$1,500',
+    duration: '90 minutes',
+    outcome:
+      'A working session on your system: recorded, one-page memo, three prioritized recommendations with the first step scoped. Credited toward the diagnostic if you sign within 14 days.',
+    featured: true,
+  },
+  {
+    id: 'diagnostic',
+    num: '02',
     name: 'AI Production Diagnostic',
     price: '$12,500',
     duration: '2 weeks',
     outcome: 'Whole-stack audit, cost and latency model, risk register, 90-day roadmap, go/no-go.',
-    featured: true,
   },
   {
     id: 'sprint',
-    num: '02',
+    num: '03',
     name: 'LLM Cost & Latency Sprint',
     price: '$35,000',
     duration: '4 weeks',
@@ -46,7 +55,7 @@ export const OFFERS = [
   },
   {
     id: 'pilot',
-    num: '03',
+    num: '04',
     name: 'Pilot-to-Production Sprint',
     price: '$75,000',
     duration: '6–8 weeks',
@@ -54,7 +63,7 @@ export const OFFERS = [
   },
   {
     id: 'build',
-    num: '04',
+    num: '05',
     name: 'AI System Build',
     price: '$150K–$250K',
     duration: '3–6 months',
@@ -62,19 +71,11 @@ export const OFFERS = [
   },
   {
     id: 'fractional',
-    num: '05',
+    num: '06',
     name: 'Fractional AI Architect',
     price: '$15K–$25K/mo',
     duration: '3-month minimum',
     outcome: 'Senior AI leadership 4–6 days a month: architecture, hiring, vendor selection, board reporting.',
-  },
-  {
-    id: 'session',
-    num: '06',
-    name: 'Paid Strategy Session',
-    price: '$1,500',
-    duration: '90 minutes',
-    outcome: 'Recorded working session, 1-page memo, three prioritized recommendations. Credited toward a diagnostic signed within 14 days.',
   },
   {
     id: 'dd',

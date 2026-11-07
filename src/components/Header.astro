@@ -19,8 +19,8 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
       ))}
     </nav>
 
-    <a class="btn btn--solid header-cta" href="/contact#diagnostic">
-      Start a diagnostic
+    <a class="btn btn--solid header-cta" href="/contact#session">
+      Start a strategy session
     </a>
 
     <details class="mobile-nav">
@@ -30,7 +30,7 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
           <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
         ))}
         <a href="/contact">Contact</a>
-        <a href="/contact#diagnostic"><strong>Start a diagnostic — $12,500</strong></a>
+        <a href="/contact#session"><strong>Start a strategy session — $1,500</strong></a>
       </div>
     </details>
   </div>

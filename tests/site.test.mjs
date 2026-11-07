@@ -8,11 +8,11 @@ const read = (p) => fs.readFileSync(path.join(root, p), 'utf8');
 const exists = (p) => fs.existsSync(path.join(root, p));
 
 const pages = [
-  ['index.html', ['AI that', 'survives', 'Start a diagnostic']],
+  ['index.html', ['AI that', 'survives', 'Start a strategy session', '$1,500']],
   ['work/index.html', ['Four systems', 'Built at Amazon', 'Independent R&amp;D']],
-  ['services/index.html', ['Published prices', '$12,500', '$35,000', '$150K', '$1,500']],
-  ['contact/index.html', ['No free calls', '$1,500', 'within 14 days']],
-  ['automation/index.html', ['holding the process', 'Automation Diagnostic', '$12,500', '9 years in Amazon operations']],
+  ['services/index.html', ['Published prices', '$1,500', '$12,500', '$35,000', '$150K']],
+  ['contact/index.html', ['Start with', '$1,500', '$12,500', 'within 14 days']],
+  ['automation/index.html', ['holding the process', 'Automation Diagnostic', '$12,500', '$1,500', '9 years in Amazon operations']],
   ['products/index.html', ['Pikki', 'Tappi', 'AI Tutor']],
   ['about/index.html', ['Amazon', 'Chennai', 'linkedin.com/in/azeruddinsheikh']],
   ['notes/index.html', ['Long-context memory', 'What a paid AI diagnostic', 'seven ways']],

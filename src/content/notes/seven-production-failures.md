@@ -93,4 +93,4 @@ They are fixed by moving a decision out of the model and into the system: a sche
 
 That is also why a diagnostic comes before a build. The failure mode determines the fix. Without the diagnosis, every fix looks like “try a better model,” and the expensive ones get tried in the wrong order.
 
-The diagnostic is two weeks and $12,500. It identifies the failure mode, the cost, and the first three moves. If it does not find at least three opportunities worth 10× the fee, it is refunded. [Start here](/contact#diagnostic).
+The first step is a 90-minute strategy session: $1,500, recorded, with a one-page memo and three prioritized recommendations. The fee is credited toward the two-week diagnostic if you continue. [Start here](/contact#session).

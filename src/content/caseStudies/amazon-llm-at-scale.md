@@ -100,4 +100,4 @@ The numbers above are the published outcomes of the work. They are not a guarant
 
 Production AI is an operations problem as much as a modelling problem. The system that survives is the one where routing, evaluation, fallbacks, and cost are designed in from the beginning — not added after the first outage.
 
-If your AI system is hitting a latency, cost, or reliability wall, that is the shape of problem I work on now. The first step is a [two-week diagnostic](/services#diagnostic).
+If your AI system is hitting a latency, cost, or reliability wall, that is the shape of problem I work on now. The first step is a [90-minute strategy session](/services#session).

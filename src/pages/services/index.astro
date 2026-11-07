@@ -7,7 +7,7 @@ const core = OFFERS.slice(0, 5);
 const additional = OFFERS.slice(5);
 ---
 
-<BaseLayout title="Services & fees" description="Published fees for the AI Production Diagnostic ($12,500), LLM Cost & Latency Sprint ($35,000), Pilot-to-Production Sprint ($75,000), AI System Build ($150K–$250K), and Fractional AI Architect ($15K–$25K/month).">
+<BaseLayout title="Services & fees" description="Published fees: the $1,500 90-minute strategy session, the $12,500 AI Production Diagnostic, LLM Cost & Latency Sprint ($35,000), Pilot-to-Production Sprint ($75,000), AI System Build ($150K–$250K), and Fractional AI Architect ($15K–$25K/month).">
   <section class="article-head">
     <div class="shell">
       <p class="eyebrow">Services &amp; fees</p>
@@ -16,8 +16,8 @@ const additional = OFFERS.slice(5);
         I price the outcome, not the hour. Every engagement is a fixed fee agreed before work starts. No hourly rates, no estimates that move, no success fees, no discounts.
       </p>
       <div class="hero__actions">
-        <a class="btn btn--solid" href="/contact#diagnostic">Start a diagnostic — $12,500</a>
-        <a class="btn btn--ghost" href="#diagnostic">What is included</a>
+        <a class="btn btn--solid" href="/contact#session">Book the session — $1,500</a>
+        <a class="btn btn--ghost" href="#session">What the session includes</a>
       </div>
     </div>
   </section>
@@ -54,15 +54,63 @@ const additional = OFFERS.slice(5);
     </div>
   </section>
 
+  <!-- Strategy session -->
+  <section class="section" id="session">
+    <div class="shell grid-12" style="align-items:start;">
+      <div style="grid-column: span 5;">
+        <p class="eyebrow">01 — The entry point</p>
+        <h2 class="display display--lg" style="margin:18px 0 18px;">Paid Strategy Session</h2>
+        <p class="price" style="font-size:18px;">$1,500 · 90 minutes</p>
+        <p class="lede" style="margin-top:20px;font-size:1.05rem;">
+          A working session on your system, not a sales call. You bring the architecture, the failing eval, the cost curve, or the decision you are stuck on. I bring the questions and the pattern library.
+        </p>
+        <div class="callout-box callout-box--accent" style="margin-top:28px;">
+          <p class="mono" style="font-size:10px;color:var(--color-accent-deep);margin:0 0 10px;">The credit</p>
+          <p style="margin:0;font-size:14.5px;">
+            The full $1,500 is credited toward the $12,500 AI Production Diagnostic if you sign within 14 days. If the diagnostic is not the right next step, the session still stands on its own.
+          </p>
+        </div>
+        <div style="margin-top:26px;">
+          <AuthorCard compact />
+        </div>
+      </div>
+
+      <div style="grid-column: 7 / span 6;">
+        <p class="mono" style="font-size:10px;color:var(--color-muted);margin:0 0 14px;">You get, in 90 minutes</p>
+        <ul style="list-style:none;margin:0;padding:0;border-top:1px solid var(--color-line);">
+          {[
+            'A recorded working session on your system, not a pitch.',
+            'A one-page memo you keep — the problem, the evidence, the decision.',
+            'Three prioritized recommendations, with the first step scoped.',
+            'A clear answer on whether the diagnostic is the right next step.',
+            'A memo you can take to your CEO or CFO to unlock the diagnostic.',
+          ].map((item) => (
+            <li style="padding:14px 0;border-bottom:1px solid var(--color-line);display:grid;grid-template-columns:20px 1fr;gap:12px;">
+              <span style="color:var(--color-accent);font-family:var(--font-mono);font-size:10px;padding-top:4px;">→</span>
+              <span style="font-size:14.5px;">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="tiny" style="color:var(--color-muted);margin-top:18px;">
+          Bring: the system diagram or repo access, one failing example, the current cost/latency number if you have it, and the decision you are trying to make.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--solid" href="/contact#session">Book the session — $1,500</a>
+          <a class="btn btn--ghost" href="/contact#diagnostic">Already know you need the diagnostic?</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Diagnostic -->
   <section class="section section--paper-deep" id="diagnostic">
     <div class="shell grid-12" style="align-items:start;">
       <div style="grid-column: span 5;">
-        <p class="eyebrow">01 — The entry point</p>
+        <p class="eyebrow">02 — The next step</p>
         <h2 class="display display--lg" style="margin:18px 0 18px;">AI Production Diagnostic</h2>
         <p class="price" style="font-size:18px;">$12,500 · 2 weeks</p>
         <p class="lede" style="margin-top:20px;font-size:1.05rem;">
-          A whole-stack audit, not a pitch. You get a written document that tells you where the system breaks, what it costs, and what to do first.
+          The core offer. A whole-stack audit, not a pitch. You get a written document that tells you where the system breaks, what it costs, and what to do first. Most clients start with the $1,500 session; the fee is credited here.
         </p>
         <div class="callout-box" style="margin-top:28px;">
           <p class="mono" style="font-size:10px;color:var(--color-accent-deep);margin:0 0 10px;">The guarantee</p>
@@ -95,7 +143,7 @@ const additional = OFFERS.slice(5);
         <p class="tiny" style="color:var(--color-muted);margin-top:18px;">
           You give me read access to the relevant systems or documentation, one hour of someone's time in writing, and any existing AI or automation spend.
         </p>
-        <a class="btn btn--solid" href="/contact#diagnostic" style="margin-top:24px;">Start the diagnostic</a>
+        <a class="btn btn--solid" href="/contact#diagnostic" style="margin-top:24px;">Start the diagnostic — $12,500</a>
       </div>
     </div>
   </section>
@@ -112,7 +160,7 @@ const additional = OFFERS.slice(5);
       </div>
 
       <div style="border-top:1px solid var(--color-ink);">
-        {core.slice(1).map((offer) => (
+        {core.slice(2).map((offer) => (
           <div id={offer.id} style="display:grid;grid-template-columns:64px minmax(0,1fr) minmax(0,1.2fr);gap:24px;padding:30px 0;border-bottom:1px solid var(--color-line);">
             <span class="mono" style="font-size:10px;color:var(--color-accent);">{offer.num}</span>
             <div>
@@ -187,6 +235,10 @@ const additional = OFFERS.slice(5);
       <div style="grid-column: 6 / span 7;">
         {[
           {
+            q: 'Why is the strategy session $1,500?',
+            a: 'Because the preparation is the work. It is a 90-minute working session on your system, recorded, with a one-page memo and three prioritized recommendations. The full fee is credited toward the diagnostic if you sign within 14 days, so it costs nothing extra if you continue.',
+          },
+          {
             q: 'Can I get a build without the diagnostic?',
             a: 'No. I will not quote a build before I have read your systems. Every build quoted without an assessment has been wrong about scope.',
           },
@@ -212,7 +264,7 @@ const additional = OFFERS.slice(5);
           },
           {
             q: 'Do you take calls?',
-            a: 'Not for free. A paid strategy session is $1,500 for 90 minutes with a written memo. The diagnostic includes a 45-minute readout. Both are paid because the preparation is the work.',
+            a: 'Not for free. The paid strategy session is the entry point: 90 minutes, recorded, with a one-page memo and three recommendations — a working session on your system, not a sales call. The full fee is credited toward the diagnostic if you sign within 14 days.',
           },
           {
             q: 'Do you work outside the United States?',
@@ -233,8 +285,8 @@ const additional = OFFERS.slice(5);
 
   <section class="section--tight section--line">
     <div class="shell" style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;">
-      <p class="display display--sm" style="margin:0;">Start with the diagnostic.</p>
-      <a class="btn btn--solid" href="/contact#diagnostic">Start a diagnostic — $12,500</a>
+      <p class="display display--sm" style="margin:0;">Start with the session.</p>
+      <a class="btn btn--solid" href="/contact#session">Book the session — $1,500</a>
     </div>
   </section>
 </BaseLayout>
