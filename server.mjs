@@ -26,11 +26,12 @@ const server = http.createServer((request, response) => {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'Cache-Control', value: 'no-cache, must-revalidate' },
         ],
       },
       {
-        source: '**/*.@(jpg|jpeg|png|webp|svg|woff2|pdf)',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, immutable' }],
+        source: '**/*.@(jpg|jpeg|png|webp|svg|woff2|pdf|css|js)',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
     ],
   }).catch((error) => {
