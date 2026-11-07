@@ -124,12 +124,22 @@ const objections = [
       areaServed: 'US',
       description:
         'Two-week diagnostic for 100–1,000-person logistics, distribution, manufacturing, and construction operators: workflow map, manual-cost model, automation stack review, vendor selection, 90-day roadmap, go/no-go.',
-      offers: {
-        '@type': 'Offer',
-        price: '12500',
-        priceCurrency: 'USD',
-        description: 'Two-week Automation Diagnostic, fixed fee, written output.',
-      },
+      offers: [
+        {
+          '@type': 'Offer',
+          name: 'Paid Strategy Session',
+          price: '1500',
+          priceCurrency: 'USD',
+          description: '90-minute working session on the workflow, recorded, with a one-page memo and three prioritized recommendations. Credited toward the diagnostic if signed within 14 days.',
+        },
+        {
+          '@type': 'Offer',
+          name: 'Automation Diagnostic',
+          price: '12500',
+          priceCurrency: 'USD',
+          description: 'Two-week Automation Diagnostic, fixed fee, written output.',
+        },
+      ],
     })}
   />
 
