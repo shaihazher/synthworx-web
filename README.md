@@ -8,7 +8,7 @@ The source for [synthworx.com](https://synthworx.com) — the website and proof 
 
 ## What this is
 
-A static Astro site with seven primary pages and a small proof library:
+A static Astro site with the primary pages and a small proof library:
 
 | Route | Purpose |
 |---|---|
@@ -16,6 +16,7 @@ A static Astro site with seven primary pages and a small proof library:
 | `/work` | Four case studies with numbers |
 | `/work/[slug]` | Full case study, architecture, results, PDF download |
 | `/services` | Published fees and scope for the full offer ladder |
+| `/automation` | The v2 operator page: manual workflow, automation diagnostic, offer ladder |
 | `/about` | Amazon background, photo, location, how I work, what I do not do |
 | `/products` | Pikki, Tappi, Tappi for Chrome, AI Tutor, browser-py |
 | `/notes` | Four proof-led technical essays |
