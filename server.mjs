@@ -15,6 +15,15 @@ const server = http.createServer((request, response) => {
     return;
   }
 
+  // Sending domain: appsynthworx.com is used for outbound email. If it points at
+  // this service, send every path to the operator page rather than the v1 home.
+  const sendingHosts = new Set(['appsynthworx.com', 'www.appsynthworx.com']);
+  if (sendingHosts.has(host)) {
+    response.writeHead(301, { Location: `https://${canonicalHost}/automation` });
+    response.end();
+    return;
+  }
+
   handler(request, response, {
     public: 'dist',
     cleanUrls: true,
@@ -26,7 +35,7 @@ const server = http.createServer((request, response) => {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
-          { key: 'Cache-Control', value: 'no-cache, must-revalidate' },
+          { key: 'Cache-Control', value: 'no-store, must-revalidate' },
         ],
       },
       {
