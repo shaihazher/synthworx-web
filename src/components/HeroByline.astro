@@ -1,0 +1,24 @@
+---
+interface Props {
+  role: string;
+  class?: string;
+}
+
+const { role, class: className = '' } = Astro.props;
+---
+
+<div class:list={['hero-byline', className]}>
+  <img
+    class="hero-byline__photo"
+    src="/images/azeruddin-sheikh-120.jpg"
+    alt="Azeruddin Sheikh"
+    width="120"
+    height="120"
+    loading="eager"
+    decoding="async"
+  />
+  <div class="hero-byline__body">
+    <p class="hero-byline__name">Azeruddin Sheikh</p>
+    <p class="hero-byline__role">{role}</p>
+  </div>
+</div>

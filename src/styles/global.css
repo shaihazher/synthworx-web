@@ -1729,6 +1729,55 @@ select {
   }
 }
 
+/* ---------- Hero byline ---------- */
+
+.hero-byline {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 2px 0 18px;
+}
+
+.hero-byline__photo {
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--color-line);
+  background: #0b0d0b;
+}
+
+.hero-byline__name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+.hero-byline__role {
+  margin: 2px 0 0;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  line-height: 1.45;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+@media (max-width: 640px) {
+  .hero-byline {
+    margin-bottom: 14px;
+  }
+
+  .hero-byline__photo {
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
 /* ---------- Portraits & authorship ---------- */
 
 .portrait {

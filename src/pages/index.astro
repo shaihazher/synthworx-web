@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CaseCard from '../components/CaseCard.astro';
+import HeroByline from '../components/HeroByline.astro';
 import { OFFERS, PROOF_STATS, WORK_WITH, NOT_A_FIT, HOW_I_WORK, SITE } from '../data/site';
 
 const studies = (await getCollection('caseStudies'))
@@ -26,6 +27,7 @@ const primaryOffers = OFFERS.slice(0, 5);
         <h1 class="display display--xl">
           AI that <em>survives</em><br />production.
         </h1>
+        <HeroByline role="Founder, Synthworx · Amazon ML Architect" />
         <p class="lede hero__sub">
           I fix AI systems that work in the demo and fail in production — without you hiring a 10-person ML team.
         </p>
