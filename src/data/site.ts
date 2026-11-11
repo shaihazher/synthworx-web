@@ -35,7 +35,7 @@ export const OFFERS = [
     price: '$1,500',
     duration: '90 minutes',
     outcome:
-      'A working session on your system: recorded, one-page memo, three prioritized recommendations with the first step scoped. Credited toward the diagnostic if you sign within 14 days.',
+      'A working session on your system: recorded, one-page memo, three prioritized recommendations with the first step scoped. If the memo is not useful, tell me within 7 days and I refund the fee. Credited toward the diagnostic if you sign within 14 days.',
     featured: true,
   },
   {
