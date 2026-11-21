@@ -1,5 +1,6 @@
 import http from 'node:http';
 import handler from 'serve-handler';
+import { acceptInquiry } from './inquiries.mjs';
 
 const port = Number(process.env.PORT || 4321);
 const canonicalHost = 'synthworx.com';
@@ -16,14 +17,31 @@ const server = http.createServer((request, response) => {
   }
 
   // Sending domain: appsynthworx.com is used for outbound email. If it points at
-  // this service, send every path to the operator page rather than the v1 home.
+  // this service, direct visitors to the Audience Cut landing page.
   const sendingHosts = new Set(['appsynthworx.com', 'www.appsynthworx.com']);
   if (sendingHosts.has(host)) {
-    response.writeHead(301, { Location: `https://${canonicalHost}/automation` });
+    response.writeHead(301, { Location: `https://${canonicalHost}/` });
     response.end();
     return;
   }
 
+  const pathname = (request.url || '/').split('?')[0];
+  if (pathname === '/inquiries') {
+    acceptInquiry(request, response).catch(() => {
+      console.error('Audience Cut inquiry could not be saved');
+      if (!response.headersSent) response.writeHead(503, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      response.end(JSON.stringify({ ok: false, message: 'Please email hello@synthworx.com or try again later.' }));
+    });
+    return;
+  }
+
+  const retired = { contact: '/#contact', services: '/#service', work: '/#case-study', proof: '/#case-study', security: '/privacy', automation: '/', products: '/', about: '/', notes: '/' };
+  const section = pathname.split('/')[1];
+  if (Object.hasOwn(retired, section)) {
+    response.writeHead(301, { Location: retired[section] });
+    response.end();
+    return;
+  }
   handler(request, response, {
     public: 'dist',
     cleanUrls: true,
@@ -39,7 +57,7 @@ const server = http.createServer((request, response) => {
         ],
       },
       {
-        source: '**/*.@(jpg|jpeg|png|webp|svg|woff2|pdf|css|js)',
+        source: '**/*.@(woff2|css|js)',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
     ],

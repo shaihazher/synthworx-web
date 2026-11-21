@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "synthworx.com — production AI consulting website",
+  "description": "Audience Cut — US independent film release strategy",
   "engines": {
     "node": ">=22.0.0"
   },
