@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import LightsOutStudy from '../components/LightsOutStudy.astro';
+import FilmStudies from '../components/FilmStudies.astro';
 ---
 <Layout isHome={true}>
 <section class="hero" aria-labelledby="hero-title">
@@ -8,7 +8,7 @@ import LightsOutStudy from '../components/LightsOutStudy.astro';
  <div class="shell hero-inner"><p class="kicker"><span></span> Audience strategy for independent film</p>
  <h1 id="hero-title">Who will show up<br/>for <em>your film?</em></h1>
  <p class="intro">For independent producers and distributors planning a US release. We review your cut to find your first audience, the scene that sells the ticket, and the edits worth testing.</p>
- <div class="actions"><a class="button hot" href="#contact">Discuss your film</a><a class="text-link" href="#case-study">See the <em>Lights Out</em> study</a></div>
+ <div class="actions"><a class="button hot" href="#contact">Discuss your film</a><a class="text-link" href="#case-study">Explore the case studies</a></div>
  </div>
 </section>
 <section class="service" id="service"><div class="shell">
@@ -20,7 +20,7 @@ import LightsOutStudy from '../components/LightsOutStudy.astro';
  </div>
  <details><summary>How does the audience analysis work?</summary><p>We use AI-assisted video and audio analysis to score scenes for what different viewers enjoy, from immediate danger to emotional payoff. An analyst checks decisive moments against your cut. We then use US audience research to suggest age groups, theater catchments, and Facebook, Instagram and TikTok tests. Actual ticket sales tell you whether to expand.</p></details>
  </div></section>
-<LightsOutStudy />
+<FilmStudies />
 <section class="contact" id="contact"><div class="shell contact-grid"><div><p class="kicker ink"><span></span> Work with us</p><h2>Bring us your<br/><em>release decision.</em></h2><p class="offer"><strong>$1,500</strong> per feature engagement</p><p class="offer-copy">One authorized feature, one decision, and a written brief in five business days from agreed scope and receipt of the cut. Includes a 30-minute working session and one review of your test results.</p><p class="fine">We can agree an NDA, screener access and processing terms before you share your film.</p></div>
  <form action="/inquiries" method="post" id="inquiry"><h3>Tell us about your film</h3><div class="pair"><label>Your name<input required name="name" autocomplete="name" maxlength="100"/></label><label>Work email<input required type="email" name="email" autocomplete="email" maxlength="254"/></label></div>
  <label>Film or working title<input name="film" required maxlength="180"/></label><label>What decision are you facing?<textarea name="decision" rows="3" maxlength="2500" required placeholder="For example, choosing a trailer opening before a festival sale."></textarea></label>

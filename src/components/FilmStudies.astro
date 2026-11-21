@@ -1,6 +1,13 @@
-<section class="case" id="case-study" aria-labelledby="case-title">
+<section class="case" id="case-study" aria-label="Audience Cut film case studies">
   <div class="shell">
-    <p class="kicker"><span></span> Inside an Audience Cut brief</p>
+    <div class="study-index">
+      <p class="kicker"><span></span> Inside an Audience Cut brief</p>
+      <nav aria-label="Choose a film case study">
+        <a href="#lights-out">Lights Out</a>
+        <a href="#it-comes-at-night">It Comes at Night</a>
+      </nav>
+    </div>
+    <article id="lights-out" aria-labelledby="case-title">
     <div class="study">
       <div class="introduction">
         <h2 id="case-title">Who would buy a ticket to <em>Lights Out?</em></h2>
@@ -33,15 +40,55 @@
       <p>Audience Cut independently analyzed the released film. These are proposed tests for a revival. Their effect on ticket sales has yet to be measured.</p>
       <a class="text-link" href="#contact">Discuss a decision on your film <span aria-hidden="true">↗</span></a>
     </div>
+    </article>
+
+    <article class="second-study" id="it-comes-at-night" aria-labelledby="night-title">
+      <div class="study">
+        <div class="introduction">
+          <h2 id="night-title">Who would stay for the silence in <em>It Comes at Night?</em></h2>
+          <p class="setup">In Trey Edward Shults’s 2017 horror film, two families share an isolated house during an outbreak. At night the red door must stay locked. One night they find it open. The fear comes from watching people who need each other decide whom to blame.</p>
+          <div class="recommendation">
+            <h3>Show how much trust one open door can undo.</h3>
+            <p>A <em>Lights Out</em> viewer can learn the rule and play along with the next scare. Here the rule breaks, and knowing it gives the viewer no protection. For a limited US revival, our first choice is adults who love slow-burn psychological horror and will sit with a question after the lights come up.</p>
+          </div>
+        </div>
+        <figure>
+          <img src="/art/it-comes-at-night-poster.jpg" alt="It Comes at Night theatrical poster showing a figure with a lantern facing a red door." width="607" height="900" loading="lazy" />
+          <figcaption><a href="https://a24films.com/films/it-comes-at-night">Theatrical poster · A24</a></figcaption>
+        </figure>
+      </div>
+      <div class="decisions">
+        <article>
+          <h3>What goes in the trailer?</h3>
+          <p>Open on a family eating by lantern light. Establish the rule about the red door. Later, return to the same door standing ajar. Let the sound drop away and <strong>cut to the showtime while the door is still open</strong>. The audience leaves with a question the film explores: can either family trust the other now?</p>
+        </article>
+        <article>
+          <h3>What edit would we test?</h3>
+          <p>Screen the released cut first. Around <strong>1 hour 20 minutes</strong>, when the confrontation moves from the house to the woods, try holding a single wider view long enough to see who controls the exit. That may help viewers following the parents’ choices, but the extra beat could soften the shock for horror fans. Keep it only if viewers can say who held power and still feel caught off guard.</p>
+        </article>
+        <article>
+          <h3>Who else might buy a ticket?</h3>
+          <p>People who choose films for family drama have a reason to care, too. Cut a second trailer from the welcome the families extend to each other and the suspicion that follows. Test both versions with local adults for the same screening and spend. Let <strong>cost per paid seat</strong> guide the next booking.</p>
+        </article>
+      </div>
+      <div class="study-foot">
+        <p>Audience Cut independently analyzed the released film. The two trailers and the longer shot are proposals for testing. Audience response and ticket sales have yet to be measured.</p>
+        <a class="text-link" href="#contact">Discuss a decision on your film <span aria-hidden="true">↗</span></a>
+      </div>
+    </article>
   </div>
 </section>
 
 <style>
   .case { background: #191b1b; }
   .case .kicker { color: #ffa98c; }
+  .study-index { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .9rem; }
+  .study-index nav { display: flex; flex-wrap: wrap; gap: .45rem 1.4rem; }
+  .study-index nav a { display: inline-block; font-size: .87rem; color: #e4d6cb; text-decoration: underline; text-underline-offset: .25em; padding: .35rem 0; }
+  .second-study { border-top: 1px solid #575954; margin-top: clamp(3rem, 5vw, 5rem); padding-top: 1.2rem; }
   .study { display: grid; grid-template-columns: minmax(0, 1fr) minmax(10rem, 19rem); gap: clamp(2rem, 6vw, 7rem); align-items: center; margin: 2rem 0 2.75rem; }
   .study h2 { font-size: clamp(3.1rem, 5.4vw, 5.6rem); max-width: 16ch; line-height: 1; text-wrap: balance; }
-  .study h2 em { white-space: nowrap; color: #ffac92; }
+  .study h2 em { color: #ffac92; }
   .setup, .recommendation p, .decisions p { font-size: 1rem; line-height: 1.6; color: #d6d7d1; text-wrap: pretty; }
   .setup { max-width: 59ch; margin: 1.15rem 0 1.7rem; }
   .recommendation { padding-left: 1.15rem; border-left: 2px solid var(--red); max-width: 64ch; }

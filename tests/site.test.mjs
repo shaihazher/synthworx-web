@@ -8,8 +8,8 @@ import {acceptInquiry} from '../inquiries.mjs';
 
 test('release brief, contact form, artwork and supporting pages are available', async()=>{
  const home=await readFile('dist/index.html','utf8');
- for(const term of ['Audience Cut','Lights Out','$1,500','/inquiries','03:04','name="decision"']) assert.ok(home.includes(term),term);
- for(const p of ['art/hero.webp','art/lights-out-poster.jpg','privacy/index.html','terms/index.html','thanks/index.html','.well-known/security.txt','sitemap-index.xml']) assert.ok((await stat('dist/'+p)).size);
+ for(const term of ['Audience Cut','Lights Out','It Comes at Night','id="it-comes-at-night"','href="#it-comes-at-night"','1 hour 20 minutes','$1,500','/inquiries','03:04','name="decision"']) assert.ok(home.includes(term),term);
+ for(const p of ['art/hero.webp','art/lights-out-poster.jpg','art/it-comes-at-night-poster.jpg','privacy/index.html','terms/index.html','thanks/index.html','.well-known/security.txt','sitemap-index.xml']) assert.ok((await stat('dist/'+p)).size);
  assert.doesNotMatch(home,/Audience Cut 11|automation sprint/i);
 });
 test('form stores valid inquiries durably and rejects invalid entries', async t=>{
