@@ -9,7 +9,7 @@ import {acceptInquiry} from '../inquiries.mjs';
 test('release brief, contact form, artwork and supporting pages are available', async()=>{
  const home=await readFile('dist/index.html','utf8');
  for(const term of ['Audience Cut','Lights Out','$1,500','/inquiries','03:04','name="decision"']) assert.ok(home.includes(term),term);
- for(const p of ['art/hero.webp','art/case.webp','privacy/index.html','terms/index.html','thanks/index.html','.well-known/security.txt','sitemap-index.xml']) assert.ok((await stat('dist/'+p)).size);
+ for(const p of ['art/hero.webp','art/lights-out-poster.jpg','privacy/index.html','terms/index.html','thanks/index.html','.well-known/security.txt','sitemap-index.xml']) assert.ok((await stat('dist/'+p)).size);
  assert.doesNotMatch(home,/Audience Cut 11|automation sprint/i);
 });
 test('form stores valid inquiries durably and rejects invalid entries', async t=>{
@@ -28,4 +28,28 @@ test('form stores valid inquiries durably and rejects invalid entries', async t=
  assert.equal(files.length,1);
  assert.equal(JSON.parse(await readFile(path.join(dir,files[0]))).decision,data.decision);
  assert.equal((await send(data,{Accept:'text/html'})).headers.get('location'),'/thanks');
+});
+
+test('queued mail survives a failure and restart and each successful notification is retired', async t => {
+  const { notificationWorker, saveInquiry } = await import('../notification.mjs');
+  const directory = await mkdtemp(path.join(tmpdir(), 'audience-mail-'));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  await saveInquiry(directory, { id: 'old-inquiry' });
+  await saveInquiry(directory, { id: 'new-inquiry', notification: { status: 'pending' } });
+  const pendingFile = path.join(directory, 'new-inquiry.json');
+  const failed = notificationWorker(directory, async () => { throw new Error('Offline'); });
+  await failed();
+  const pending = JSON.parse(await readFile(pendingFile));
+  assert.equal(pending.notification.attempts, 1);
+  assert.ok(pending.notification.retryAfter > Date.now());
+  const sent = [];
+  const restarted = notificationWorker(directory, async record => sent.push(record.id));
+  await restarted();
+  assert.deepEqual(sent, []);
+  pending.notification.retryAfter = 0;
+  await saveInquiry(directory, pending);
+  await Promise.all([restarted(), restarted()]);
+  await restarted();
+  assert.deepEqual(sent, ['new-inquiry']);
+  assert.equal(JSON.parse(await readFile(pendingFile)).notification.status, 'sent');
 });

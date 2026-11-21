@@ -1,6 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { mkdir, open } from 'node:fs/promises';
-import path from 'node:path';
+import { inboxDirectory, saveInquiry } from './notification.mjs';
 
 const windows = new Map();
 const interval = 15 * 60 * 1000;
@@ -24,7 +23,7 @@ function reply(request, response, status, message) {
   }
 }
 
-export async function acceptInquiry(req, res) {
+export async function acceptInquiry(req, res, notify) {
   const fail = (status, message) => reply(req, res, status, message);
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -60,15 +59,11 @@ export async function acceptInquiry(req, res) {
   if (!window || window.until <= now) { window = { count: 0, until: now + interval }; windows.set(ip, window); }
   if (window.count >= 6) return fail(429, 'Please wait a few minutes before sending another inquiry.');
   window.count++;
-  const dir = process.env.INQUIRY_DIR || (process.env.RAILWAY_VOLUME_MOUNT_PATH && path.join(process.env.RAILWAY_VOLUME_MOUNT_PATH, 'audience-cut'));
+  const dir = inboxDirectory();
   if (!dir) return fail(503, 'The form is temporarily unavailable. Please email hello@synthworx.com.');
   const id = randomUUID();
-  await mkdir(dir, { recursive: true, mode: 0o700 });
-  const handle = await open(path.join(dir, id + '.json'), 'wx', 0o600);
-  try {
-    await handle.writeFile(JSON.stringify({ id, received: new Date().toISOString(), ...record }) + '\n');
-    await handle.sync();
-  } finally { await handle.close(); }
+  await saveInquiry(dir, { id, received: new Date().toISOString(), ...record, notification: { status: 'pending' } });
+  if (notify) void notify();
   console.info('Audience Cut inquiry received', id);
   return reply(req, res, 201, 'Inquiry received.');
 }

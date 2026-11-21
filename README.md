@@ -11,4 +11,4 @@ The form posts to /inquiries. Each accepted inquiry is a private JSON file on th
     railway ssh -- ls -lt /data/audience-cut
     railway ssh -- cat /data/audience-cut/RECORD-ID.json
 
-Reply from hello@synthworx.com. The form does not send automatic emails or add contacts to outreach. Access to the inbox requires authenticated Railway project access. For an individual deletion request, match the email and inquiry before deleting that specific record.
+Reply from hello@synthworx.com. Every new inquiry queues an immediate internal notification to hello@synthworx.com through Zoho Mail. The sender’s contact email is included in the body. The private record tracks pending or sent status. A single worker retries failures on the attached volume after restarts. Older records without a notification field are historical. Railway holds ZOHO_ACCOUNT_ID, ZOHO_CLIENT_ID, ZOHO_CLIENT_SECRET and ZOHO_REFRESH_TOKEN as runtime settings. The form does not enroll contacts in outreach. Access to the inbox requires authenticated Railway project access. For an individual deletion request, match the email and inquiry before deleting that specific record.

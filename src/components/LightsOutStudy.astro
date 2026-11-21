@@ -1,0 +1,70 @@
+<section class="case" id="case-study" aria-labelledby="case-title">
+  <div class="shell">
+    <p class="kicker"><span></span> Inside an Audience Cut brief</p>
+    <div class="study">
+      <div class="introduction">
+        <h2 id="case-title">Who would buy a ticket to <em>Lights Out?</em></h2>
+        <p class="setup">In David F. Sandberg’s 2016 horror film, a woman tries to protect her little brother from a figure that appears in the dark. We watched the full film, compared eleven audience profiles, and asked who a distributor should advertise to first for a US theatrical revival.</p>
+        <div class="recommendation">
+          <h3>Sell the moment the viewer figures out the danger.</h3>
+          <p>Start with horror fans who like to think one move ahead of the characters. A worker flips a light switch. In the dark doorway, someone is standing there. When the light comes on, the figure is gone. In seconds, the viewer knows what to fear the next time a light flickers.</p>
+        </div>
+      </div>
+      <figure>
+        <img src="/art/lights-out-poster.jpg" alt="Lights Out theatrical poster showing a light switch held on with tape." width="509" height="755" loading="lazy" />
+        <figcaption><a href="https://www.impawards.com/2016/lights_out.html">Theatrical poster</a> · <a href="https://www.warnerbros.com/movies/lights-out">Warner Bros. Pictures</a></figcaption>
+      </figure>
+    </div>
+    <div class="decisions">
+      <article id="finding-1">
+        <h3>What goes in the trailer?</h3>
+        <p>Open a new trailer with the switch at <strong>03:04–03:22</strong>. Then cut to the flickering red neon outside Rebecca’s apartment. The viewer can predict the danger a beat before it arrives. For people drawn to family drama, try a second opening with Rebecca deciding to protect her brother.</p>
+      </article>
+      <article id="finding-2">
+        <h3>What would we change in the film?</h3>
+        <p>Test trimming <strong>10–14 seconds</strong> around 43:14 and 44:02. A hospital recording has already explained the treatment. Cutting its repeat gets horror fans back to the danger sooner. Keep the boy’s question and his sister’s answer so viewers following the family still understand what’s at stake.</p>
+      </article>
+      <article id="finding-0">
+        <h3>Where would we spend first?</h3>
+        <p>Run both trailer openings near one participating theater with the same spend and showtimes. Give each a separate ticket link. Compare <strong>cost per paid seat</strong> against what the theater earns on a ticket before adding dates. Check whether the family-led opening brings in a different crowd.</p>
+      </article>
+    </div>
+    <div class="study-foot">
+      <p>Audience Cut independently analyzed the released film. These are proposed tests for a revival. Their effect on ticket sales has yet to be measured.</p>
+      <a class="text-link" href="#contact">Discuss a decision on your film <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .case { background: #191b1b; }
+  .case .kicker { color: #ffa98c; }
+  .study { display: grid; grid-template-columns: minmax(0, 1fr) minmax(10rem, 19rem); gap: clamp(2rem, 6vw, 7rem); align-items: center; margin: 2rem 0 2.75rem; }
+  .study h2 { font-size: clamp(3.1rem, 5.4vw, 5.6rem); max-width: 16ch; line-height: 1; text-wrap: balance; }
+  .study h2 em { white-space: nowrap; color: #ffac92; }
+  .setup, .recommendation p, .decisions p { font-size: 1rem; line-height: 1.6; color: #d6d7d1; text-wrap: pretty; }
+  .setup { max-width: 59ch; margin: 1.15rem 0 1.7rem; }
+  .recommendation { padding-left: 1.15rem; border-left: 2px solid var(--red); max-width: 64ch; }
+  .case h3 { font: 400 clamp(1.6rem, 2.4vw, 2.45rem)/1.07 var(--serif); letter-spacing: -.02em; text-wrap: pretty; margin: 0 0 .65rem; }
+  .study figure { justify-self: end; max-width: 100%; }
+  .study img { display: block; width: 100%; height: auto; }
+  .study figcaption { margin-top: .55rem; color: #b7b9b4; font-size: .74rem; line-height: 1.5; }
+  .study figcaption a { text-underline-offset: .18em; }
+  .decisions { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(1.6rem, 3vw, 3.25rem); }
+  .decisions article { border-top: 1px solid #646660; padding-top: 1.35rem; }
+  .decisions strong { color: #fff5e8; font-weight: 570; }
+  .study-foot { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 2.3rem; }
+  .study-foot p { font-size: .85rem; line-height: 1.55; color: #b9bcb5; max-width: 64ch; }
+  .study-foot a { flex-shrink: 0; color: #ffd3c3; }
+  @media (max-width: 760px) {
+    .study { grid-template-columns: minmax(0, 1fr) minmax(6rem, 24%); gap: 1rem; align-items: start; margin: 1.3rem 0 1.9rem; }
+    .introduction { display: contents; }
+    .study h2 { grid-column: 1; align-self: center; font-size: clamp(2.25rem, 7.5vw, 3.8rem); }
+    .study figure { grid-area: 1 / 2; }
+    .study figcaption { font-size: .65rem; }
+    .setup, .recommendation { grid-column: 1 / -1; }
+    .setup { margin: 0; }
+    .decisions { grid-template-columns: 1fr; }
+    .study-foot { flex-direction: column; align-items: start; gap: 1rem; }
+  }
+</style>

@@ -1,10 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-const notes = [
- {label:'Audience', title:'Start with fans who want to survive the scare.', body:'Lead with horror fans who enjoy figuring out how to survive. The first switch teaches them the rule. The red neon sign and the car headlights let them put it to work.', detail:'For the next audience, test a big-screen, communal scare. Viewers drawn to the family story deserve a different trailer.'},
- {label:'Trailer', title:'Give the viewer the light switch.', body:'At 03:04–03:22, a switch and a dark doorway explain the danger in a single action. Open the trailer there. Save the red neon for the moment the audience thinks it knows the rule.', detail:'Compare that opening with one led by the siblings. Keep the venue and spend the same and measure paid seats for each version.'},
- {label:'Edit', title:'Cut the repeat. Keep the question.', body:'The hospital tape has already explained Diana’s treatment. Test taking 10–14 seconds out of the later recap around 43:14 and 44:02. Keep Martin’s question and Rebecca’s answer.', detail:'A faster return to danger may please scare-seekers. Check that viewers following the family can still explain what Rebecca hopes will help her mother.'}
-];
+import LightsOutStudy from '../components/LightsOutStudy.astro';
 ---
 <Layout isHome={true}>
 <section class="hero" aria-labelledby="hero-title">
@@ -24,11 +20,7 @@ const notes = [
  </div>
  <details><summary>How does the audience analysis work?</summary><p>We use AI-assisted video and audio analysis to score scenes for what different viewers enjoy, from immediate danger to emotional payoff. An analyst checks decisive moments against your cut. We then use US audience research to suggest age groups, theater catchments, and Facebook, Instagram and TikTok tests. Actual ticket sales tell you whether to expand.</p></details>
  </div></section>
-<section class="case" id="case-study"><div class="shell"><p class="kicker"><span></span> Case study</p><div class="case-head"><h2><em>Lights Out</em></h2><p>2016 <b> / </b> Horror <b> / </b> Independent analysis</p></div>
- <div class="case-grid"><figure><img loading="lazy" src="/art/case.webp" width="1152" height="576" alt="Illustration of a hand at a light switch beside a shadowy hallway."/><figcaption>Original illustration inspired by the opening sequence.</figcaption></figure>
- <div class="reading"><div class="case-nav" aria-label="Jump to a finding">{notes.map((n,i)=><a href={'#finding-'+i} class:list={[i===0 && 'selected']}>{n.label}</a>)}</div>
- {notes.map((n,i)=><article class="finding" id={'finding-'+i}><h3>{n.title}</h3><p>{n.body}</p><p>{n.detail}</p></article>)}
- </div></div></div></section>
+<LightsOutStudy />
 <section class="contact" id="contact"><div class="shell contact-grid"><div><p class="kicker ink"><span></span> Work with us</p><h2>Bring us your<br/><em>release decision.</em></h2><p class="offer"><strong>$1,500</strong> per feature engagement</p><p class="offer-copy">One authorized feature, one decision, and a written brief in five business days from agreed scope and receipt of the cut. Includes a 30-minute working session and one review of your test results.</p><p class="fine">We can agree an NDA, screener access and processing terms before you share your film.</p></div>
  <form action="/inquiries" method="post" id="inquiry"><h3>Tell us about your film</h3><div class="pair"><label>Your name<input required name="name" autocomplete="name" maxlength="100"/></label><label>Work email<input required type="email" name="email" autocomplete="email" maxlength="254"/></label></div>
  <label>Film or working title<input name="film" required maxlength="180"/></label><label>What decision are you facing?<textarea name="decision" rows="3" maxlength="2500" required placeholder="For example, choosing a trailer opening before a festival sale."></textarea></label>
@@ -39,20 +31,6 @@ const notes = [
  </form></div></section>
 </Layout>
 <script>
- const nav = document.querySelector<HTMLDivElement>('.case-nav')!;
- const tabs = [...nav.querySelectorAll<HTMLAnchorElement>('a')];
- const articles = [...document.querySelectorAll<HTMLElement>('.finding')];
- nav.setAttribute('role','tablist');
- function select(i:number) {
-  tabs.forEach((a,k)=>{a.setAttribute('aria-selected',String(i===k));a.classList.toggle('selected',i===k);a.tabIndex=i===k?0:-1;articles[k].hidden=i!==k;});
- }
- tabs.forEach((a,i)=>{
-   a.id='tab-'+i;a.setAttribute('role','tab');a.setAttribute('aria-controls',articles[i].id);
-   articles[i].setAttribute('role','tabpanel');articles[i].setAttribute('aria-labelledby',a.id);
-   a.addEventListener('click',e=>{e.preventDefault();select(i)});
-   a.addEventListener('keydown',e=>{const j=({ArrowRight:(i+1)%tabs.length,ArrowLeft:(i+tabs.length-1)%tabs.length,Home:0,End:tabs.length-1})[e.key as 'Home'];if(j!==undefined){e.preventDefault();select(j);tabs[j].focus()}});
- });
- select(Math.max(0,articles.findIndex(a=>'#'+a.id===location.hash)));
  const form = document.querySelector<HTMLFormElement>('#inquiry')!;
  form.addEventListener('submit', async e=>{
    e.preventDefault();
