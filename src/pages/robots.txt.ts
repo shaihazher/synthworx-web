@@ -4,6 +4,9 @@ export const GET: APIRoute = ({ site }) => {
   const base = site ?? new URL('https://synthworx.com');
   const body = `User-agent: *
 Allow: /
+Disallow: /arrival-slip/api/
+Disallow: /arrival-slip/buy
+Disallow: /arrival-slip/welcome
 Disallow: /offhours/api/
 Disallow: /offhours/access
 Disallow: /federal-desk/api/
@@ -12,6 +15,7 @@ Disallow: /outcome-prompt/api/
 Disallow: /outcome-prompt/receipt
 
 Sitemap: ${new URL('sitemap-index.xml', base).toString()}
+Sitemap: ${new URL('arrival-slip/sitemap.xml', base).toString()}
 Sitemap: ${new URL('caption-desk/sitemap.xml', base).toString()}
 Sitemap: ${new URL('offhours/sitemap.xml', base).toString()}
 Sitemap: ${new URL('federal-desk/sitemap.xml', base).toString()}

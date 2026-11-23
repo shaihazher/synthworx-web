@@ -1,0 +1,142 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#183caa"><title>Receipt book | Arrival Slip</title><meta name="description" content="Check a client's inquiry and prepare a dated delivery receipt."><link rel="canonical" href="https://synthworx.com/arrival-slip/desk"><meta property="og:title" content="Receipt book | Arrival Slip"><meta property="og:image" content="https://synthworx.com/arrival-slip/carbon.webp"><link rel="icon" href="mark.svg"><link rel="stylesheet" href="style.css"><script type="module" src="common.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header class="mast"><div class="wrap navrow"><a href="./" class="brand"><img src="mark.svg" alt="">Arrival Slip</a><nav aria-label="Primary"><a class="sample-nav" href="sample">Sample receipt</a><a href="./#studio">Pricing</a><a class="navdesk" href="desk">Receipt book</a></nav></div></header><main id="main"><section class="wrap desk-lead">
+  <div>
+    <p class="eyebrow"><i class="line-mark"></i> Operator workspace</p>
+    <h1>Receipt book<span>.</span></h1>
+  </div>
+  <div class="edition">
+    <strong id="edition">Single receipt</strong
+    ><button class="quiet" id="unlock">Unlock Studio</button>
+  </div>
+</section>
+<section class="wrap workspace">
+  <aside class="shelf">
+    <h2>Your book</h2>
+    <button class="button small" id="new">New check</button>
+    <div id="history"></div>
+    <div id="studio-tools"></div>
+    <details class="helper">
+      <summary>Chrome capture helper</summary>
+      <p>
+        Highlight a confirmation or inbox entry and clip it to the open slip.
+        The free workspace also accepts pasted excerpts.
+      </p>
+      <a href="helper">Setup and download</a>
+    </details>
+  </aside>
+  <div class="work">
+    <div id="notice" role="status" aria-live="polite"></div>
+    <form id="slip-form" class="paper" autocomplete="off">
+      <div class="paperhead">
+        <span class="eyebrow">Delivery check</span
+        ><span class="serial" id="serial"></span>
+      </div>
+      <div class="fields">
+        <label
+          >Client<input
+            id="client"
+            maxlength="90"
+            required
+            placeholder="Client or business name" /></label
+        ><label
+          >Form URL<input
+            id="form-url"
+            required
+            maxlength="450"
+            placeholder="https://client.example/contact"
+        /></label>
+      </div>
+      <div class="reference">
+        <div><span>Test reference</span><strong id="reference"></strong></div>
+        <button type="button" class="outline small" id="copy">
+          Copy reference
+        </button>
+      </div>
+      <p class="fieldhelp">
+        Include this reference in the test inquiry. Submit the form yourself,
+        then check the intended destination.
+      </p>
+      <fieldset>
+        <legend>Page response</legend>
+        <label
+          >What did the form do?<select id="page-result">
+            <option value="">Choose a result</option>
+            <option value="confirmed">Showed a confirmation</option>
+            <option value="failed">Showed an error or failed to submit</option>
+            <option value="unknown">Could not verify the page</option>
+          </select></label
+        ><label
+          >Observed message or behavior<textarea
+            id="page-note"
+            rows="2"
+            maxlength="1000"
+            placeholder="Record the visible confirmation or error"
+          ></textarea>
+        </label>
+        <div class="clip" id="page-clip"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Destination check</legend>
+        <div class="fields">
+          <label
+            >Intended destination<input
+              id="destination"
+              maxlength="100"
+              placeholder="e.g. New enquiries in HubSpot" /></label
+          ><label
+            >What did you find?<select id="delivery-result">
+              <option value="">Choose a result</option>
+              <option value="matched">Found the matching entry</option>
+              <option value="missing">Searched and found no entry</option>
+              <option value="unavailable">
+                Could not check the destination
+              </option>
+            </select></label
+          >
+        </div>
+        <label
+          >Destination excerpt or search note<textarea
+            id="delivery-note"
+            rows="2"
+            maxlength="1000"
+            placeholder="For a match, include the exact reference from the received entry"
+          ></textarea>
+        </label>
+        <div class="clip" id="delivery-clip"></div>
+      </fieldset>
+      <label
+        >Next action <span class="optional">(optional)</span
+        ><input
+          id="next"
+          maxlength="240"
+          placeholder="e.g. Retest after reconnecting the sales inbox"
+      /></label>
+      <div class="actions">
+        <button class="button" type="submit">File receipt</button
+        ><span class="fine" id="autosave">Draft saves on this device</span>
+      </div>
+    </form>
+    <div id="view"></div>
+  </div>
+</section>
+<dialog id="access">
+  <form method="dialog">
+    <button class="close quiet" aria-label="Close">Close</button>
+  </form>
+  <p class="eyebrow">Studio access</p>
+  <h2>Open your book.</h2>
+  <p>Enter the license key from your Dodo Payments receipt.</p>
+  <form id="key-form">
+    <label
+      >Studio key<input
+        id="key"
+        type="password"
+        required
+        autocomplete="off"
+        maxlength="180" /></label
+    ><button class="button" type="submit">Activate Studio</button>
+  </form>
+  <p id="key-status" role="status"></p>
+  <a href="buy" data-buy>Get Studio for $49/month</a>
+</dialog>
+<script type="module" src="desk.js"></script>
+</main><footer class="footer"><div class="wrap footrow"><p>Arrival Slip by <a href="/">Synthworx</a></p><nav aria-label="Support"><a href="support">Support &amp; billing</a><a href="terms">Terms &amp; privacy</a></nav></div></footer></body></html>

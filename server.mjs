@@ -1,4 +1,6 @@
 import http from 'node:http';
+import { createArrivalSite } from './arrival-slip/site.mjs';
+const serveArrivalSlip = createArrivalSite();
 import handler from 'serve-handler';
 import { acceptInquiry } from './inquiries.mjs';
 import { captionIntake } from './caption-intake.mjs';
@@ -41,6 +43,10 @@ const server = http.createServer((request, response) => {
   }
 
   const pathname = (request.url || '/').split('?')[0];
+  if (pathname === '/arrival-slip' || pathname.startsWith('/arrival-slip/')) {
+    void serveArrivalSlip(request, response);
+    return;
+  }
   if (pathname === '/outcome-prompt' || pathname.startsWith('/outcome-prompt/')) {
     void serveOutcomePrompt(request, response);
     return;
