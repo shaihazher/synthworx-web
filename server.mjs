@@ -2,6 +2,7 @@ import http from 'node:http';
 import handler from 'serve-handler';
 import { acceptInquiry } from './inquiries.mjs';
 import { captionIntake } from './caption-intake.mjs';
+import { serveOffhours } from './offhours.mjs';
 
 import { inboxDirectory, notificationWorker } from './notification.mjs';
 
@@ -36,6 +37,10 @@ const server = http.createServer((request, response) => {
   }
 
   const pathname = (request.url || '/').split('?')[0];
+  if (pathname === '/offhours' || pathname.startsWith('/offhours/')) {
+    void serveOffhours(request, response);
+    return;
+  }
   if (['/caption-desk/intake', '/caption-desk/order'].includes(pathname) && ['GET', 'HEAD'].includes(request.method)) {
     const incoming = new URL(request.url, 'https://synthworx.com').searchParams;
     if (['payment_id', 'subscription_id', 'email', 'license_key', 'status'].some(key => incoming.has(key))) {
