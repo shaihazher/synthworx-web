@@ -15,10 +15,13 @@ function init(){
   return ready;
 }
 const boot=()=>ready||init();void boot().catch(()=>{});
-const specimens=['Make a big spreadsheet of venues for our team dinner. We need a step-free room for 20 people under $800 on May 8. I want to approve the booking.','Make a 25-slide deck on pivot tables. I need to build one from a sales dataset in tomorrow’s exam without help.','Give me ten Instagram post ideas. There are six seats left in Saturday’s pottery class.'];
+const drafts=JSON.parse($('example-drafts').textContent);
+const specimens=Object.values(drafts);
 let example=0;
 function count(){ $('counter').textContent=source.value.length.toLocaleString()+' / 4,000';}
 function normal(){previous='';$('source-label').textContent='Your original request';$('go').textContent='Rewrite my request';}
+const requestedExample=query.get('example');
+if(Object.hasOwn(drafts,requestedExample)){source.value=drafts[requestedExample];count();}
 $('example').onclick=()=>{normal();source.value=specimens[example++%specimens.length];count();source.focus();pending=null;};
 source.oninput=()=>{count();pending=null;};
 $('rewrite').onsubmit=async e=>{
