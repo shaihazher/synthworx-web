@@ -4,6 +4,15 @@ import http from 'node:http';
 import test from 'node:test';
 import { captionIntake } from '../caption-intake.mjs';
 
+test('Caption Desk email links identify the product in the shared mailbox', async () => {
+  for (const page of ['index', 'desk', 'intake', 'order']) {
+    const html = await readFile('dist/caption-desk/' + page + '.html', 'utf8');
+    const links = [...html.matchAll(/href="(mailto:hello@synthworx\.com[^"]*)"/gi)];
+    assert.ok(links.length, page);
+    for (const [, url] of links) assert.match(new URL(url).searchParams.get('subject'), /^Caption Desk\b/i);
+  }
+});
+
 test('the film site links to the branded scanner, intake and existing checkouts', async () => {
   const home = await readFile('dist/index.html', 'utf8');
   const desk = await readFile('dist/caption-desk/index.html', 'utf8');
