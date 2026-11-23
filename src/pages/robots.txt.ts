@@ -6,10 +6,13 @@ export const GET: APIRoute = ({ site }) => {
 Allow: /
 Disallow: /offhours/api/
 Disallow: /offhours/access
+Disallow: /federal-desk/api/
+Disallow: /federal-desk/delivery
 
 Sitemap: ${new URL('sitemap-index.xml', base).toString()}
 Sitemap: ${new URL('caption-desk/sitemap.xml', base).toString()}
 Sitemap: ${new URL('offhours/sitemap.xml', base).toString()}
+Sitemap: ${new URL('federal-desk/sitemap.xml', base).toString()}
 `;
   return new Response(body, {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },

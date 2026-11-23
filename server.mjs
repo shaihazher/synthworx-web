@@ -3,6 +3,8 @@ import handler from 'serve-handler';
 import { acceptInquiry } from './inquiries.mjs';
 import { captionIntake } from './caption-intake.mjs';
 import { serveOffhours } from './offhours.mjs';
+import { createFederalDesk } from './federal-desk.mjs';
+const serveFederalDesk = createFederalDesk();
 
 import { inboxDirectory, notificationWorker } from './notification.mjs';
 
@@ -37,6 +39,10 @@ const server = http.createServer((request, response) => {
   }
 
   const pathname = (request.url || '/').split('?')[0];
+  if (pathname === '/federal-desk' || pathname.startsWith('/federal-desk/')) {
+    void serveFederalDesk(request, response);
+    return;
+  }
   if (pathname === '/offhours' || pathname.startsWith('/offhours/')) {
     void serveOffhours(request, response);
     return;
