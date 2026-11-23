@@ -59,3 +59,30 @@ test('intake forwards only the diagnostics to the fixed queue and returns its re
   ]) assert.equal((await client(endpoint, options)).status, expected);
   assert.equal(forwarded, 1);
 });
+
+test('guide visitors can keep the referring channel through a pilot or paid checkout', async () => {
+  const { runInNewContext } = await import('node:vm');
+  const root = 'https://synthworx.com/caption-desk';
+  const base = 'dist/caption-desk/';
+  const guide = await readFile(base + 'srt-revision-handoff.html', 'utf8');
+  assert.match(guide, /href="\/caption-desk\/srt-revision-template.csv"/);
+  assert.match(guide, /href="\/caption-desk\/intake\?service=pilot&amp;src=revision-guide"/);
+  assert.match(await readFile(base + 'sitemap.xml', 'utf8'), /srt-revision-handoff<\/loc>/);
+  const script = await readFile(base + 'channel-links.js', 'utf8');
+  const plans = await readFile(base + 'desk.html', 'utf8');
+  const checkout = plans.match(/id="buy-studio" href="([^"]+)"/)[1].replaceAll('&amp;', '&');
+  const links = [
+    { href: root + '/intake?service=pilot&src=revision-guide' },
+    { id: 'buy-studio', href: checkout },
+    { href: 'https://example.net/editorial' },
+  ];
+  for (const item of links) item.getAttribute = () => item.href;
+  runInNewContext(script, { URL, location: { href: root + '/desk?src=partner-sample' }, document: { querySelectorAll: () => links } });
+  assert.equal(new URL(links[0].href).searchParams.get('src'), 'partner-sample');
+  const paid = new URL(links[1].href);
+  assert.equal(paid.searchParams.get('metadata_caption_source'), 'partner-sample');
+  const back = new URL(paid.searchParams.get('redirect_url'));
+  assert.equal(back.searchParams.get('src'), 'partner-sample');
+  assert.equal(back.searchParams.get('service'), 'studio');
+  assert.equal(links[2].href, 'https://example.net/editorial');
+});

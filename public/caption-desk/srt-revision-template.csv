@@ -1,0 +1,3 @@
+Title alias,Picture cut,SRT revision,Current cue,Source start,Source end,Finding,Editor action,Assigned to,Recheck status
+North River (fictional),Scene excerpt,v2,3,"00:00:05,900","00:00:08,600",Previous cue ends at 00:00:06.000,Play both cues and adjust the boundary to preserve sync,,Open
+North River (fictional),Scene excerpt,v2,4,"00:00:09,000","00:00:09,480",Caption visible for 480 ms,Check the delivery profile and extend within the spoken line where possible,,Open
