@@ -12,7 +12,10 @@ async function transaction(name, mode, work) {
   const conn = await db;
   return new Promise((resolve, reject) => {
     const tx = conn.transaction(name, mode);
-    const request = work(tx.objectStore(name), tx);
+    const request = work(
+      tx.objectStore(Array.isArray(name) ? name[0] : name),
+      tx,
+    );
     tx.oncomplete = () => resolve(request?.result);
     tx.onerror = () => reject(tx.error);
     tx.onabort = () =>
@@ -30,6 +33,11 @@ export const setting = (key) =>
   transaction("settings", "readonly", (s) => s.get(key));
 export const setSetting = (key, value) =>
   transaction("settings", "readwrite", (s) => s.put(value, key));
+export const eraseBook = () =>
+  transaction(["slips", "settings"], "readwrite", (slips, tx) => {
+    slips.clear();
+    tx.objectStore("settings").clear();
+  });
 export const saveSlip = (record, studio) =>
   transaction("slips", "readwrite", (store, tx) => {
     const count = store.count();

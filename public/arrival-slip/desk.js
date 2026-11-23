@@ -8,7 +8,13 @@ import {
   validate,
   verdict,
 } from "./record.js";
-import { listSlips, saveSlip, setting, setSetting } from "./storage.js";
+import {
+  eraseBook,
+  listSlips,
+  saveSlip,
+  setting,
+  setSetting,
+} from "./storage.js";
 import { count, post, source } from "./common.js";
 const $ = (id) => document.getElementById(id);
 const fields = {
@@ -300,6 +306,30 @@ $("slip-form").onsubmit = async (e) => {
   } finally {
     filing = false;
     e.submitter.disabled = false;
+  }
+};
+const bookChanges = new BroadcastChannel("arrival-slip-book-changes");
+function reopenEmptyBook() {
+  writing = false;
+  sessionStorage.removeItem("arrival-draft");
+  location.reload();
+}
+bookChanges.onmessage = (event) => {
+  if (event.data === "erased") reopenEmptyBook();
+};
+$("erase-book").onclick = async () => {
+  if (
+    !confirm(
+      "Erase all Arrival Slip receipts, drafts and agency settings from this browser?",
+    )
+  )
+    return;
+  try {
+    await eraseBook();
+    bookChanges.postMessage("erased");
+    reopenEmptyBook();
+  } catch (err) {
+    say(err.message);
   }
 };
 async function start() {
