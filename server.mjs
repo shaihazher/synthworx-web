@@ -5,6 +5,8 @@ import { captionIntake } from './caption-intake.mjs';
 import { serveOffhours } from './offhours.mjs';
 import { createFederalDesk } from './federal-desk.mjs';
 const serveFederalDesk = createFederalDesk();
+import { createOutcomeSite } from './outcome-prompt/site.mjs';
+const serveOutcomePrompt = createOutcomeSite();
 
 import { inboxDirectory, notificationWorker } from './notification.mjs';
 
@@ -39,6 +41,10 @@ const server = http.createServer((request, response) => {
   }
 
   const pathname = (request.url || '/').split('?')[0];
+  if (pathname === '/outcome-prompt' || pathname.startsWith('/outcome-prompt/')) {
+    void serveOutcomePrompt(request, response);
+    return;
+  }
   if (pathname === '/federal-desk' || pathname.startsWith('/federal-desk/')) {
     void serveFederalDesk(request, response);
     return;
