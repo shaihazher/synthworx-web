@@ -1,6 +1,7 @@
 import http from 'node:http';
 import handler from 'serve-handler';
 import { acceptInquiry } from './inquiries.mjs';
+import { captionIntake } from './caption-intake.mjs';
 
 import { inboxDirectory, notificationWorker } from './notification.mjs';
 
@@ -35,6 +36,11 @@ const server = http.createServer((request, response) => {
   }
 
   const pathname = (request.url || '/').split('?')[0];
+  if (pathname === '/caption-desk/api/intake') {
+    void captionIntake(request, response);
+    return;
+  }
+
   if (pathname === '/inquiries') {
     acceptInquiry(request, response, process.env.ZOHO_ACCOUNT_ID ? notify : undefined).catch(() => {
       console.error('Audience Cut inquiry could not be saved');
@@ -68,6 +74,10 @@ const server = http.createServer((request, response) => {
       {
         source: '**/*.@(woff2|css|js)',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+      {
+        source: 'caption-desk/**/*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }],
       },
     ],
   }).catch((error) => {

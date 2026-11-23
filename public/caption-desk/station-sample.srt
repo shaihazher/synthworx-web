@@ -1,0 +1,19 @@
+1
+00:00:01,000 --> 00:00:03,200
+(train brakes hiss)
+
+2
+00:00:03,250 --> 00:00:06,000
+I thought the last train left before we got here.
+
+3
+00:00:05,850 --> 00:00:07,500
+That's the one.
+
+4
+00:00:08,000 --> 00:00:08,500
+Wait!
+
+5
+00:00:09,000 --> 00:00:12,000
+(footsteps recede)

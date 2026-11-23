@@ -6,6 +6,7 @@ export const GET: APIRoute = ({ site }) => {
 Allow: /
 
 Sitemap: ${new URL('sitemap-index.xml', base).toString()}
+Sitemap: ${new URL('caption-desk/sitemap.xml', base).toString()}
 `;
   return new Response(body, {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },
