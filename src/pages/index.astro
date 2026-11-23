@@ -1,46 +1,75 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import FilmStudies from '../components/FilmStudies.astro';
+import { Image } from 'astro:assets';
+import Portfolio from '../layouts/Portfolio.astro';
+import ProductMark from '../components/ProductMark.astro';
+import ProductSpecimen from '../components/ProductSpecimen.astro';
+import { products } from '../data/products';
+import indexPhoto from '../assets/portfolio/card-index.webp';
+
+// Previously shared film briefs used fragments on the apex home page.
+const filmSections = [
+  'service', 'case-study', 'lights-out', 'it-comes-at-night', 'finding-0', 'finding-1', 'finding-2',
+  'case-title', 'night-title', 'hero-title', 'contact', 'inquiry',
+];
 ---
-<Layout isHome={true}>
-<section class="hero" aria-labelledby="hero-title">
- <div class="hero-art"></div><div class="hero-shade"></div>
- <div class="shell hero-inner"><p class="kicker"><span></span> US release strategy for independent features</p>
- <h1 id="hero-title">Your film has two ways to sell it.<br/><em>Which one should lead?</em></h1>
- <p class="intro">Releasing an independent narrative feature in the US? Before you brief your trailer editor or buy ads, we watch the full cut and recommend which audience to reach first, which scenes give them a reason to watch, and where to reach them.</p>
- <div class="actions"><a class="button hot" href="#contact">Discuss your film</a><a class="text-link" href="#case-study">Explore the case studies</a></div>
- </div>
-</section>
-<section class="service" id="service"><div class="shell">
- <p class="kicker ink"><span></span> The service</p><div class="service-head"><h2>From the cut to<br/><em>the campaign.</em></h2><p>Bring us the two pitches your release team is weighing, or let us find them in the cut. We compare the film against eleven audience profiles and deliver a written brief your trailer editor and media buyer can use.</p></div>
- <div class="deliverables">
- <article><div class="icon audience-icon" aria-hidden="true"><i></i><i></i><i></i></div><h3>Find your first audience</h3><p>See who has the strongest reason to watch, which scenes earn their interest, and who you could lose by broadening the pitch.</p></article>
- <article><div class="icon frame-icon" aria-hidden="true"><i></i></div><h3>Choose the trailer opening</h3><p>Get two written openings with timecodes. See which one we’d lead with, the expectation each sets, and what in the film pays it off.</p></article>
- <article><div class="icon edits-icon" aria-hidden="true"><i></i><i></i><i></i></div><h3>Know what to change</h3><p>See where a trim, a sound cue, or one more beat could help. Each edit names who might gain interest and who might miss what you cut.</p></article>
- </div>
- <details><summary>How does the audience analysis work?</summary><p>We use AI-assisted video and audio analysis to score scenes for what different viewers enjoy, from immediate danger to emotional payoff. An analyst checks decisive moments against your cut. We then use US audience research to suggest age groups, theater catchments, and Facebook, Instagram and TikTok tests. Actual ticket sales tell you whether to expand.</p></details>
- </div></section>
-<FilmStudies />
-<section class="contact" id="contact"><div class="shell contact-grid"><div><p class="kicker ink"><span></span> Work with us</p><h2>Bring us your<br/><em>release decision.</em></h2><p class="offer"><strong>$1,500</strong> per feature engagement</p><p class="offer-copy">For distributors and producers running their own US release. Get your first audience, two trailer openings and a recommendation on where to spend first, in five business days from agreed scope and receipt of an authorized cut. Includes a 30-minute working session and one review of your test results.</p><p class="fine">We can agree an NDA, screener access and processing terms before you share your film.</p></div>
- <form action="/inquiries" method="post" id="inquiry"><h3>Tell us about your film</h3><div class="pair"><label>Your name<input required name="name" autocomplete="name" maxlength="100"/></label><label>Work email<input required type="email" name="email" autocomplete="email" maxlength="254"/></label></div>
- <label>Film or working title<input name="film" required maxlength="180"/></label><label>What decision are you facing?<textarea name="decision" rows="3" maxlength="2500" required placeholder="Which two pitches are you weighing, and when is your next trailer or campaign decision?"></textarea></label>
- <div class="trap" aria-hidden="true"><label>Leave this blank<input name="website" tabindex="-1" autocomplete="off"/></label></div>
- <button class="button dark" type="submit">Send inquiry</button><p class="form-note">Send a short note. We’ll reply by email. Please keep screener links and confidential material for later.</p>
- <p class="feedback" role="status" aria-live="polite"></p>
- <a class="email" href="mailto:hello@synthworx.com">hello@synthworx.com</a>
- </form></div></section>
-</Layout>
-<script>
- const form = document.querySelector<HTMLFormElement>('#inquiry')!;
- form.addEventListener('submit', async e=>{
-   e.preventDefault();
-   const button=form.querySelector('button')!,feedback=form.querySelector<HTMLElement>('.feedback')!;
-   button.disabled=true;feedback.textContent='Sending…';
-   try {
-    const response=await fetch(form.action,{method:'POST',headers:{Accept:'application/json'},body:new URLSearchParams(new FormData(form) as unknown as Record<string,string>)});
-    const result=await response.json();if(!response.ok)throw new Error(result.message || 'Please try again or email us directly.');
-    form.reset();feedback.textContent='Thank you. Your inquiry is in our inbox.';
-   } catch(err){feedback.textContent=err instanceof Error && !(err instanceof TypeError)?err.message:'We couldn’t confirm delivery. Please try again or email us directly.'}
-   finally{button.disabled=false}
- });
-</script>
+<Portfolio>
+  <script slot="head" define:vars={{ filmSections }}>
+    function followFilmLink() {
+      if (filmSections.includes(location.hash.slice(1))) {
+        location.replace('/audience-cut' + location.search + location.hash);
+      }
+    }
+    followFilmLink();
+    addEventListener('hashchange', followFilmLink);
+  </script>
+  <noscript>
+    {filmSections.map(section => <a class="film-bookmark" id={section} href={'/audience-cut#' + section}>Continue to this section of Audience Cut</a>)}
+  </noscript>
+
+  <div class="wrap">
+    <section class="cover" aria-labelledby="cover-title">
+      <h1 id="cover-title"><span class="cover-prefix">The product</span> <em>index.</em></h1>
+      <p class="cover-intro">Six tools from Synthworx. Check a film’s captions, follow a job lead, or find a book for the weekend.</p>
+      <div class="cover-photo"><Image src={indexPhoto} widths={[300, 540, 760, 1060, 1440]} sizes="(max-width: 639px) 40vw, (max-width: 1420px) 46vw, 650px" alt="A vermilion file box with six colorful index tabs." loading="eager" fetchpriority="high" format="webp" /></div>
+    </section>
+
+    <nav class="name-index" aria-labelledby="name-index-title">
+      <h2 id="name-index-title">Find by name</h2>
+      <ul>
+        {products.map(product => <li>
+          <a href={product.href} aria-labelledby={'name-' + product.id} aria-describedby={'subject-' + product.id}>
+            <span class="index-name" id={'name-' + product.id}><ProductMark product={product.id} />{product.name}</span>
+            <span class="index-subject" id={'subject-' + product.id}>{product.subject}</span>
+          </a>
+        </li>)}
+      </ul>
+    </nav>
+
+    <section class="catalog" id="products" aria-labelledby="tasks-title">
+      <h2 id="tasks-title">Browse by task</h2>
+      <div class="products-grid">
+        {products.map(product => (
+          <article class={'product product-' + product.id}>
+            <a class="product-card" href={product.href} aria-labelledby={'task-' + product.id + ' brand-' + product.id}>
+              <ProductSpecimen product={product.id} />
+              <div class="product-copy">
+                <p class="name-link" id={'brand-' + product.id}><ProductMark product={product.id} /><span>{product.name}</span></p>
+                <h3 id={'task-' + product.id}>{product.task}</h3>
+                <p class="product-description">{product.description}</p>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <aside class="film-feature" aria-labelledby="film-name">
+      <div class="film-copy">
+        <p class="service-label">Film release service</p>
+        <h2 id="film-name">Audience <em>Cut</em></h2>
+        <p>Planning a U.S. release for an independent feature? We watch your cut and recommend who to reach first and which scenes to lead with in the trailer.</p>
+        <a href="/audience-cut">Explore Audience Cut</a>
+      </div>
+    </aside>
+  </div>
+</Portfolio>

@@ -1,8 +1,19 @@
-# Audience Cut
+# Synthworx
 
-The public site at https://synthworx.com serves independent producers and distributors preparing a US film release. The site runs Astro with a Node server on the existing synthworx-site Railway service. Push the tested site to main to deploy.
+The product index at https://synthworx.com lists the active Synthworx products by name and task. Product names, descriptions and destinations are maintained in `src/data/products.ts`. The independent film release service and its case studies live at https://synthworx.com/audience-cut. The site runs Astro with a Node server on the existing synthworx-site Railway service. Push the tested site to main to deploy.
 
 Run npm ci, npm run check, npm run build and npm test. For a local production preview set PORT and INQUIRY_DIR to a private temporary directory before running npm start.
+
+## Homepage artwork
+
+The [index-box cover](src/assets/portfolio/card-index.webp) was made with the built-in ImageGen tool. The product cards use the Arrival Slip receipt, Caption Desk station photograph, Offhours Scout still, and Pikki bird from their respective sites. The résumé and prompt excerpts are typeset from those products’ published examples.
+
+<details>
+<summary>Generation prompt for the index-box cover</summary>
+
+Create a photorealistic editorial studio photograph for the hero of an independent software studio’s product index. Landscape 3:2. The single subject is a beautiful vintage vermilion-orange painted steel desktop index-card file, open at the top, full of warm ivory index cards with six staggered large stagger-cut tab dividers in deep cobalt blue, wine red, ochre yellow, forest green, pale lavender, and burnt orange. A real, three-dimensional mid-century office object with subtly worn powder coat, crisp folded edges. Three-quarter front view from a little above, seeing the forward face and right side, a small blackened brass rectangular label holder on the front with a small ivory insert neatly typeset 'INDEX' in plain uppercase black. The open container has no lid in the frame. The stepped tabs are clearly visible peeking out in depth, unmarked. Object centered, entire object visible with generous neutral breathing room all around; object fills about 72% of image width. It rests on a continuous matte, very light warm putty-gray studio sweep, no horizon line. Directional daylight from upper left, a gentle but distinct soft shadow cast to the right. Physical paper fibres and matte painted steel with fine subtle film grain. Balanced sophisticated print-catalogue product photography, restrained, confident color and convincing realism. No other objects, no people, no illustration, no decorative graphics, no watermark, no captions.
+
+</details>
 
 ## Contact inbox
 

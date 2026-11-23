@@ -1,0 +1,67 @@
+---
+import { getImage } from 'astro:assets';
+import '@fontsource/instrument-serif/latin-400.css';
+import '@fontsource/instrument-serif/latin-400-italic.css';
+import '../styles/portfolio.css';
+import indexPhoto from '../assets/portfolio/card-index.webp';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'Synthworx | The product index',
+  description = 'Find the Synthworx product for your task. Explore Arrival Slip, Caption Desk, Federal Evidence Desk, Offhours Scout, Outcome Prompt, and Pikki.',
+} = Astro.props;
+const origin = Astro.site ?? new URL('https://synthworx.com');
+const canonical = new URL(Astro.url.pathname, origin);
+const socialImage = await getImage({ src: indexPhoto, width: 1200, height: 630, format: 'jpg', quality: 82 });
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f8f7f2" />
+    <meta property="og:site_name" content="Synthworx" />
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(socialImage.src, origin)} />
+    <meta property="og:image:alt" content="A vermilion index box filled with colored dividers." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-head">
+      <div class="wrap mast">
+        <a class="wordmark" href="/" aria-label="Synthworx home"><img src="/favicon.svg" alt="" width="34" height="34" />Synthworx</a>
+        <nav aria-label="Main navigation">
+          <a class="nav-products" href="/#products">Products</a>
+          <a class="nav-service" href="/audience-cut">Film service</a>
+          <a class="nav-contact" href="mailto:hello@synthworx.com">Get in touch</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main" tabindex="-1"><slot /></main>
+    <footer class="site-foot">
+      <div class="wrap footer-content">
+        <div class="footer-brand">
+          <a class="wordmark" href="/"><img src="/favicon.svg" alt="" width="30" height="30" />Synthworx</a>
+          <span>DNS Ventures LLC</span>
+        </div>
+        <nav aria-label="Footer">
+          <a href="mailto:hello@synthworx.com">hello@synthworx.com</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

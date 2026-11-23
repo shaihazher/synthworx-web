@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Audience Cut — US independent film release strategy",
+  "description": "Synthworx product index and Audience Cut film release service",
   "engines": {
     "node": ">=22.0.0"
   },

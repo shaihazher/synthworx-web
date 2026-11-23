@@ -37,7 +37,7 @@ const server = http.createServer((request, response) => {
   // this service, direct visitors to the Audience Cut landing page.
   const sendingHosts = new Set(['appsynthworx.com', 'www.appsynthworx.com']);
   if (sendingHosts.has(host)) {
-    response.writeHead(301, { Location: `https://${canonicalHost}/` });
+    response.writeHead(301, { Location: `https://${canonicalHost}/audience-cut` });
     response.end();
     return;
   }
@@ -85,7 +85,12 @@ const server = http.createServer((request, response) => {
     return;
   }
 
-  const retired = { contact: '/#contact', services: '/#service', work: '/#case-study', proof: '/#case-study', security: '/privacy', automation: '/', products: '/', about: '/', notes: '/' };
+  if (pathname === '/work/pikki' || pathname === '/work/pikki/') {
+    response.writeHead(301, { Location: 'https://pikki.synthworx.com/' });
+    response.end();
+    return;
+  }
+  const retired = { contact: '/audience-cut#contact', services: '/audience-cut#service', work: '/audience-cut#case-study', proof: '/audience-cut#case-study', security: '/privacy', automation: '/', products: '/#products', about: '/', notes: '/' };
   const section = pathname.split('/')[1];
   if (Object.hasOwn(retired, section)) {
     response.writeHead(301, { Location: retired[section] });

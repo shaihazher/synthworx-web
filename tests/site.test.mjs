@@ -6,8 +6,25 @@ import path from 'node:path';
 import http from 'node:http';
 import {acceptInquiry} from '../inquiries.mjs';
 
+test('the portfolio links directly to each product from both the name and task indexes', async () => {
+  const home = await readFile('dist/index.html', 'utf8');
+  const destinations = [
+    ['/arrival-slip/?src=referral', 'Arrival Slip'],
+    ['/caption-desk', 'Caption Desk'],
+    ['/federal-desk/?src=synthworx', 'Federal Evidence Desk'],
+    ['/offhours', 'Offhours Scout'],
+    ['/outcome-prompt/?src=synthworx', 'Outcome Prompt'],
+    ['https://pikki.synthworx.com/', 'Pikki'],
+  ];
+  for (const [href, name] of destinations) {
+    assert.ok(home.includes(name), name);
+    assert.equal(home.split(`href="${href}"`).length - 1, 2, name);
+  }
+  assert.ok(home.includes('href="/audience-cut"'));
+  assert.match(home, /<link rel="canonical" href="https:\/\/synthworx\.com\/"\s*\/?>/);
+});
 test('release brief, contact form, artwork and supporting pages are available', async()=>{
- const home=await readFile('dist/index.html','utf8');
+ const home=await readFile('dist/audience-cut/index.html','utf8');
  for(const term of ['Audience Cut','Lights Out','It Comes at Night','id="it-comes-at-night"','href="#it-comes-at-night"','1 hour 20 minutes','$1,500','/inquiries','03:04','name="decision"']) assert.ok(home.includes(term),term);
  for(const p of ['art/hero.webp','art/lights-out-poster.jpg','art/it-comes-at-night-poster.jpg','privacy/index.html','terms/index.html','thanks/index.html','.well-known/security.txt','sitemap-index.xml']) assert.ok((await stat('dist/'+p)).size);
  assert.doesNotMatch(home,/Audience Cut 11|automation sprint/i);

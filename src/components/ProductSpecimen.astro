@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import type { ProductId } from '../data/products';
+import offhours from '../assets/portfolio/offhours.webp';
+import pikki from '../assets/portfolio/pikki.svg?url';
+import receipt from '../../public/arrival-slip/carbon.webp';
+import station from '../../public/caption-desk/station.jpg';
+
+interface Props {
+  product: ProductId;
+}
+const { product } = Astro.props;
+const sizes = '(max-width: 639px) 94vw, (max-width: 959px) 46vw, (max-width: 1420px) 30vw, 420px';
+---
+<div class={'specimen specimen-' + product} aria-hidden="true">
+  {product === 'arrival' && <Image src={receipt} widths={[360, 560, 840]} sizes={sizes} format="webp" alt="" />}
+  {product === 'captions' && <>
+    <Image src={station} widths={[360, 560, 840]} sizes={sizes} format="webp" alt="" />
+    <span class="subtitles">I thought the last train left<br />before we got here.</span>
+  </>}
+  {product === 'federal' && <div class="resume-sheet">
+    <span class="document-label">Résumé excerpt</span>
+    <strong>Operations Analyst</strong>
+    <p>Analyzed intake and review timestamps for <mark>240 permit applications.</mark></p>
+    <i></i><i></i>
+  </div>}
+  {product === 'offhours' && <Image src={offhours} widths={[360, 560, 840]} sizes={sizes} format="webp" alt="" />}
+  {product === 'outcome' && <div class="prompt-sheet">
+    <span class="document-label">Draft</span>
+    <s>Make me a spreadsheet.</s>
+    <span class="document-label">Outcome prompt</span>
+    <strong>Help me <em>choose a supplier.</em></strong>
+  </div>}
+  {product === 'pikki' && <div class="pikki-cover">
+    <div class="pikki-note"><span class="document-label">Job shortlist</span><strong>Check the posting</strong><i></i><i></i></div>
+    <img src={pikki} width="128" height="128" alt="" />
+  </div>}
+</div>
