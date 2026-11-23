@@ -124,11 +124,11 @@ export async function setup(api) {
         e(month) +
         "</h2><p>" +
         rows.length +
-        " checks filed. " +
+        (rows.length === 1 ? " check filed. " : " checks filed. ") +
         arrived +
         " arrived with page confirmation. " +
         (rows.length - arrived) +
-        " require review.</p></div>" +
+        " flagged for review.</p></div>" +
         rows.map((s) => receipt(s, agencyName)).join("") +
         '<div class="actions"><button class="button" id="print-report">Print / save monthly PDF</button></div>',
     );
