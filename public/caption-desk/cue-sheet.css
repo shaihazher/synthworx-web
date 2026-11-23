@@ -1,0 +1,181 @@
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("fonts/instrument-serif-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("fonts/instrument-serif-latin-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+:root {
+  color-scheme: light;
+  --paper: #f7f3eb;
+  --sheet: #fffdf7;
+  --ink: #28211e;
+  --muted: #615950;
+  --wine: #732b38;
+  --dark-wine: #4b202b;
+  --line: #c8bdb1;
+  --serif: "Instrument Serif", Georgia, serif;
+  --mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+* { box-sizing: border-box }
+html { scroll-behavior: smooth }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 1rem/1.6 "Helvetica Neue", Arial, sans-serif }
+a { color: inherit; text-underline-offset: .24em; text-decoration-thickness: 1px }
+a:hover { text-decoration-thickness: 2px }
+button, input, select { font: inherit }
+button, .button { cursor: pointer }
+button, .button, input, select, summary, a { touch-action: manipulation }
+:focus-visible, .filedrop label:focus-within { outline: 3px solid #2378ab; outline-offset: 4px }
+[hidden] { display: none !important }
+.shell { width: min(100% - clamp(40px, 9vw, 144px), 1260px); margin-inline: auto }
+.skip { position: absolute; top: 4px; left: 4px; transform: translateY(-140%); padding: .5rem; z-index: 5; background: var(--sheet) }
+.skip:focus { transform: none }
+header .shell { min-height: 78px; display: flex; align-items: center; justify-content: space-between; column-gap: 1rem; border-bottom: 1px solid var(--ink) }
+.brand { display: inline-flex; align-items: center; gap: .6rem; font: 400 2.18rem/1 var(--serif); letter-spacing: -.035em; text-decoration: none; white-space: nowrap }
+.mark { width: 1.6rem; height: 1.18rem; display: inline-block; border-inline: 2px solid var(--wine); position: relative }
+.mark::before, .mark::after { content: ""; background: var(--wine); position: absolute; height: 3px; left: 3px; top: 4px; width: 75% }
+.mark::after { left: auto; right: 3px; top: 10px; width: 54% }
+nav, .row { display: flex; align-items: center; flex-wrap: wrap; gap: .85rem 1.5rem }
+nav { gap: clamp(.9rem, 2.5vw, 2.6rem); font-size: .96rem }
+nav a { text-decoration: none; padding-block: .55rem }
+nav a:hover { color: var(--wine); text-decoration: underline }
+h1, h2, .display, .price { font-family: var(--serif); font-weight: 400; letter-spacing: -.035em; line-height: .98; margin: 0 }
+h2 { font-size: clamp(2.8rem, 4.7vw, 4.8rem); text-wrap: balance }
+h3 { font-size: 1.18rem; line-height: 1.25; margin: 0 0 .5rem }
+p { margin: 0 0 1rem }
+.eyebrow, .meta, .viewbar, .viewfoot, .timepair { font: .81rem/1.45 var(--mono) }
+.eyebrow, .meta { color: var(--wine); text-transform: uppercase; letter-spacing: .065em; margin: 0 0 1rem }
+.hero .shell { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.06fr); align-items: center; gap: clamp(2rem, 4vw, 4.5rem); padding-block: clamp(3rem, 5.4vw, 5.8rem) }
+.hero h1, .display, .paid h1 { font-size: clamp(3.8rem, 6.8vw, 7rem) }
+h1 em { color: var(--wine) }
+.lead { color: var(--muted); max-width: 44ch; margin: 1.5rem 0 1.75rem; font-size: clamp(1.04rem, 1.25vw, 1.18rem) }
+button, .button { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: .72rem 1.25rem; border: 1px solid var(--wine); border-radius: 2px; background: var(--wine); color: white; text-decoration: none; font-weight: 600; line-height: 1.35; text-align: center }
+button:hover, .button:hover { background: var(--dark-wine) }
+.row > a:not(.button) { font-weight: 550 }
+.viewer { margin: 0; min-width: 0 }
+.viewbar { display: flex; justify-content: space-between; gap: 1rem; align-items: center; margin-bottom: .65rem; text-transform: uppercase; letter-spacing: .065em }
+.viewbar span:first-child { display: flex; align-items: center; gap: .5rem }
+.viewbar span:first-child::before { content: ""; width: 1.2rem; height: 2px; background: var(--wine) }
+.viewbar span:last-child { color: var(--muted) }
+.frame { display: grid; place-items: end center; position: relative; isolation: isolate; aspect-ratio: 1.89; overflow: hidden; border: 6px solid #292622; background: #292622 }
+.frame img { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50% }
+.cue { margin: 0 .55rem 1rem; padding: .16rem .46rem; color: white; background: #121210eb; font-weight: 650; text-align: center; line-height: 1.4 }
+.viewer figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .55rem 1rem; padding: .8rem 0; border-bottom: 1px solid var(--ink) }
+.viewfoot, .timepair { display: flex; align-items: center; gap: .75rem; font-variant-numeric: tabular-nums }
+.viewfoot { text-transform: uppercase; letter-spacing: .035em }
+.viewfoot b { font-weight: 500; color: var(--wine); padding-left: .75rem; border-left: 1px solid var(--line) }
+.timepair { gap: 1rem }
+.timepair i { color: var(--muted); font-style: normal }
+.group { border-bottom: 1px solid var(--line); padding-block: clamp(3.2rem, 5.3vw, 5.5rem); scroll-margin-top: 1rem }
+.split { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 8vw, 8rem); align-items: start }
+.sub { color: var(--muted); max-width: 55ch; margin: 1rem 0 }
+.small { color: var(--muted); font-size: .92rem }
+#example { background: var(--dark-wine); color: var(--sheet); border: none }
+#example .eyebrow { color: #edc5bd }
+#example .sub { color: #f0ded8; margin-bottom: 1.4rem }
+.example { background: var(--paper); color: var(--ink); padding: clamp(1.15rem, 2.25vw, 2rem) }
+.switch { display: flex; flex-wrap: wrap; gap: 1.4rem; border-bottom: 1px solid var(--line) }
+.switch button { background: transparent; border: 0; border-radius: 0; border-bottom: 3px solid transparent; padding: .25rem 0 .6rem; color: var(--muted); font-size: .95rem }
+.switch button[aria-pressed=true] { color: var(--wine); border-bottom-color: currentColor }
+.switch button:hover { color: var(--wine) }
+.cue-line { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .25rem 1rem; padding: 1.25rem 0 .8rem }
+.example-caption { font: italic 400 3.25rem/1 var(--serif); margin: 0 }
+.example output { font: .88rem/1.5 var(--mono); color: var(--muted) }
+.measure { position: relative; height: 3rem; background: repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 10%) left top / 100% 15px no-repeat; border-top: 1px solid var(--line) }
+.cue-duration { position: absolute; top: 3px; left: 0; width: 50%; height: 8px; background: var(--wine); transition: width .2s ease-out }
+.example:has([data-end="800"][aria-pressed=true]) .cue-duration { width: 80%; background: #306154 }
+.measure span { position: absolute; top: 0; left: 60%; padding: 15px 0 0 .4rem; border-left: 1px solid var(--ink); font: .78rem/1.4 var(--mono) }
+.example [role=status] { min-height: 3.2em; margin: .45rem 0 0 }
+#scan .panel { border: 1px solid var(--line); background: var(--sheet); padding: clamp(.8rem, 1.6vw, 1.5rem) }
+.filedrop { display: grid; justify-items: center; gap: .75rem; padding: 2rem 1rem; text-align: center; border: 1px dashed #a9998a }
+.filedrop.drag { background: #eee1de; outline: 2px solid var(--wine) }
+.doc { display: inline-grid; place-content: end center; width: 38px; height: 46px; padding-bottom: 4px; border: 1px solid currentColor; border-top: 3px double currentColor; font: .87rem var(--mono); color: var(--wine) }
+.filedrop strong { font: 400 2rem/1.1 var(--serif) }
+.filedrop label { position: relative }
+.filedrop input { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer }
+.textbutton { min-height: 40px; border: 0; background: none; color: var(--ink); text-decoration: underline; text-underline-offset: .22em; font-weight: 400 }
+.textbutton:hover { color: var(--wine); background: none }
+.status { white-space: pre-line; overflow-wrap: anywhere; margin: 1rem 0 0 }
+.status:empty { display: none }
+.report { padding-top: 1.2rem }
+.report ul, .features { list-style: none; padding: 0 }
+.report li, .features li { border-top: 1px solid var(--line); padding: .65rem 0 }
+.report li span { display: block; color: var(--muted) }
+#slate-plan { background: #ede5da }
+#slate-plan .panel, #workbench .panel, .offer { border-top: 2px solid var(--wine); padding-top: 1.3rem }
+#slate-plan .panel h3, .offer h3 { font: 400 2.1rem/1.15 var(--serif) }
+.price { font-size: 4.2rem; color: var(--wine) }
+.price small { color: var(--muted); font: .9rem/1.4 var(--mono); letter-spacing: 0 }
+.features { margin: 1.2rem 0 }
+#workbench .small { margin: 1rem 0 0 }
+.gridfaq { border-top: 1px solid var(--ink) }
+details { border-bottom: 1px solid var(--line); padding: 1rem 0 }
+summary { cursor: pointer; font-weight: 600 }
+details p { color: var(--muted); margin: .8rem 0 .2rem }
+.foot { background: #2c2324; color: var(--paper); font-size: .92rem; padding-block: 2rem }
+.foot .shell, .foot .shell div { display: flex; gap: .6rem 1.3rem; flex-wrap: wrap }
+.foot .shell { justify-content: space-between }
+.deskhero .previewcard { padding: clamp(1.5rem, 3.5vw, 3.4rem); background: var(--dark-wine); color: var(--sheet) }
+.previewcard .meta { color: #edc5bd }
+.previewcard h2 { font-size: clamp(3rem, 4.1vw, 4.4rem) }
+.nums { display: grid; grid-template-columns: repeat(2, 1fr); padding-block: 1.1rem; margin: 1.4rem 0 1rem; border-block: 1px solid #aa8687 }
+.nums div { display: grid }
+.nums b { font: 400 3.5rem/1 var(--serif) }
+.offer .button { margin-top: .5rem }
+.offers, .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem }
+.offers { margin: 2rem 0 }
+.offer { background: var(--sheet); padding: 1.5rem }
+.offer .price { margin: .8rem 0 1.2rem }
+.intake, .paid { max-width: 800px; padding-block: clamp(2.4rem, 5vw, 4.5rem) }
+.paid { width: min(100% - 40px, 800px); margin-inline: auto }
+.paid h1 { margin-bottom: 1.5rem }
+.paid .panel, .intakeform { background: var(--sheet); border-top: 2px solid var(--wine); margin: 1.6rem 0; padding: clamp(1rem, 3vw, 2.5rem) }
+.intakeform label { display: block; font-weight: 600; margin-bottom: 1rem }
+.intakeform .small { font-weight: 400 }
+.intakeform input, .intakeform select { display: block; width: 100%; min-width: 0; margin-top: .28rem; border: 1px solid #9b8e82; border-radius: 2px; background: white; color: var(--ink); padding: .65rem }
+.intakeform select { appearance: none; background: linear-gradient(45deg, transparent 50%, var(--wine) 50%) right 19px center / 6px 6px no-repeat, linear-gradient(135deg, var(--wine) 50%, transparent 50%) right 13px center / 6px 6px no-repeat, white; padding-right: 2.3rem }
+.intakeform input[type=file] { font-size: .9rem }
+.intakeform .row { margin-block: 1.2rem }
+.lite { background: transparent; color: var(--wine) }
+.lite:hover { background: var(--paper) }
+.intake button:disabled { opacity: .65; cursor: wait }
+.trap { position: absolute; left: -9000px; width: 1px; height: 1px; overflow: hidden }
+@media (max-width: 820px) {
+  .hero .shell { grid-template-columns: 1fr; gap: 2rem }
+  .hero h1 { font-size: clamp(3.8rem, 9vw, 5.5rem) }
+  .hero .viewer { width: 100% }
+  .split { grid-template-columns: 1fr; gap: 1.5rem }
+  .group .sub { max-width: 62ch }
+}
+@media (max-width: 540px) {
+  header .shell { min-height: 64px }
+  .brand { font-size: 1.7rem; gap: .35rem }
+  .mark { width: 1.25rem }
+  nav { gap: .8rem; font-size: .88rem }
+  .specnav { display: none }
+  .hero .shell { padding-block: 2.6rem }
+  .hero h1 { font-size: clamp(3.3rem, 12.8vw, 4.2rem) }
+  .lead { margin-block: 1.1rem 1.35rem }
+  .cue { font-size: .87rem; margin-bottom: .6rem }
+  .timepair { gap: .65rem }
+  .viewfoot, .timepair { font-size: .78rem }
+  .viewer figcaption { align-items: flex-start }
+  .viewbar { margin-bottom: .4rem }
+  .offers, .pair { grid-template-columns: 1fr }
+  .pair { gap: 0 }
+  .foot .shell { gap: 1rem }
+}
+@media (max-width: 370px) {
+  header .shell { flex-wrap: wrap; gap: .25rem 1rem; padding-block: .5rem }
+  .measure span { font-size: .75rem }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto }
+  .cue-duration { transition: none }
+}
