@@ -69,6 +69,11 @@ test('guide visitors can keep the referring channel through a pilot or paid chec
   assert.match(guide, /href="\/caption-desk\/intake\?service=pilot&amp;src=revision-guide"/);
   assert.match(await readFile(base + 'sitemap.xml', 'utf8'), /srt-revision-handoff<\/loc>/);
   const script = await readFile(base + 'channel-links.js', 'utf8');
+  const { createHash } = await import('node:crypto');
+  const hash = 'sha256-' + createHash('sha256').update(script).digest('base64');
+  const example = await readFile(base + 'sample-handoff.html', 'utf8');
+  assert.ok(example.includes("default-src 'none'; script-src '" + hash + "';"));
+  assert.ok(example.includes('integrity="' + hash + '"'));
   const plans = await readFile(base + 'desk.html', 'utf8');
   const checkout = plans.match(/id="buy-studio" href="([^"]+)"/)[1].replaceAll('&amp;', '&');
   const links = [
