@@ -5,7 +5,8 @@ import {generate} from './rewrite.mjs';
 import {billing} from './billing.mjs';
 
 const mount='/outcome-prompt/';
-const sources=new Set(['synthworx','postlaunchkit','promoteindex','search','directory','example','direct','referral']);
+const sources=new Set(['synthworx','postlaunchkit','promoteindex','search','directory','example','direct','referral',
+  'editorial','editorial-agentic-broadcast','editorial-agentic-weekly','editorial-aim-big-tech']);
 const assets=new Map(Object.entries({
   '':'index.html','examples':'examples.html','privacy':'privacy.html','terms':'terms.html','support':'support.html','receipt':'receipt.html',
   'app.js':'app.js','style.css':'style.css','logo.png':'logo.png','serif.woff2':'serif.woff2','sans.woff2':'sans.woff2',
