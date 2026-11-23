@@ -36,6 +36,18 @@ const server = http.createServer((request, response) => {
   }
 
   const pathname = (request.url || '/').split('?')[0];
+  if (['/caption-desk/intake', '/caption-desk/order'].includes(pathname) && ['GET', 'HEAD'].includes(request.method)) {
+    const incoming = new URL(request.url, 'https://synthworx.com').searchParams;
+    if (['payment_id', 'subscription_id', 'email', 'license_key', 'status'].some(key => incoming.has(key))) {
+      // Checkout can append buyer and transaction details. Keep only the fields the destination uses.
+      const retained = new URLSearchParams();
+      for (const key of ['service', 'src']) if (incoming.has(key)) retained.set(key, incoming.get(key));
+      const location = pathname + (retained.size ? '?' + retained : '');
+      response.writeHead(303, { Location: location, 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' });
+      response.end();
+      return;
+    }
+  }
   if (pathname === '/caption-desk/api/intake') {
     void captionIntake(request, response);
     return;
