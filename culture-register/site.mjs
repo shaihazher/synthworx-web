@@ -9,6 +9,7 @@ import {makeBilling} from './billing.mjs';
 import {sendReaderCode} from './mail.mjs';
 const productIds=JSON.parse(readFileSync(new URL('./products.json',import.meta.url),'utf8'));
 const slugSet=new Set(Object.values(focuses).flatMap(Object.keys));
+const deskSet=new Set(Object.keys(desks));
 const hash=v=>createHash('sha256').update(v).digest('hex');
 const err=(status,message)=>Object.assign(Error(message),{status});
 const validURL=u=>{try{const x=new URL(u);return x.protocol==='https:'&&!x.username&&!x.password}catch{return false}};
@@ -25,6 +26,15 @@ export function validateEdition(v){
     }
     if(slug==='romcom'&&!['premise','dynamic','dialogue','visual'].every(k=>r.creative?.[k]?.trim()))throw err(422,'Complete the romantic comedy development brief.');
   }
+  if(v.overviews!==undefined){
+    if(v.overviews.length!==deskSet.size)throw err(422,'Complete all four industry briefs.');
+    for(const id of deskSet){
+      const r=v.overviews.find(row=>row.slug===id&&row.industry===id);
+      if(!r||!dates(r.reviewed)||!['headline','teaser','call','horizon','confidence','audience','move'].every(k=>r[k]?.trim())||
+        !['bet','signals','test'].every(k=>r.out_of_the_blue?.[k]?.trim())||r.evidence?.length<2||!r.media?.length||
+        ![...r.evidence,...r.media].every(x=>x.label&&validURL(x.url)&&x.note))throw err(422,'Check the '+id+' industry brief.');
+    }
+  }
   return v;
 }
 const newToken=()=>randomBytes(32).toString('base64url');
@@ -39,8 +49,9 @@ function verifyForm(message='If that address has an active subscription, a code 
   return accountPage(`<h2>Check your inbox</h2><p>${e(message)}</p><form class="fields" method="post" action="${root}/account/verify"><label>Eight-digit sign-in code<input name="code" pattern="[0-9]{8}" inputmode="numeric" autocomplete="one-time-code" maxlength="8" required></label><button type="submit" class="button">Open my reports</button></form><a href="${root}/account">Request a fresh code</a>`);
 }
 function memberList(a){
+  const coveredDesks=[...new Set(a.filter(x=>x.plan.type!=='focus').flatMap(x=>x.plan.desks))];
   const slugs=new Set(a.flatMap(x=>x.plan.slugs)),customers=[...new Set(a.map(x=>x.customer))];
-  return accountPage(`<h2>${slugs.size?'Your reports':'Your subscription'}</h2><p>${a.length?a.map(x=>e(x.plan.name)+(x.ending?' · ends '+e(x.date?.slice(0,10)):'')).join(' · '):'We found no active Culture Register subscription for this checkout email.'}</p><div class="member-links">${Object.entries(focuses).flatMap(([desk,d])=>Object.entries(d).filter(([s])=>slugs.has(s)).map(([s,t])=>`<a href="${root}/reports/${s}"><small>${desks[desk].name}</small><br>${e(t)} →</a>`)).join('')}</div><div class="inline-actions">${customers.map((_,i)=>`<form method="post" action="${root}/account/portal"><input type="hidden" name="account" value="${i}"><button class="plain-action" type="submit">Manage billing${customers.length>1?' '+(i+1):''}</button></form>`).join('')}<form method="post" action="${root}/account/logout"><button class="plain-action" type="submit">Sign out</button></form></div><p>Tell us what you used, what was missing or what you would change. <a href="mailto:hello@synthworx.com?subject=Culture%20Register%20reader%20feedback">Send reader feedback</a>.</p>`);
+  return accountPage(`<h2>${slugs.size?'Your reports':'Your subscription'}</h2><p>${a.length?a.map(x=>e(x.plan.name)+(x.ending?' · ends '+e(x.date?.slice(0,10)):'')).join(' · '):'We found no active Culture Register subscription for this checkout email.'}</p><div class="member-links">${coveredDesks.map(id=>`<a href="${root}/desks/${id}"><small>Industry brief</small><br>${desks[id].name} →</a>`).join('')}${Object.entries(focuses).flatMap(([desk,d])=>Object.entries(d).filter(([s])=>slugs.has(s)).map(([s,t])=>`<a href="${root}/reports/${s}"><small>${desks[desk].name}</small><br>${e(t)} →</a>`)).join('')}</div><div class="inline-actions">${customers.map((_,i)=>`<form method="post" action="${root}/account/portal"><input type="hidden" name="account" value="${i}"><button class="plain-action" type="submit">Manage billing${customers.length>1?' '+(i+1):''}</button></form>`).join('')}<form method="post" action="${root}/account/logout"><button class="plain-action" type="submit">Sign out</button></form></div><p>Tell us what you used, what was missing or what you would change. <a href="mailto:hello@synthworx.com?subject=Culture%20Register%20reader%20feedback">Send reader feedback</a>.</p>`);
 }
 export function createCultureSite(options={}){
   const dir=options.directory||process.env.CULTURE_DATA_DIR||(process.env.RAILWAY_VOLUME_MOUNT_PATH&&join(process.env.RAILWAY_VOLUME_MOUNT_PATH,'culture-register'));
@@ -119,14 +130,14 @@ export function createCultureSite(options={}){
       if(post&&req.headers.origin&&req.headers.origin!==site)throw err(403,'Open the form on Synthworx to continue.');
       const q=post?new URLSearchParams(await readBody(req,5000)):u.searchParams;
       const period=q.get('period')==='quarter'?'quarter':'month';
-      const next=q.get('next')||'',safeNext=slugSet.has(next)?next:'';
+      const next=q.get('next')||'',safeNext=(slugSet.has(next)||deskSet.has(next))?next:'';
       if(!post){
         if(entry)count('entry',entry);
         if(path==='/'){
           const choice=q.get('desk'),desk=Object.hasOwn(desks,choice)?choice:'all';
           count('highlights',desk+'-'+period);return finish(200,home(edition(),desk,period));
         }
-        if(path==='/plans'){count('plans','');return finish(200,pricing(q.get('focus')));}
+        if(path==='/plans'){count('plans','');return finish(200,pricing(q.get('focus'),undefined,q.get('desk')));}
         if(path==='/method')return finish(200,methodology(edition()));
         if(path==='/terms')return finish(200,terms());
         if(path==='/welcome'){
@@ -142,8 +153,13 @@ export function createCultureSite(options={}){
           return finish(200,ledger,{'Content-Type':'text/csv; charset=utf-8','Content-Disposition':'attachment; filename="culture-register-observations.csv"','Cache-Control':'public, max-age=31536000, immutable'});
         }
         if(path==='/sitemap.xml'){
-          const pages=['/','/plans','/method','/terms',...Array.from(slugSet,s=>'/reports/'+s)];
+          const pages=['/','/plans','/method','/terms',...Array.from(slugSet,s=>'/reports/'+s),...(edition().overviews||[]).map(r=>'/desks/'+r.slug)];
           return finish(200,'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+pages.map(path=>'<url><loc>'+origin+root+path+'</loc></url>').join('')+'</urlset>',{'Content-Type':'application/xml'});
+        }
+        if(path.startsWith('/desks/')&&edition().overviews?.some(r=>r.slug===path.slice(7))){
+          const id=path.slice(7),s=session(req);
+          const allowed=s?(await billing.access(s.email)).some(x=>x.plan.type!=='focus'&&x.plan.desks.includes(id)):false;
+          count(allowed?'member_read':'preview',id);return finish(200,report(edition(),id,period,allowed));
         }
         if(path.startsWith('/reports/')&&slugSet.has(path.slice(9))){
           const slug=path.slice(9),s=session(req),allowed=s?(await billing.access(s.email)).some(x=>x.plan.slugs.includes(slug)):false;
@@ -181,7 +197,7 @@ export function createCultureSite(options={}){
           }
           const raw=newToken();db.exec('BEGIN IMMEDIATE');
           try{exec('DELETE FROM codes WHERE id=?',row.id);exec('INSERT INTO sessions VALUES(?,?,?)',hash(raw),row.email,Date.now()+30*86400000);db.exec('COMMIT');}catch(error){db.exec('ROLLBACK');throw error;}
-          count('sign_in','');return redirect(root+(row.destination?'/reports/'+row.destination:'/account'),[cookie('session',raw,2592000),cookie('challenge','',0)]);
+          count('sign_in','');return redirect(root+(row.destination?(deskSet.has(row.destination)?'/desks/':'/reports/')+row.destination:'/account'),[cookie('session',raw,2592000),cookie('challenge','',0)]);
         }
         if(path==='/account/logout'){
           const s=session(req);if(s)exec('DELETE FROM sessions WHERE id=?',s.id);
