@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import type { ProductId } from '../data/products';
-import offhours from '../assets/portfolio/offhours.webp';
 import pikki from '../assets/portfolio/pikki.svg?url';
 import receipt from '../../public/arrival-slip/carbon.webp';
 import station from '../../public/caption-desk/station.jpg';
@@ -24,7 +23,6 @@ const sizes = '(max-width: 639px) 94vw, (max-width: 959px) 46vw, (max-width: 142
     <p>Analyzed intake and review timestamps for <mark>240 permit applications.</mark></p>
     <i></i><i></i>
   </div>}
-  {product === 'offhours' && <Image src={offhours} widths={[360, 560, 840]} sizes={sizes} format="webp" alt="" />}
   {product === 'outcome' && <div class="prompt-sheet">
     <span class="document-label">Draft</span>
     <s>Make me a spreadsheet.</s>

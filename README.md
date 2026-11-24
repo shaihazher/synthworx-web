@@ -6,7 +6,7 @@ Run npm ci, npm run check, npm run build and npm test. For a local production pr
 
 ## Homepage artwork
 
-The [index-box cover](src/assets/portfolio/card-index.webp) was made with the built-in ImageGen tool. The product cards use the Arrival Slip receipt, Caption Desk station photograph, Offhours Scout still, and Pikki bird from their respective sites. The résumé and prompt excerpts are typeset from those products’ published examples.
+The [index-box cover](src/assets/portfolio/card-index.webp) was made with the built-in ImageGen tool. The product cards use the Arrival Slip receipt, Caption Desk station photograph, and Pikki bird from their respective sites. The résumé and prompt excerpts are typeset from those products’ published examples.
 
 <details>
 <summary>Generation prompt for the index-box cover</summary>

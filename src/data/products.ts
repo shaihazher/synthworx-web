@@ -24,14 +24,6 @@ export const products = [
     description: 'Compare your résumé bullets with a U.S. federal job announcement and see which requirements your experience supports.',
   },
   {
-    id: 'offhours',
-    name: 'Offhours Scout',
-    subject: 'Movies, books & games',
-    href: '/offhours',
-    task: 'Find tonight’s story',
-    description: 'Choose a mood and get a movie to watch, a book to read, and a game to play, with a reason for each pick.',
-  },
-  {
     id: 'outcome',
     name: 'Outcome Prompt',
     subject: 'AI prompt rewrites',

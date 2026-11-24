@@ -12,7 +12,6 @@ test('the portfolio links directly to each product from both the name and task i
     ['/arrival-slip/?src=referral', 'Arrival Slip'],
     ['/caption-desk', 'Caption Desk'],
     ['/federal-desk/?src=synthworx', 'Federal Evidence Desk'],
-    ['/offhours', 'Offhours Scout'],
     ['/outcome-prompt/?src=synthworx', 'Outcome Prompt'],
     ['https://pikki.synthworx.com/?utm_source=synthworx&amp;utm_campaign=product-index', 'Pikki Jobs'],
   ];
@@ -21,6 +20,9 @@ test('the portfolio links directly to each product from both the name and task i
     assert.equal(home.split(`href="${href}"`).length - 1, 2, name);
   }
   assert.ok(home.includes('href="/audience-cut"'));
+  assert.ok(home.includes('href="/culture-register/?src=homepage"'));
+  assert.doesNotMatch(home, /offhours/i);
+  assert.doesNotMatch(await readFile('dist/robots.txt', 'utf8'), /offhours/i);
   assert.match(home, /<link rel="canonical" href="https:\/\/synthworx\.com\/"\s*\/?>/);
 });
 test('release brief, contact form, artwork and supporting pages are available', async()=>{

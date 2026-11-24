@@ -6,7 +6,6 @@ const serveArrivalSlip = createArrivalSite();
 import handler from 'serve-handler';
 import { acceptInquiry } from './inquiries.mjs';
 import { captionIntake } from './caption-intake.mjs';
-import { serveOffhours } from './offhours.mjs';
 import { createFederalDesk } from './federal-desk.mjs';
 const serveFederalDesk = createFederalDesk();
 import { createOutcomeSite } from './outcome-prompt/site.mjs';
@@ -62,7 +61,13 @@ const server = http.createServer((request, response) => {
     return;
   }
   if (pathname === '/offhours' || pathname.startsWith('/offhours/')) {
-    void serveOffhours(request, response);
+    response.writeHead(410, {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'no-store',
+      'Referrer-Policy': 'no-referrer',
+      'X-Robots-Tag': 'noindex',
+    });
+    response.end('Offhours Scout has closed.');
     return;
   }
   if (['/caption-desk/intake', '/caption-desk/order'].includes(pathname) && ['GET', 'HEAD'].includes(request.method)) {

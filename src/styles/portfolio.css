@@ -112,8 +112,6 @@ main:focus { outline: none; }
   max-width: 93%; padding: .2em .6em; background: rgb(10 9 9 / 87%); color: white;
   text-align: center; font: 560 clamp(.76rem, 3.6cqi, 1.1rem)/1.26 var(--sans);
 }
-.specimen-offhours { background: #462b31; }
-.specimen-offhours > img { object-position: 50% 56%; }
 .specimen-federal { display: grid; place-items: center; background: #24477c; }
 .resume-sheet {
   background: #fffcef; width: 76%; padding: 5% 7%; color: #172a44;

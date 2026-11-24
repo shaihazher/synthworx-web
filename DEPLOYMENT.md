@@ -6,4 +6,4 @@ Build with npm run build. Start with npm start. Verify the public product links,
 
 A site rollback uses the previous Railway deployment or a Git revert. Keep the volume attached through deploys and rollbacks. DNS and the existing Zoho mail records are independent of a site release.
 
-Offhours Scout runs at https://synthworx.com/offhours. The scoped handler in offhours.mjs serves its existing Sites deployment under that path, including its member shelf, Sunday editions and billing routes. Catalog and product releases ship through the Offhours Scout project. The Synthworx site only needs redeployment when that routing or the corporate navigation changes.
+The former Offhours Scout storefront and all paths under `/offhours/` return HTTP 410.

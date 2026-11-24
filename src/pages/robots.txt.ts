@@ -11,8 +11,6 @@ Disallow: /culture-register/welcome
 Disallow: /arrival-slip/api/
 Disallow: /arrival-slip/buy
 Disallow: /arrival-slip/welcome
-Disallow: /offhours/api/
-Disallow: /offhours/access
 Disallow: /federal-desk/api/
 Disallow: /federal-desk/delivery
 Disallow: /outcome-prompt/api/
@@ -22,7 +20,6 @@ Sitemap: ${new URL('sitemap-index.xml', base).toString()}
 Sitemap: ${new URL('culture-register/sitemap.xml', base).toString()}
 Sitemap: ${new URL('arrival-slip/sitemap.xml', base).toString()}
 Sitemap: ${new URL('caption-desk/sitemap.xml', base).toString()}
-Sitemap: ${new URL('offhours/sitemap.xml', base).toString()}
 Sitemap: ${new URL('federal-desk/sitemap.xml', base).toString()}
 Sitemap: ${new URL('outcome-prompt/sitemap.xml', base).toString()}
 `;
