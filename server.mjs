@@ -1,4 +1,6 @@
 import http from 'node:http';
+import { createCultureSite } from './culture-register/site.mjs';
+const serveCultureRegister = createCultureSite();
 import { createArrivalSite } from './arrival-slip/site.mjs';
 const serveArrivalSlip = createArrivalSite();
 import handler from 'serve-handler';
@@ -43,6 +45,10 @@ const server = http.createServer((request, response) => {
   }
 
   const pathname = (request.url || '/').split('?')[0];
+  if ((pathname === '/culture-register' || pathname.startsWith('/culture-register/')) && !pathname.startsWith('/culture-register/assets/')) {
+    void serveCultureRegister(request, response);
+    return;
+  }
   if (pathname === '/arrival-slip' || pathname.startsWith('/arrival-slip/')) {
     void serveArrivalSlip(request, response);
     return;
@@ -115,6 +121,10 @@ const server = http.createServer((request, response) => {
       {
         source: '**/*.@(woff2|css|js)',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+      {
+        source: 'culture-register/assets/**/*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }],
       },
       {
         source: 'caption-desk/**/*',
