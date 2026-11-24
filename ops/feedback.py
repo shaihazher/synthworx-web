@@ -48,11 +48,23 @@ def source(kind, slug):
     command = ['node', 'ops/feedback-sources.mjs', kind, slug]
     if kind == 'volume':
         command = ['railway', 'ssh', '--', *command]
-    run = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, timeout=120)
-    if run.returncode:
-        detail = next((line.strip() for line in run.stderr.splitlines() if line.startswith('Error:')), '')
-        raise RuntimeError(detail or f'{command[0]} exited {run.returncode}')
-    return json.loads(next(line for line in run.stdout.splitlines() if line.lstrip().startswith('{')))
+    for delay in (0, 2, 6):
+        if delay:
+            time.sleep(delay)
+        try:
+            run = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, timeout=120)
+            if run.returncode:
+                lines = (run.stderr + '\n' + run.stdout).splitlines()
+                detail = next((line.strip()[:180] for line in lines if re.match(r'^(?:error\b|failed\b|too many\b)', line, re.I)), '')
+                raise RuntimeError(detail or f'{command[0]} exited {run.returncode}')
+            payload = next((line for line in run.stdout.splitlines() if line.lstrip().startswith('{')), '')
+            result = json.loads(payload)
+            if not isinstance(result.get('rows'), list):
+                raise ValueError('Source returned an incomplete response')
+            return result
+        except (RuntimeError, ValueError, subprocess.TimeoutExpired) as error:
+            last_error = error
+    raise RuntimeError(f'{kind} unavailable after three reads: {last_error}')
 
 
 def collect(db, origin):

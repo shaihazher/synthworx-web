@@ -33,16 +33,16 @@ async function accessToken(refresh = false) {
   return result.access_token;
 }
 
-export async function brandMail() {
+export async function feedbackMailbox() {
   let token = await accessToken();
-  async function request(route, options = {}) {
+  async function request(route) {
     async function call() {
       return fetch('https://mail.zoho.in/api/' + route, { headers: {
         Authorization: 'Zoho-oauthtoken ' + token, 'Content-Type': 'application/json'
-      }, signal: AbortSignal.timeout(25000), ...options });
+      }, signal: AbortSignal.timeout(25000) });
     }
     let response = await call();
-    if (response.status === 401 && (!options.method || options.method === 'GET')) {
+    if (response.status === 401) {
       token = await accessToken(true);
       response = await call();
     }
@@ -54,5 +54,5 @@ export async function brandMail() {
   const mailbox = accounts.find(a => [a.primaryEmailAddress, a.incomingUserName,
     ...(a.emailAddress || []).map(v => v.mailId || v)].includes(sender));
   if (!mailbox) throw Error('The authenticated account has no Synthworx sender');
-  return (route, options) => request('accounts/' + mailbox.accountId + '/' + route, options);
+  return route => request('accounts/' + mailbox.accountId + '/' + route);
 }

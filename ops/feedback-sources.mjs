@@ -51,12 +51,12 @@ async function volume() {
 }
 
 async function mailbox() {
-  const { brandMail, sender } = await import('./zoho.mjs');
-  const get = await brandMail();
+  const { feedbackMailbox, sender } = await import('./zoho.mjs');
+  const get = await feedbackMailbox();
   const folders = await get('folders');
   const excluded = new Set(folders.filter(f => /^(sent|drafts?|trash|outbox|templates)$/i.test(f.folderType || f.folderName))
     .map(f => String(f.folderId)));
-  const productTerm = slug === 'pikki-jobs' ? 'Pikki' : name;
+  const productTerm = slug === 'pikki-jobs' ? 'Pikki' : (slug === 'synthworx' ? 'Synthworx feedback' : name);
   const rows = [];
   for (let start = 1; ; start += 100) {
     const params = new URLSearchParams({ searchKey: 'subject:"' + productTerm + '"', start: String(start), limit: '100' });
