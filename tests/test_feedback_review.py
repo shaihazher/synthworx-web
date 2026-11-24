@@ -4,6 +4,7 @@ import io
 import json
 import os
 from pathlib import Path
+import shutil
 import sqlite3
 import subprocess
 import tempfile
@@ -117,3 +118,25 @@ class VolumeTest(unittest.TestCase):
                 if slug == 'arrival-slip': self.assertEqual(data['qa'], ['form:' + qa])
                 if slug == 'outcome-prompt':
                     self.assertEqual([(r['completed'], r['closer'], r['missed']) for r in data['ratings']], [(1, 0, 1)])
+
+
+class MailTest(unittest.TestCase):
+    def test_edited_subjects_and_unassigned_mail(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            shutil.copy(feedback.ROOT / 'feedback-products.json', root)
+            shutil.copy(feedback.ROOT / 'ops/feedback-sources.mjs', root)
+            (root / 'zoho.mjs').write_text('''export const sender='hello@synthworx.com';
+                export async function feedbackMailbox() { return async route => {
+                  if (route === 'folders') return [{folderId:'out',folderType:'Sent'}];
+                  if (route.startsWith('messages/search?')) return [
+                    ['one','Re: Feedback on my Arrival Slip receipt','in'],
+                    ['two','Feedback on my experience','archive'],
+                    ['three','Feedback on my experience','out']
+                  ].map(([messageId,subject,folderId])=>({messageId,subject,folderId,receivedTime:1,fromAddress:'a@example.com'}));
+                  return {content:'The original note'};
+                }; }''')
+            for slug, expected in [('arrival-slip', 'mail:one'), ('synthworx', 'mail:two')]:
+                read = subprocess.run(['node', 'feedback-sources.mjs', 'mail', slug], cwd=root,
+                                      capture_output=True, text=True, check=True)
+                self.assertEqual([item['ref'] for item in json.loads(read.stdout)['rows']], [expected])

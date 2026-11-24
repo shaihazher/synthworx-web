@@ -56,7 +56,10 @@ async function mailbox() {
   const folders = await get('folders');
   const excluded = new Set(folders.filter(f => /^(sent|drafts?|trash|outbox|templates)$/i.test(f.folderType || f.folderName))
     .map(f => String(f.folderId)));
-  const productTerm = slug === 'pikki-jobs' ? 'Pikki' : (slug === 'synthworx' ? 'Synthworx feedback' : name);
+  const term = key => key === 'pikki-jobs' ? 'Pikki' : products[key].name;
+  const general = slug === 'synthworx';
+  const productTerm = general ? 'feedback' : term(slug);
+  const otherNames = Object.keys(products).filter(key => key !== 'synthworx').map(key => term(key).toLowerCase());
   const rows = [];
   for (let start = 1; ; start += 100) {
     const params = new URLSearchParams({ searchKey: 'subject:"' + productTerm + '"', start: String(start), limit: '100' });
@@ -65,9 +68,11 @@ async function mailbox() {
       if (excluded.has(String(m.folderId))) continue;
       const subject = String(m.subject || '').replace(/^(?:(?:re|fw|fwd):\s*)+/ig, '').trim();
       const lower = subject.toLowerCase();
+      if (general && otherNames.some(other => lower.includes(other))) continue;
       const named = lower.startsWith(name.toLowerCase() + ' ');
       const direct = (named && /\b(feedback|reader note|support|help|delivery|intake)\b/i.test(subject)) || lower === name.toLowerCase();
-      if (!direct && !(slug === 'audience-cut' && lower.includes('audience cut'))) continue;
+      const feedback = /\bfeedback\b/i.test(subject) && (general || lower.includes(productTerm.toLowerCase()));
+      if (!direct && !feedback && !(slug === 'audience-cut' && lower.includes('audience cut'))) continue;
       const from = String(m.fromAddress || '').toLowerCase();
       const own = from === sender || from.endsWith('<' + sender + '>');
       if (own && subject !== name + ' feedback' && !subject.startsWith('Audience Cut inquiry')) continue;
