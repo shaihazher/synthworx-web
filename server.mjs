@@ -85,8 +85,9 @@ const server = http.createServer((request, response) => {
     return;
   }
 
-  if (pathname === '/work/pikki' || pathname === '/work/pikki/') {
-    response.writeHead(301, { Location: 'https://pikki.synthworx.com/' });
+  if (['/work/pikki', '/work/pikki/', '/pdfs/pikki.pdf', '/products/pikki', '/products/pikki/', '/pikki', '/pikki/'].includes(pathname)) {
+    const destination = pathname === '/pdfs/pikki.pdf' ? '/extension' : '/';
+    response.writeHead(301, { Location: `https://pikki.synthworx.com${destination}?utm_source=synthworx&utm_campaign=pikki-shortcut` });
     response.end();
     return;
   }
