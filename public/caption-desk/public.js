@@ -8,16 +8,24 @@ function showReport(text,name) {
   statusBox.textContent=name+' · '+cues.length+' cue blocks · '+findings.length+' technical findings';
   if (!findings.length) {
     result.append(element('p','No issues found in the automated checks. Play the captioned cut to verify dialogue, sound descriptions, and sync.'));
-    return;
+
+  } else {
+    const ul=element('ul');
+    for (const f of findings.slice(0,3)) {
+      const li=element('li');
+      li.append(element('strong',f.rule+' · block '+f.index),element('span',f.stamp.length<64 && f.stamp.includes('-->')?f.stamp:'Source line '+f.line,'small'),element('span',f.detail));
+      ul.append(li);
+    }
+    result.append(element('h3','First '+Math.min(3,findings.length)+' findings'),ul);
+    const a=element('a','See the full repair workbench');a.href='#workbench';result.append(a);
   }
-  const ul=element('ul');
-  for (const f of findings.slice(0,3)) {
-    const li=element('li');
-    li.append(element('strong',f.rule+' · block '+f.index),element('span',f.stamp.length<64 && f.stamp.includes('-->')?f.stamp:'Source line '+f.line,'small'),element('span',f.detail));
-    ul.append(li);
-  }
-  result.append(element('h3','First '+Math.min(3,findings.length)+' findings'),ul);
-  const a=element('a','See the full repair workbench');a.href='#workbench';result.append(a);
+  const note=element('a','Give feedback on this scan');
+  note.href='https://synthworx.com/feedback/caption-desk';
+  note.target='_blank';
+  note.rel='noopener noreferrer';
+  const row=element('p','');
+  row.append(note);
+  result.append(row);
 }
 function showError(msg){statusBox.textContent=msg;result.hidden=true;}
 connectFileInput(showReport,showError);

@@ -3,7 +3,9 @@ import { Image } from 'astro:assets';
 import Portfolio from '../layouts/Portfolio.astro';
 import ProductMark from '../components/ProductMark.astro';
 import ProductSpecimen from '../components/ProductSpecimen.astro';
-import { products } from '../data/products';
+import { products, services } from '../data/products';
+
+const byName = [...products, ...services].sort((a, b) => a.name.localeCompare(b.name));
 import indexPhoto from '../assets/portfolio/card-index.webp';
 
 // Previously shared film briefs used fragments on the apex home page.
@@ -29,24 +31,14 @@ const filmSections = [
   <div class="wrap">
     <section class="cover" aria-labelledby="cover-title">
       <h1 id="cover-title"><span class="cover-prefix">The product</span> <em>index.</em></h1>
-      <p class="cover-intro">Check a film’s captions, trace a customer inquiry, or find an employer that supports H-1B transfers.</p>
+      <p class="cover-intro">Check a film’s captions, trace a customer inquiry, or research employers with H-1B transfer filings.</p>
       <div class="cover-photo"><Image src={indexPhoto} widths={[300, 540, 760, 1060, 1440]} sizes="(max-width: 639px) 40vw, (max-width: 1420px) 46vw, 650px" alt="A vermilion file box with six colorful index tabs." loading="eager" fetchpriority="high" format="webp" /></div>
     </section>
 
-    <aside class="register-feature" aria-labelledby="register-heading">
-      <img src="/culture-register/assets/cover.webp" width="1250" height="833" alt="" />
-      <div>
-        <p class="service-label">From the editors</p>
-        <h2 id="register-heading">Culture <em>Register</em></h2>
-        <p>Explore what’s moving in U.S. movies, music, fashion and beauty. Read the charts, see the references and decide what to make or buy next.</p>
-        <a href="/culture-register/?src=homepage">Open the free U.S. edition <span aria-hidden="true">↗</span></a>
-      </div>
-    </aside>
-
-    <nav class="name-index" aria-labelledby="name-index-title">
+    <nav class="name-index" id="products" aria-labelledby="name-index-title">
       <h2 id="name-index-title">Find by name</h2>
       <ul>
-        {products.map(product => <li>
+        {byName.map(product => <li>
           <a href={product.href} aria-labelledby={'name-' + product.id} aria-describedby={'subject-' + product.id}>
             <span class="index-name" id={'name-' + product.id}><ProductMark product={product.id} />{product.name}</span>
             <span class="index-subject" id={'subject-' + product.id}>{product.subject}</span>
@@ -55,7 +47,17 @@ const filmSections = [
       </ul>
     </nav>
 
-    <section class="catalog" id="products" aria-labelledby="tasks-title">
+    <aside class="register-feature" aria-labelledby="register-heading">
+      <img src="/culture-register/assets/cover.webp" width="1250" height="833" alt="" />
+      <div>
+        <p class="service-label">From the editors</p>
+        <h2 id="register-heading">Culture <em>Register</em></h2>
+        <p>Compare U.S. coverage of movies, music, fashion and beauty. Explore a trailer, a single or a product idea to test before you commit a budget.</p>
+        <a href="/culture-register/?src=homepage">Open the free U.S. edition <span aria-hidden="true">↗</span></a>
+      </div>
+    </aside>
+
+    <section class="catalog" aria-labelledby="tasks-title">
       <h2 id="tasks-title">Browse by task</h2>
       <div class="products-grid">
         {products.map(product => (

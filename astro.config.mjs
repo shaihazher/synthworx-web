@@ -7,7 +7,7 @@ const site = process.env.PUBLIC_SITE_URL || 'https://synthworx.com';
 export default defineConfig({
   site,
   trailingSlash: 'never',
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: (url) => !new URL(url).pathname.startsWith('/feedback') })],
   vite: {
     plugins: [tailwindcss()],
   },

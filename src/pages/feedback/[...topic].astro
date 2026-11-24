@@ -1,0 +1,81 @@
+---
+import Portfolio from '../../layouts/Portfolio.astro';
+import products from '../../../feedback-products.json';
+
+export function getStaticPaths() {
+  return Object.entries(products).flatMap(([slug, product]) => [
+    { params: { topic: slug === 'synthworx' ? undefined : slug }, props: { slug, product, received: false } },
+    { params: { topic: 'received/' + slug }, props: { slug, product, received: true } },
+  ]);
+}
+const { slug, product, received } = Astro.props;
+const general = slug === 'synthworx';
+const title = received ? 'Feedback received' : general ? 'Send feedback' : product.name + ' feedback';
+---
+<Portfolio title={title + ' | Synthworx'} description={'Send a note to the Synthworx team about ' + product.name + '.'}>
+  <meta slot="head" name="robots" content="noindex,follow" />
+  <div class="wrap"><section class="feedback-page">
+    <h1>{title}</h1>
+    {received ? <p>Thank you. Your note reached the Synthworx team.</p> : <>
+      <form action="/feedback/submit" method="post">
+        {general ? <label>Product
+          <select name="product">{Object.entries(products).map(([value, entry]) =>
+            <option value={value}>{value === 'synthworx' ? 'Synthworx website or general feedback' : entry.name}</option>
+          )}</select>
+        </label> : <input type="hidden" name="product" value={slug} />}
+        <label>What would you like us to know?
+          <textarea name="message" rows="5" maxlength="2000" required aria-describedby="feedback-hint"></textarea>
+        </label>
+        <small id="feedback-hint">Please leave out private documents and account keys.</small>
+        <label>Email for a reply <span>(optional)</span>
+          <input type="email" name="email" autocomplete="email" maxlength="254" />
+        </label>
+        <div hidden aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off" /></label></div>
+        <button type="submit">Send feedback</button>
+        <div role="status" id="feedback-status"></div>
+      </form>
+      <p>Prefer email? <a href={'mailto:hello@synthworx.com?subject=' + encodeURIComponent(product.name + ' feedback')}>hello@synthworx.com</a></p>
+    </>}
+    <a class="back-link" href={product.href}>Back to {general ? 'the product index' : product.name}</a>
+  </section></div>
+</Portfolio>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.feedback-page form');
+  form?.addEventListener('submit', async event => {
+    event.preventDefault();
+    const button = form.querySelector('button')!;
+    const status = document.getElementById('feedback-status')!;
+    const fields = new URLSearchParams();
+    new FormData(form).forEach((value, key) => fields.append(key, String(value)));
+    button.disabled = true;
+    status.textContent = 'Sending…';
+    try {
+      const response = await fetch(form.action, { method: 'POST', headers: { Accept: 'application/json' }, body: fields });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.message);
+      form.reset();
+      location.replace('/feedback/received/' + encodeURIComponent(fields.get('product')!));
+    } catch (error) {
+      status.textContent = error instanceof Error && !(error instanceof TypeError || error instanceof SyntaxError) && error.message
+        ? error.message : 'We couldn’t confirm delivery. Your note is still here. Please retry or email us.';
+      button.disabled = false;
+    }
+  });
+</script>
+<style>
+  .feedback-page { max-width: 36rem; margin: 0 auto; padding: clamp(2rem, 6vw, 5rem) 0; }
+  h1 { font: 400 clamp(2.8rem, 6vw, 4.5rem)/1.02 var(--serif); letter-spacing: -.035em; margin-bottom: 1.6rem; }
+  form { display: grid; gap: .85rem; }
+  label { display: block; font-weight: 550; }
+  label span, small { color: var(--muted); font-weight: 400; }
+  textarea, input, select { width: 100%; display: block; margin-top: .4rem; padding: .65rem .75rem; border: 1px solid #78786e; border-radius: .15rem; font: inherit; font-weight: 400; color: var(--ink); background: white; }
+  textarea { resize: vertical; min-height: 6rem; }
+  small { margin: -.5rem 0 .35rem; line-height: 1.45; }
+  button { justify-self: start; padding: .75rem 1.15rem; margin-top: .25rem; border: 0; border-radius: .15rem; color: white; background: var(--ink); font: 550 1rem var(--sans); cursor: pointer; }
+  button:disabled { opacity: .65; }
+  :is(input, textarea, select, button):focus-visible { outline: 3px solid #1f55a5; outline-offset: 2px; }
+  p { margin: .85rem 0; line-height: 1.55; }
+  p a, .back-link { color: var(--accent); }
+  .back-link { display: inline-block; padding-block: .5rem; }
+</style>

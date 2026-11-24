@@ -41,8 +41,14 @@ async function accessToken() {
 }
 
 async function sendNotification(record) {
-  const body = {
-    fromAddress: mailbox, toAddress: mailbox, mailFormat: 'plaintext',
+  const note = record.type === 'feedback' ? {
+    subject: record.product + ' feedback',
+    content: [
+      'Feedback submitted on synthworx.com for ' + record.product + '.', '',
+      record.message, '', record.email ? 'Reply email: ' + record.email : 'No reply email supplied.',
+      'Feedback ID: ' + record.id
+    ].join('\n')
+  } : {
     subject: 'Audience Cut inquiry — ' + record.film.replace(/[\x00-\x1f\x7f]/g, ' '),
     content: [
       'A filmmaker submitted an inquiry on synthworx.com.', '',
@@ -51,6 +57,7 @@ async function sendNotification(record) {
       '', 'Write to ' + record.email + ' to follow up.', 'Inquiry ID: ' + record.id
     ].join('\n')
   };
+  const body = { fromAddress: mailbox, toAddress: mailbox, mailFormat: 'plaintext', ...note };
   const url = 'https://mail.zoho.in/api/accounts/' + process.env.ZOHO_ACCOUNT_ID + '/messages';
   const response = await fetch(url, {
     method: 'POST', signal: AbortSignal.timeout(20000),

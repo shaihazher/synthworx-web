@@ -1,14 +1,16 @@
 ---
-import type { ProductId } from '../data/products';
+import type { IndexId } from '../data/products';
 import pikkiMark from '../assets/portfolio/pikki.svg?url';
 
 interface Props {
-  product: ProductId;
+  product: IndexId;
 }
 
 const { product } = Astro.props;
 const marks = {
   arrival: '/arrival-slip/mark.svg',
+  audience: '/audience-cut.svg',
+  culture: '/culture-register/assets/synthworx.svg',
   captions: '',
   federal: '/federal-desk/icon.svg',
   outcome: '/outcome-prompt/logo.png',

@@ -19,6 +19,8 @@ test('the portfolio links directly to each product from both the name and task i
     assert.ok(home.includes(name), name);
     assert.equal(home.split(`href="${href}"`).length - 1, 2, name);
   }
+  const nameIndex = home.match(/<nav class="name-index"[^>]*>([\s\S]*?)<\/nav>/)[1];
+  for (const name of ['Audience Cut', 'Culture Register']) assert.ok(nameIndex.includes(name), name);
   assert.ok(home.includes('href="/audience-cut"'));
   assert.ok(home.includes('href="/culture-register/?src=homepage"'));
   assert.doesNotMatch(home, /offhours/i);

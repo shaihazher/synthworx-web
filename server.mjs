@@ -7,18 +7,25 @@ import handler from 'serve-handler';
 import { acceptInquiry } from './inquiries.mjs';
 import { captionIntake } from './caption-intake.mjs';
 import { createFederalDesk } from './federal-desk.mjs';
-const serveFederalDesk = createFederalDesk();
+
 import { createOutcomeSite } from './outcome-prompt/site.mjs';
 const serveOutcomePrompt = createOutcomeSite();
 
+import { join } from 'node:path';
 import { inboxDirectory, notificationWorker } from './notification.mjs';
+import { acceptFeedback, feedbackDirectory } from './feedback.mjs';
 
-const directory = inboxDirectory();
-const notify = directory && notificationWorker(directory);
-if (notify && (process.env.ZOHO_ACCOUNT_ID || process.env.RAILWAY_ENVIRONMENT)) {
+function startNotifications(directory) {
+  if (!directory || !(process.env.ZOHO_ACCOUNT_ID || process.env.RAILWAY_ENVIRONMENT)) return;
+  const notify = notificationWorker(directory);
   void notify();
   setInterval(notify, 30000).unref();
+  return notify;
 }
+const notify = startNotifications(inboxDirectory());
+const notifyFeedback = startNotifications(feedbackDirectory());
+const federalState = process.env.FEDERAL_DESK_DATA || join(process.env.RAILWAY_VOLUME_MOUNT_PATH || '/data', 'federal-evidence-desk');
+const serveFederalDesk = createFederalDesk({ state: federalState, notifyFeedback: startNotifications(join(federalState, 'feedback')) });
 
 const port = Number(process.env.PORT || 4321);
 const canonicalHost = 'synthworx.com';
@@ -87,6 +94,10 @@ const server = http.createServer((request, response) => {
     return;
   }
 
+  if (pathname === '/feedback/submit') {
+    void acceptFeedback(request, response, notifyFeedback);
+    return;
+  }
   if (pathname === '/inquiries') {
     acceptInquiry(request, response, process.env.ZOHO_ACCOUNT_ID ? notify : undefined).catch(() => {
       console.error('Audience Cut inquiry could not be saved');

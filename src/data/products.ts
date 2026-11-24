@@ -5,7 +5,7 @@ export const products = [
     subject: 'Form delivery',
     href: '/arrival-slip/?src=referral',
     task: 'Trace a contact form',
-    description: 'Check whether a test inquiry reached the right inbox or CRM. Give your client a dated receipt of what you found.',
+    description: 'Match a test inquiry to the entry in your client’s inbox or CRM. Print a dated receipt for their care report.',
   },
   {
     id: 'captions',
@@ -13,7 +13,7 @@ export const products = [
     subject: 'Subtitle checks',
     href: '/caption-desk',
     task: 'Check a film’s captions',
-    description: 'Scan an English subtitle file for overlapping cues, long lines, and captions that disappear too soon.',
+    description: 'Scan an English SRT for timing and layout problems. If your team handles repeat deliveries, get a fix list and a recheck of the editor’s revision.',
   },
   {
     id: 'federal',
@@ -21,7 +21,7 @@ export const products = [
     subject: 'Federal résumés',
     href: '/federal-desk/?src=synthworx',
     task: 'Tailor a federal résumé',
-    description: 'Compare your résumé bullets with a U.S. federal job announcement and see which requirements your experience supports.',
+    description: 'Find words your résumé bullets share with a U.S. federal vacancy. Use the offline desk to build a two-page résumé for that job.',
   },
   {
     id: 'outcome',
@@ -41,4 +41,10 @@ export const products = [
   },
 ] as const;
 
+export const services = [
+  { id: 'audience', name: 'Audience Cut', subject: 'Film release strategy', href: '/audience-cut' },
+  { id: 'culture', name: 'Culture Register', subject: 'U.S. culture research', href: '/culture-register/?src=homepage' },
+] as const;
+
 export type ProductId = (typeof products)[number]['id'];
+export type IndexId = ProductId | (typeof services)[number]['id'];

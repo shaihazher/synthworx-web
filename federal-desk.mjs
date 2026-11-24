@@ -243,6 +243,9 @@ export function createFederalDesk(options = {}) {
             JSON.stringify({
               id,
               at: new Date().toISOString(),
+              ...(options.notifyFeedback && !probe ? {
+                type: "feedback", product: "Federal Evidence Desk", notification: { status: "pending" },
+              } : {}),
               kind: data.kind,
               source,
               message,
@@ -250,6 +253,7 @@ export function createFederalDesk(options = {}) {
             }),
             { mode: 0o600, flag: "wx", flush: true },
           );
+          if (!probe) options.notifyFeedback?.();
           return answer(res, 201, {
             ok: true,
             message:

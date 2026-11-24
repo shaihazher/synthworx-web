@@ -1,13 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { inboxDirectory, saveInquiry } from './notification.mjs';
 
-const windows = new Map();
-const interval = 15 * 60 * 1000;
-const sweep = setInterval(() => {
-  const now = Date.now();
-  for (const [ip, window] of windows) if (window.until <= now) windows.delete(ip);
-}, interval);
-sweep.unref();
+import { readWebsiteForm, takeSubmissionSlot } from './form-input.mjs';
 
 function reply(request, response, status, message) {
   response.setHeader('Cache-Control', 'no-store');
@@ -29,22 +23,12 @@ export async function acceptInquiry(req, res, notify) {
     res.setHeader('Allow', 'POST');
     return fail(405, 'Submit the inquiry form to contact us.');
   }
-  const origin = req.headers.origin;
-  if (origin && origin !== 'https://synthworx.com' && origin !== 'https://www.synthworx.com'
-      && (process.env.RAILWAY_ENVIRONMENT || !/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin))) {
-    return fail(403, 'Please use the form on synthworx.com.');
+  let fields;
+  try { fields = await readWebsiteForm(req); }
+  catch (error) {
+    if (error.status) return fail(error.status, error.message);
+    throw error;
   }
-  if (req.headers['content-type']?.split(';')[0] !== 'application/x-www-form-urlencoded') return fail(415, 'Please use the website form.');
-  const maxBytes = 32 * 1024;
-  if (Number(req.headers['content-length']) > maxBytes) return fail(413, 'Please shorten your message.');
-  const chunks = [];
-  let size = 0;
-  for await (const chunk of req) {
-    size += chunk.length;
-    if (size > maxBytes) return fail(413, 'Please shorten your message.');
-    chunks.push(chunk);
-  }
-  const fields = new URLSearchParams(Buffer.concat(chunks).toString('utf8'));
   if (fields.get('website')) return reply(req, res, 201, 'Received.');
   const record = {};
   for (const [key, limit] of Object.entries({ name: 100, email: 254, film: 180, decision: 2500 })) {
@@ -53,12 +37,8 @@ export async function acceptInquiry(req, res, notify) {
     record[key] = value;
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(record.email)) return fail(422, 'Please enter a valid reply email.');
-  const ip = req.headers['x-real-ip'] || req.socket.remoteAddress;
-  const now = Date.now();
-  let window = windows.get(ip);
-  if (!window || window.until <= now) { window = { count: 0, until: now + interval }; windows.set(ip, window); }
-  if (window.count >= 6) return fail(429, 'Please wait a few minutes before sending another inquiry.');
-  window.count++;
+  try { takeSubmissionSlot(req, 'inquiry'); }
+  catch (error) { return fail(error.status, error.message); }
   const dir = inboxDirectory();
   if (!dir) return fail(503, 'The form is temporarily unavailable. Please email hello@synthworx.com.');
   const id = randomUUID();

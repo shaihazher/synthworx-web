@@ -76,7 +76,7 @@ main:focus { outline: none; }
 }
 .name-index h2 { flex: none; font-size: .84rem; }
 .name-index ul {
-  list-style: none; display: flex; align-items: center; justify-content: space-between; gap: .25rem 1.15rem;
+  list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .25rem 1.15rem;
   flex: 1; padding: 0;
 }
 .index-name, .name-link { display: inline-flex; align-items: center; gap: .48rem; }
@@ -235,6 +235,7 @@ main:focus { outline: none; }
 .register-feature { display: grid; grid-template-columns: minmax(150px, .65fr) 1.6fr; gap: clamp(20px,4vw,58px); align-items:center; margin: 0 0 28px; background: #f0e6da; color: #322621; }
 .register-feature > img { width:100%; height:100%; max-height:230px; object-fit:cover; }
 .register-feature > div { padding:18px 24px 18px 0; }
+.register-feature .service-label { color: #71403a; }
 .register-feature h2 { font: 400 clamp(2.3rem,4.2vw,4.1rem)/1 var(--serif); letter-spacing:-.045em; margin:5px 0; }
 .register-feature h2 em { color:#8f343b; font-weight:400; }
 .register-feature div > p:not(.service-label) { font-size:.95rem; line-height:1.48; max-width:62ch; }

@@ -1,0 +1,10 @@
+{
+  "synthworx": { "name": "Synthworx", "href": "/" },
+  "arrival-slip": { "name": "Arrival Slip", "href": "/arrival-slip/" },
+  "audience-cut": { "name": "Audience Cut", "href": "/audience-cut" },
+  "caption-desk": { "name": "Caption Desk", "href": "/caption-desk" },
+  "culture-register": { "name": "Culture Register", "href": "/culture-register/" },
+  "federal-desk": { "name": "Federal Evidence Desk", "href": "/federal-desk/" },
+  "outcome-prompt": { "name": "Outcome Prompt", "href": "/outcome-prompt/" },
+  "pikki-jobs": { "name": "Pikki Jobs", "href": "https://pikki.synthworx.com/" }
+}
