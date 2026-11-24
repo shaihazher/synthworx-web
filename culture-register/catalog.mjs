@@ -1,7 +1,7 @@
 export const root = '/culture-register';
 export const origin = 'https://synthworx.com';
 export const desks = {
-  movies: {name:'Movies', price:495, focusPrice:189, cadence:'Monthly', decision:'Shape a development slate or a commissioning brief.', note:'We review release signals weekly and revisit the development calls monthly.'},
+  movies: {name:'Movies', price:495, focusPrice:189, cadence:'Monthly', deskCadence:'Weekly', decision:'Shape a development slate or a commissioning brief.', note:'We update the theatrical allocation brief weekly and revisit genre development calls monthly.'},
   music: {name:'Music', price:295, focusPrice:99, cadence:'Weekly', decision:'Choose a single, commission a mix or plan a release.', note:'A weekly edit follows release calendars and the short life of a promotion.'},
   fashion: {name:'Fashion', price:395, focusPrice:149, cadence:'Every two weeks', decision:'Set the depth of a buy or test a new silhouette.', note:'A fortnightly edit follows in-season buys, reorders and seasonal commitments.'},
   beauty: {name:'Beauty', price:345, focusPrice:129, cadence:'Weekly', decision:'Choose a shade, a format or a campaign demonstration.', note:'Weekly reviews inform merchandising and promotion. Longer product bets carry their own test horizons.'},
