@@ -14,7 +14,7 @@ test('the portfolio links directly to each product from both the name and task i
     ['/federal-desk/?src=synthworx', 'Federal Evidence Desk'],
     ['/offhours', 'Offhours Scout'],
     ['/outcome-prompt/?src=synthworx', 'Outcome Prompt'],
-    ['https://pikki.synthworx.com/', 'Pikki'],
+    ['https://pikki.synthworx.com/?utm_source=synthworx&amp;utm_campaign=product-index', 'Pikki Jobs'],
   ];
   for (const [href, name] of destinations) {
     assert.ok(home.includes(name), name);

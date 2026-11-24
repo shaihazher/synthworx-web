@@ -41,11 +41,11 @@ export const products = [
   },
   {
     id: 'pikki',
-    name: 'Pikki',
-    subject: 'Job leads & referrals',
-    href: 'https://pikki.synthworx.com/',
-    task: 'Investigate a job listing',
-    description: 'Flag suspicious postings, find people who could refer you, and prepare applications with a Chrome extension.',
+    name: 'Pikki Jobs',
+    subject: 'H-1B transfer job search',
+    href: 'https://pikki.synthworx.com/?utm_source=synthworx&utm_campaign=product-index',
+    task: 'Find a transfer employer',
+    description: 'Search U.S. H-1B filing history and see what open roles say about sponsorship before applying.',
   },
 ] as const;
 
