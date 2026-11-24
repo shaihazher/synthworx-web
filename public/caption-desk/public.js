@@ -27,11 +27,16 @@ function showReport(text,name) {
   result.append(row);
 }
 function showError(msg){statusBox.textContent=msg;result.hidden=true;}
-connectFileInput(showReport,showError);
-document.getElementById('sample').onclick=async()=>{
-  try {const res=await fetch(stationSample);if(!res.ok)throw Error();showReport(await res.text(),'Station sample');}
-  catch{showError('The sample could not load. Please retry or choose your SRT.');}
-};
+const scanLatest=connectFileInput(showReport,showError);
+document.getElementById('sample').onclick=()=>scanLatest(async()=>{
+  try {
+    const res=await fetch(stationSample);
+    if (!res.ok) throw Error();
+    return {text:await res.text(),name:'Station sample'};
+  } catch {
+    throw Error('The sample could not load. Please retry or choose your SRT.');
+  }
+});
 
 const durationExample=document.getElementById('duration-example');
 if (durationExample) {
