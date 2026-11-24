@@ -17,6 +17,8 @@ Create a photorealistic editorial studio photograph for the hero of an independe
 
 ## Product feedback
 
+Both the daily and weekly product operators use the [feedback review procedure](ops/FEEDBACK.md) to read source notes, act on verified gaps and check each other’s fixes.
+
 Read new notes in the **Inbox** of hello@synthworx.com in [Zoho Mail](https://mail.zoho.in/). Website notes use the subject `<product name> feedback` and include the reply address when the sender supplies one. A company-sent form notification is an internal copy. Use the reply email in its body to contact the writer. Pikki and Culture Register also receive direct email from users. Outcome Prompt's one-click ratings remain in its aggregate product metrics.
 
 The product index links to /feedback. Product-specific links preselect the destination. The server saves notes privately on the attached Railway volume before confirming receipt, then queues a Zoho notification with retries. In the synthworx-site service, use `railway ssh -- ls -lt /data/product-feedback` to find a note by its ID. Federal Evidence Desk's own form keeps its existing records in `/data/federal-evidence-desk/feedback`, sends new notes to the same mailbox and still appears in that product's private site snapshot. To test the shared form locally, set FEEDBACK_DIR to a private temporary directory.
