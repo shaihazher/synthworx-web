@@ -17,12 +17,13 @@ const title = received ? 'Feedback received' : general ? 'Send feedback' : produ
   <div class="wrap"><section class="feedback-page">
     <h1>{title}</h1>
     {received ? <p>Thank you. Your note reached the Synthworx team.</p> : <>
-      <form action="/feedback/submit" method="post">
+      <form action="/feedback/submit" method="post" data-product={slug}>
         {general ? <label>Product
           <select name="product">{Object.entries(products).map(([value, entry]) =>
             <option value={value}>{value === 'synthworx' ? 'Synthworx website or general feedback' : entry.name}</option>
           )}</select>
         </label> : <input type="hidden" name="product" value={slug} />}
+        {slug === 'culture-register' && <p id="feedback-about" hidden></p>}
         <label>What would you like us to know?
           <textarea name="message" rows="5" maxlength="2000" required aria-describedby="feedback-hint"></textarea>
         </label>
@@ -34,7 +35,7 @@ const title = received ? 'Feedback received' : general ? 'Send feedback' : produ
         <button type="submit">Send feedback</button>
         <div role="status" id="feedback-status"></div>
       </form>
-      <p>Prefer email? <a href={'mailto:hello@synthworx.com?subject=' + encodeURIComponent(product.name + ' feedback')}>hello@synthworx.com</a></p>
+      <p>Prefer email? <a id="feedback-email" href={'mailto:hello@synthworx.com?subject=' + encodeURIComponent(product.name + ' feedback')}>hello@synthworx.com</a></p>
     </>}
     <a class="back-link" href={product.href}>Back to {general ? 'the product index' : product.name}</a>
   </section></div>
@@ -42,12 +43,26 @@ const title = received ? 'Feedback received' : general ? 'Send feedback' : produ
 
 <script>
   const form = document.querySelector<HTMLFormElement>('.feedback-page form');
+  const message = form?.querySelector<HTMLTextAreaElement>('textarea[name="message"]');
+  const about = new URLSearchParams(location.search).get('about')?.trim();
+  let context = '';
+  if (form?.dataset.product === 'culture-register' && message && about && /^[\p{L}\p{N} &’'-]{1,80}$/u.test(about)) {
+    const label = document.getElementById('feedback-about')!;
+    label.textContent = 'About ' + about;
+    label.hidden = false;
+    context = 'Report: ' + about + '\n\n';
+    message.maxLength -= context.length;
+    const email = document.getElementById('feedback-email') as HTMLAnchorElement;
+    email.href = 'mailto:hello@synthworx.com?subject=' + encodeURIComponent('Culture Register feedback on ' + about);
+  }
   form?.addEventListener('submit', async event => {
     event.preventDefault();
     const button = form.querySelector('button')!;
     const status = document.getElementById('feedback-status')!;
     const fields = new URLSearchParams();
     new FormData(form).forEach((value, key) => fields.append(key, String(value)));
+    const note = fields.get('message')?.trim();
+    if (context && note) fields.set('message', context + note);
     button.disabled = true;
     status.textContent = 'Sending…';
     try {
