@@ -8,7 +8,6 @@ function showReport(text,name) {
   statusBox.textContent=name+' · '+cues.length+' cue blocks · '+findings.length+' technical findings';
   if (!findings.length) {
     result.append(element('p','No issues found in the automated checks. Play the captioned cut to verify dialogue, sound descriptions, and sync.'));
-
   } else {
     const ul=element('ul');
     for (const f of findings.slice(0,3)) {
