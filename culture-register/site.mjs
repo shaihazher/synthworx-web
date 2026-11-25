@@ -45,8 +45,8 @@ function readBody(req,limit){
 }
 function accountPage(inner){return page('Reader access',`<div class="article-lead compact"><span class="kicker">Reader access</span><h1>Your reading room.</h1></div><section class="account">${inner}</section>`,{path:root+'/account',privatePage:true});}
 function login(next){return accountPage(`<h2>Open your subscription</h2><p>Use the email address from checkout. We send a one-time code to subscribers.</p><form class="fields" action="${root}/account/start" method="post"><input type="hidden" name="next" value="${e(next)}"><label>Checkout email<input type="email" autocomplete="email" name="email" maxlength="254" required></label><button class="button" type="submit">Email my code</button></form><p>New to the Register? <a href="${root}/plans">Explore subscriptions</a>.</p>`);}
-function verifyForm(message='If that address has an active subscription, a code is on its way.'){
-  return accountPage(`<h2>Check your inbox</h2><p>${e(message)}</p><form class="fields" method="post" action="${root}/account/verify"><label>Eight-digit sign-in code<input name="code" pattern="[0-9]{8}" inputmode="numeric" autocomplete="one-time-code" maxlength="8" required></label><button type="submit" class="button">Open my reports</button></form><a href="${root}/account">Request a fresh code</a>`);
+function verifyForm(next,message='If that address has an active subscription, a code is on its way.'){
+  return accountPage(`<h2>Check your inbox</h2><p>${e(message)}</p><form class="fields" method="post" action="${root}/account/verify"><input type="hidden" name="next" value="${e(next)}"><label>Eight-digit sign-in code<input name="code" pattern="[0-9]{8}" inputmode="numeric" autocomplete="one-time-code" maxlength="8" required></label><button type="submit" class="button">Open my reports</button></form><a href="${root}/account${next?'?next='+encodeURIComponent(next):''}">Request a fresh code</a>`);
 }
 function memberList(a){
   const coveredDesks=[...new Set(a.filter(x=>x.plan.type!=='focus').flatMap(x=>x.plan.desks))];
@@ -144,7 +144,7 @@ export function createCultureSite(options={}){
           if(u.search)return redirect(root+'/welcome');
           return finish(200,accountPage(`<h2>After checkout</h2><p>Your receipt goes to your checkout email. Once payment is complete, use that address to sign in and open your reports.</p><a class="button" href="${root}/account">Open reader access</a>`));
         }
-        if(path==='/account/code')return finish(200,verifyForm());
+        if(path==='/account/code')return finish(200,verifyForm(safeNext));
         if(path==='/account'){
           const s=session(req);return finish(200,s?memberList(await billing.access(s.email)):login(safeNext));
         }
@@ -186,14 +186,14 @@ export function createCultureSite(options={}){
             exec('INSERT INTO codes(id,email,code,until,destination) VALUES(?,?,?,?,?)',hash(token),email,digest(token,code),Date.now()+600000,safeNext);
             try{await send(email,code);}catch(error){exec('DELETE FROM codes WHERE id=?',hash(token));throw error;}
           }
-          return redirect(root+'/account/code',[cookie('challenge',token,600)]);
+          return redirect(root+'/account/code'+(safeNext?'?next='+encodeURIComponent(safeNext):''),[cookie('challenge',token,600)]);
         }
         if(path==='/account/verify'){
           const token=cookies(req)[names.challenge]||'',row=query('SELECT * FROM codes WHERE id=? AND until>?',hash(token),Date.now());
           rate(digest('verify',ip),35,600000);
           if(!row||row.attempts>=5||!timingSafeEqual(Buffer.from(row.code),Buffer.from(digest(token,q.get('code')||'')))){
             if(row)exec('UPDATE codes SET attempts=attempts+1 WHERE id=?',row.id);
-            return finish(401,verifyForm('That code is incorrect or expired. Check the latest message or request a fresh code.'));
+            return finish(401,verifyForm(row?.destination||safeNext,'That code is incorrect or expired. Check the latest message or request a fresh code.'));
           }
           const raw=newToken();db.exec('BEGIN IMMEDIATE');
           try{exec('DELETE FROM codes WHERE id=?',row.id);exec('INSERT INTO sessions VALUES(?,?,?)',hash(raw),row.email,Date.now()+30*86400000);db.exec('COMMIT');}catch(error){db.exec('ROLLBACK');throw error;}
