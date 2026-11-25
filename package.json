@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "railway": "3.17.0",
     "typescript": "^5.9.3"
   }
 }
