@@ -197,6 +197,7 @@ button.text-link { min-height: 44px; }
 .inner.library .guide-index { margin-top: 36px; }
 .article-head { margin-bottom: clamp(29px, 3.5vw, 55px); }
 .guide-article .article-head h1 { font-size: clamp(38px, 4.3vw, 63px); max-width: 29ch; line-height: 1.05; }
+.guide-article .article-head > .action { margin-top: 18px; }
 .back { display: inline-block; margin-bottom: 18px; font-weight: 600; }
 .article-grid {
   display: grid; grid-template-columns: minmax(185px, 0.35fr) minmax(0, 1fr); align-items: start;
