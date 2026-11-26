@@ -84,7 +84,7 @@ const title = received ? 'Feedback received' : general ? 'Send feedback' : produ
   form { display: grid; gap: .85rem; }
   label { display: block; font-weight: 550; }
   label span, small { color: var(--muted); font-weight: 400; }
-  textarea, input, select { width: 100%; display: block; margin-top: .4rem; padding: .65rem .75rem; border: 1px solid #78786e; border-radius: .15rem; font: inherit; font-weight: 400; color: var(--ink); background: white; }
+  textarea, input, select { box-sizing: border-box; width: 100%; display: block; margin-top: .4rem; padding: .65rem .75rem; border: 1px solid #78786e; border-radius: .15rem; font: inherit; font-weight: 400; color: var(--ink); background: white; }
   textarea { resize: vertical; min-height: 6rem; }
   small { margin: -.5rem 0 .35rem; line-height: 1.45; }
   button { justify-self: start; padding: .75rem 1.15rem; margin-top: .25rem; border: 0; border-radius: .15rem; color: white; background: var(--ink); font: 550 1rem var(--sans); cursor: pointer; }

@@ -18,6 +18,7 @@ function referralSource() {
   if (/(^|\.)(google|bing|duckduckgo)\./i.test(host)) return 'search';
   if (host === 'promoteindex.com') return 'promoteindex';
   if (host === 'postlaunchkit.com') return 'postlaunchkit';
+  if (host === 'aisotools.com') return 'aiso';
   return host === location.hostname ? 'direct' : 'referral';
 }
 

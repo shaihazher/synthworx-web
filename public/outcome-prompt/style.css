@@ -185,6 +185,7 @@ details input { margin-bottom: .55rem; }
 .article .lede { font-size: clamp(1.05rem, 1.4vw, 1.24rem); color: #3e4841; }
 .article h2 { font-size: 1.55rem; letter-spacing: -.04em; margin: 1.65rem 0 .45rem; }
 .article p { margin: .6rem 0 1rem; }
+.article code { overflow-wrap: anywhere; }
 .article article { padding: 1.3rem 0; border-top: 1px solid var(--line); }
 .article blockquote { font-size: 1.2rem; background: #e7eee5; margin: .65rem 0 1rem; padding: 1rem 1.15rem; border-left: 3px solid var(--deep); }
 .label { color: var(--deep); font-size: .9rem; font-weight: 650; }
