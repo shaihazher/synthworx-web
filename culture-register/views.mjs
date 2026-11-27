@@ -34,8 +34,9 @@ function miniChart(row,period){
 function compareChart(rows,period,win,metric,m){
   const scale=Math.max(1,...rows.map(r=>Math.abs(r[period].changePct||0)));
   return `<div class="chart"><p class="chart-caption">${e(metric)} · Change from the preceding ${period==='month'?'month':'quarter'}</p><p class="small">${e(dateLine(win))} compared with ${e(date(win.priorStart))} – ${e(date(win.priorEnd))}.</p><div class="chart-rows">${rows.map(row=>{
-    const v=row[period].changePct, w=Math.abs(v||0)/scale*49,down=v<0;
-    return `<a class="chart-row" href="${root}/reports/${e(row.slug)}?period=${period}"><span class="row-name">${e(row.label||topic(row.slug))}${row[period].smallSample?'<small class="thin">Small sample</small>':''}</span><span class="track" aria-hidden="true"><i class="${down?'minus':'plus'}" style="width:${w.toFixed(2)}%"></i></span>${summary(row,period)}</a>`;
+    const result=row[period],v=result.changePct,w=Math.abs(v||0)/scale*49,down=v<0;
+    const sample=result.smallSample?`<small class="thin">Small sample${Number.isInteger(result.matches)&&Number.isInteger(result.previousMatches)?` · ${number(result.matches)} vs ${number(result.previousMatches)} matches`:''}</small>`:'';
+    return `<a class="chart-row" href="${root}/reports/${e(row.slug)}?period=${period}"><span class="row-name">${e(row.label||topic(row.slug))}${sample}</span><span class="track" aria-hidden="true"><i class="${down?'minus':'plus'}" style="width:${w.toFixed(2)}%"></i></span>${summary(row,period)}</a>`;
   }).join('')}</div><div class="axis"><span>← ${e(m.axisLeft||'Smaller share')}</span><span>${e(m.axisRight||'Larger share')} →</span></div></div>`;
 }
 function playable(r){
