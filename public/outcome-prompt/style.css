@@ -44,7 +44,7 @@ button:disabled { opacity: .58; cursor: default; }
 .skip:focus { position: absolute; left: 16px; top: 10px; background: white; padding: 8px; z-index: 3; }
 
 .mast { border-bottom: 1px solid var(--ink); }
-.mast .wrap, .footer .wrap, .brand, nav, .tools, .rating { display: flex; align-items: center; }
+.mast .wrap, .footer .wrap, .brand, nav, .tools, .result-feedback, .rating { display: flex; align-items: center; }
 .mast .wrap { justify-content: space-between; min-height: 72px; gap: 20px; }
 .brand { font-weight: 730; text-decoration: none; font-size: 1.15rem; gap: 11px; letter-spacing: -.045em; }
 .brand img { border-radius: 6px; width: 36px; height: 36px; }
@@ -154,11 +154,11 @@ textarea::placeholder { color: #616a62; }
   font-size: 1.08rem; letter-spacing: -.018em; background: #f5f8f2;
 }
 .response { font-size: 1.12rem; line-height: 1.5; }
-.tools, .rating { flex-wrap: wrap; gap: .55rem; }
+.tools, .result-feedback, .rating { flex-wrap: wrap; gap: .55rem; }
 .tools { margin-top: 1rem; }
 .tools button, .rating button { font-size: .9rem; }
 .tools .plain { margin-left: .15rem; }
-.rating { border-top: 1px solid var(--line); padding-top: .8rem; margin-top: 1rem; font-size: .9rem; }
+.result-feedback { border-top: 1px solid var(--line); padding-top: .8rem; margin-top: 1rem; font-size: .9rem; }
 .rating button { padding: .25rem .6rem; }
 .rating button[aria-pressed=true] { background: var(--deep); color: white; }
 

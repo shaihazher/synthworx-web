@@ -19,6 +19,7 @@ function referralSource() {
   if (host === 'promoteindex.com') return 'promoteindex';
   if (host === 'postlaunchkit.com') return 'postlaunchkit';
   if (host === 'aisotools.com') return 'aiso';
+  if (['therundown.ai', 'www.therundown.ai', 'supertools.therundown.ai'].includes(host)) return 'supertools';
   return host === location.hostname ? 'direct' : 'referral';
 }
 
@@ -137,6 +138,7 @@ function syncLocalEdits() {
 function receiveResult(data, input) {
   record = { id: pending.id, text: data.text, kind: data.kind, source: input, previous };
   pending = null;
+  source.value = '';
   showBalance(data);
   const done = record.kind === 'ready';
   $('review').hidden = !done;
@@ -210,8 +212,6 @@ $('revise').onclick = () => {
   previous = record.kind === 'clarify'
     ? [record.previous, record.source, record.text].filter(Boolean).join('\n').slice(-4500)
     : editable.value.trim();
-  source.value = '';
-  pending = null;
   showDraft();
   source.focus();
 };
