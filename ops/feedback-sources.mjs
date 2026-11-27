@@ -35,7 +35,10 @@ async function volume() {
     await scan('federal-evidence-desk/feedback', 'federal');
     await scan('federal-evidence-desk/qa-feedback', 'federal', true);
   }
-  if (slug === 'audience-cut') await scan('audience-cut', 'inquiry');
+  if (slug === 'audience-cut') {
+    await scan('audience-cut', 'inquiry');
+    await scan('audience-cut/qa', 'inquiry', true);
+  }
   let ratings;
   if (slug === 'outcome-prompt') {
     const db = new DatabaseSync(join(root, 'outcome-prompt', 'activity.sqlite'), { readOnly: true });

@@ -100,6 +100,7 @@ class VolumeTest(unittest.TestCase):
                      for slug, p in feedback.PRODUCTS.items()}
             native = store('federal-evidence-desk/feedback', at='2026-11-20', message='Earlier offline report')
             inquiry = store('audience-cut', received='2026-11-24', decision='Can the editor use the brief?')
+            inquiry_qa = store('audience-cut/qa', received='2026-11-24', decision='Internal inquiry check')
             qa = store('product-feedback/qa', product='Arrival Slip', received='2026-11-24', message='Internal check')
             (root / 'outcome-prompt').mkdir()
             with sqlite3.connect(root / 'outcome-prompt/activity.sqlite') as db:
@@ -113,7 +114,9 @@ class VolumeTest(unittest.TestCase):
                 data = json.loads(run.stdout)
                 expected = {'form:' + uid}
                 if slug == 'federal-desk': expected.add('form:' + native)
-                if slug == 'audience-cut': expected.add('inquiry:' + inquiry)
+                if slug == 'audience-cut':
+                    expected.add('inquiry:' + inquiry)
+                    self.assertEqual(data['qa'], ['inquiry:' + inquiry_qa])
                 self.assertEqual({row['ref'] for row in data['rows']}, expected)
                 if slug == 'arrival-slip': self.assertEqual(data['qa'], ['form:' + qa])
                 if slug == 'outcome-prompt':
