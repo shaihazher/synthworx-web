@@ -11,7 +11,7 @@
     const target = new URL(link.href);
     if (target.origin === page.origin && routes.has(target.pathname)) {
       target.searchParams.set('src', source);
-    } else if (target.origin === 'https://checkout.dodopayments.com' && ['buy-studio', 'buy-catalog'].includes(link.id)) {
+    } else if (target.origin === 'https://checkout.dodopayments.com' && ['buy', 'buy-studio', 'buy-catalog'].includes(link.id)) {
       target.searchParams.set('metadata_caption_source', source);
       const back = new URL(target.searchParams.get('redirect_url'));
       back.searchParams.set('src', source);
